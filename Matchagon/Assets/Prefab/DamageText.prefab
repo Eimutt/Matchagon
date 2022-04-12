@@ -51,7 +51,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 58b647c5b2ec4184e9a07a561cdf0644, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,7 +82,7 @@ TextMesh:
   m_GameObject: {fileID: 8865922403325284166}
   m_Text: 78
   m_OffsetZ: 0
-  m_CharacterSize: 0.01
+  m_CharacterSize: 0.015
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 0
@@ -90,7 +90,7 @@ TextMesh:
   m_FontSize: 414
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: 58b647c5b2ec4184e9a07a561cdf0644, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -106,9 +106,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 455f73eef552c324580aeff4bc6c5bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.3
+  speed: 0.7
   growTime: 1.5
-  duration: 2
-  Xvariance: 0.25
-  fadeoutDuration: 4
+  duration: 2.5
+  Xvariance: 0.4
+  fadeoutDuration: 1.5
   startScale: 0.4
+  c: 0

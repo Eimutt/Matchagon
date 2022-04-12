@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
@@ -16,14 +17,28 @@ public class GameHandler : MonoBehaviour
 
     private CombatUIHandler CombatUIHandler;
 
+    private Player Player;
+
+    private float turnTimer;
+
+    private Text TimertText;
+    private Text ComboText;
+
+    public int turnLimit;
     // Start is called before the first frame update
     void Start()
     {
         Turn = 1;
         Board = GameObject.Find("Board").GetComponent<Board>();
-        state = 0;
+        state = 4;
         combo = new Combo();
         CombatUIHandler = GetComponent<CombatUIHandler>();
+
+        Player = GameObject.Find("Player").GetComponent<Player>();
+
+        TimertText = GameObject.Find("TimerText").GetComponent<Text>();
+        ComboText = GameObject.Find("ComboText").GetComponent<Text>();
+        turnTimer = turnLimit;
     }
 
     // Update is called once per frame
@@ -32,10 +47,13 @@ public class GameHandler : MonoBehaviour
         switch (state)
         {
             case 0:
-                if (Input.GetKeyDown(KeyCode.Space))
+                turnTimer -= Time.deltaTime;
+                TimertText.text = turnTimer.ToString("n2");
+
+
+                if (turnTimer <= 0)
                 {
-                    EndTurn();
-                    combo = new Combo();
+                    EndMove();
                 }
                 break;
             case 1:
@@ -61,6 +79,8 @@ public class GameHandler : MonoBehaviour
                     t = 0;
 
                     combo.IncreaseDamageType(match.ElementType, match.Spheres.Count);
+
+                    ComboText.text = combo.count.ToString();
                 }
 
                 break;
@@ -74,7 +94,7 @@ public class GameHandler : MonoBehaviour
                 if (t > 1)
                 {
                     Board.FillBoard();
-                    state = 0;
+                    state = 4;
                     t = 0;
                 }
 
@@ -105,11 +125,15 @@ public class GameHandler : MonoBehaviour
         //}
     }
 
-    void EndTurn()
+    public void EndMove()
     {
         matches = Board.IdentifyMatches();
 
+        combo = new Combo();
+        TimertText.text = "";
         state = 1;
+
+        Player.EndTurn();
     }
 
     void DoDamage()
@@ -117,10 +141,18 @@ public class GameHandler : MonoBehaviour
         float i = 0;
         foreach (KeyValuePair<TypeEnum, int> entry in combo.damageDict)
         {
-            Debug.Log(entry.Value * combo.count + " " + entry.Key.ToString() + " damage!");
-            CombatUIHandler.CreateDamageText(new Vector3(8 + i, 2), entry.Key, entry.Value * combo.count);
-            i += 1f;
+            int damage = entry.Value;
+            Debug.Log(damage + " " + entry.Key.ToString() + " damage!");
+            //CombatUIHandler.CreateDamageText(new Vector3(8 + i, 2), entry.Key, entry.Value * combo.count);
+            //i += 1f;
+            Player.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, entry.Key, damage, combo.count);
         }
         state = 3;
+    }
+
+    public void StartMove()
+    {
+        turnTimer = turnLimit;
+        state = 0;
     }
 }

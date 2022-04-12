@@ -7,5 +7,6 @@ public enum MatchEnum
     Row,
     Quint,
     Quad,
-    Triple
+    Triple,
+    Blob
 }

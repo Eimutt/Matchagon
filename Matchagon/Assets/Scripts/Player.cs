@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private int maxX;
     private int maxY;
     private GameObject Cursor;
+    private GameHandler gameHandler;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
         maxY = Board.y - 1;
         Position = new Vector2Int(0,0);
         MoveCursor();
+        gameHandler = GameObject.Find("GameHandler").GetComponent<GameHandler>();
     }
 
     // Update is called once per frame
@@ -29,9 +31,10 @@ public class Player : MonoBehaviour
             if (!Selected)
             {
                 Selected = Board.GetSphere(Position);
+                gameHandler.StartMove();
             } else
             {
-                Selected = null;
+                gameHandler.EndMove();
             }
         } 
         else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -84,5 +87,10 @@ public class Player : MonoBehaviour
         {
             Board.SwitchSpheres(Position.x, Position.x + deltaX, Position.y, Position.y + deltaY);
         }
+    }
+
+    public void EndTurn()
+    {
+        Selected = null;
     }
 }

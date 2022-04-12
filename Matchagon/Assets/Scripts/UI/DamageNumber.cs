@@ -14,6 +14,10 @@ public class DamageNumber : MonoBehaviour
     private bool fadeout;
 
     public float startScale;
+
+    private int damage;
+    private int combo;
+    public int c;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +25,14 @@ public class DamageNumber : MonoBehaviour
         //transform.localPosition = new Vector3(0, 0, 0);
         float randomDif = Random.Range(-Xvariance, Xvariance);
         transform.Translate(Vector3.right * randomDif);
+        c = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        transform.position = transform.position + new Vector3(0, speed * Time.deltaTime, 0);
         timer += Time.deltaTime;
         if (fadeout)
         {
@@ -33,15 +40,23 @@ public class DamageNumber : MonoBehaviour
             tmp.a = 1 - (timer/fadeoutDuration);
             GetComponent<TextMesh>().color = tmp;
 
+            GetComponent<TextMesh>().text = (damage * c).ToString();
+
             if (timer > fadeoutDuration)
             {
                 Destroy(gameObject);
             }
         } else
         {
-            transform.position = transform.position + new Vector3(0, speed * Time.deltaTime, 0);
 
             var min = startScale + ((1 - startScale) * (timer / growTime));
+
+            if (timer > (duration / 2) * (float)c / (float)combo) {
+
+                c = (c == combo) ? c : c + 1; 
+                GetComponent<TextMesh>().text = (damage * c).ToString();
+            }
+
 
             transform.localScale = new Vector3(min, min, min);
             if (timer > duration)
@@ -52,9 +67,11 @@ public class DamageNumber : MonoBehaviour
         }
     }
 
-    public void Init(Color color, int damage)
+    public void Init(Color color, int damage, int combo)
     {
         GetComponent<TextMesh>().color = color;
         GetComponent<TextMesh>().text = damage.ToString();
+        this.damage = damage;
+        this.combo = combo;
     }
 }

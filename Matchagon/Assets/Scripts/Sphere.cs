@@ -37,25 +37,8 @@ public class Sphere : MonoBehaviour
 
     private void ColorSphere()
     {
-        switch (Type)
-        {
-            case TypeEnum.Fire:
-                GetComponent<SpriteRenderer>().color = Color.red;
-                break;
-            case TypeEnum.Water:
-
-                GetComponent<SpriteRenderer>().color = Color.blue;
-                break;
-            case TypeEnum.Grass:
-                GetComponent<SpriteRenderer>().color = Color.green;
-                break;
-            //case TypeEnum.Dark:
-            //    GetComponent<SpriteRenderer>().color = Color.magenta;
-            //    break;
-            case TypeEnum.Light:
-                GetComponent<SpriteRenderer>().color = Color.yellow;
-                break;
-        }
+        GetComponent<SpriteRenderer>().color = TypeEnumGenerator.GetColor(Type);
+        
     }
 
     public TypeEnum GetType() { return Type; }
