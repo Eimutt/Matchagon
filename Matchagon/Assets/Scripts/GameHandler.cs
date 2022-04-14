@@ -25,6 +25,8 @@ public class GameHandler : MonoBehaviour
     private Text ComboText;
 
     public int turnLimit;
+
+    public Enemy[] Enemies;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,8 @@ public class GameHandler : MonoBehaviour
         TimertText = GameObject.Find("TimerText").GetComponent<Text>();
         ComboText = GameObject.Find("ComboText").GetComponent<Text>();
         turnTimer = turnLimit;
+
+        Enemies = GameObject.FindObjectsOfType<Enemy>();
     }
 
     // Update is called once per frame
@@ -146,6 +150,11 @@ public class GameHandler : MonoBehaviour
             //CombatUIHandler.CreateDamageText(new Vector3(8 + i, 2), entry.Key, entry.Value * combo.count);
             //i += 1f;
             Player.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, entry.Key, damage, combo.count);
+
+            foreach(Enemy enemy in Enemies)
+            {
+                enemy.TakeDamage(damage * combo.count);
+            }
         }
         state = 3;
     }

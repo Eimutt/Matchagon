@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -18,5 +19,12 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void TakeDamage(int damage)
+    {
+        CurrentHp -= damage;
+        float percentage = (float)CurrentHp / (float)MaxHp;
+        transform.Find("Canvas/Slider").GetComponent<Slider>().value = percentage;
     }
 }
