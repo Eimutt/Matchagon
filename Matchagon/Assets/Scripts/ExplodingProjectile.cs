@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ExplodingProjectile : MonoBehaviour
 {
-    public Vector3 target;
+    public GameObject target;
     public float speed;
     public float ExplosionDuration;
     private float t;
@@ -20,17 +20,20 @@ public class ExplodingProjectile : MonoBehaviour
         
     }
 
-    public void Init(int damage, Color color, int combo)
+    public void Init(int damage, Color color, int combo, GameObject target)
     {
         GetComponent<SpriteRenderer>().color = color;
         this.color = color;
         this.damage = damage;
         this.combo = combo;
+        this.target = target;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (target == null) Destroy(gameObject);
+
         if(speed == 0)
         {
             t += Time.deltaTime;
@@ -42,9 +45,9 @@ public class ExplodingProjectile : MonoBehaviour
         }
         else
         {
-            gameObject.transform.position += Vector3.right * speed * Time.deltaTime;
+            gameObject.transform.position += Vector3.Normalize(target.transform.position - gameObject.transform.position) * speed * Time.deltaTime;
 
-            if (transform.position.x >= target.x)
+            if (Vector3.Distance(transform.position, target.transform.position) < 0.05)
             {
                 ReachTarget();
             }
@@ -60,5 +63,7 @@ public class ExplodingProjectile : MonoBehaviour
         DamageNumber dNum = damageText.GetComponent<DamageNumber>();
 
         dNum.Init(color, damage, combo);
+
+        target.GetComponent<Enemy>().TakeDamage(damage * combo);
     }
 }

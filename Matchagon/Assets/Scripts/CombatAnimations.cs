@@ -5,6 +5,7 @@ using UnityEngine;
 public class CombatAnimations : MonoBehaviour
 {
     public GameObject BasicAttack;
+    public GameObject Shield;
 
     public float Delay;
     public Queue<Attack> attackQueue;
@@ -33,9 +34,13 @@ public class CombatAnimations : MonoBehaviour
         Delay = 0.5f;
     }
 
-    public void QueueAttack(MatchEnum attackType, TypeEnum type, int damage, int combo)
+    public void QueueAttack(MatchEnum attackType, TypeEnum type, int damage, int combo, List<GameObject> targets)
     {
-        attackQueue.Enqueue(new Attack(attackType, type, damage, combo));
+        attackQueue.Enqueue(new Attack(attackType, type, damage, combo, targets));
+    }
+    public void QueueAttack(MatchEnum attackType, TypeEnum type, int damage, int combo, GameObject target)
+    {
+        attackQueue.Enqueue(new Attack(attackType, type, damage, combo, target));
     }
 
     private void SpawnAttack()
@@ -44,13 +49,17 @@ public class CombatAnimations : MonoBehaviour
 
         if (attack.attackType == MatchEnum.Blob)
         {
-            GameObject basicAttack = Instantiate(BasicAttack, gameObject.transform.position, Quaternion.Euler(0, 0, -90), gameObject.transform);
-            ExplodingProjectile expProj = basicAttack.GetComponent<ExplodingProjectile>();
+            foreach(GameObject target in attack.targets)
+            {
+                GameObject basicAttack = Instantiate(BasicAttack, gameObject.transform.position, Quaternion.Euler(0, 0, -90), gameObject.transform);
+                ExplodingProjectile expProj = basicAttack.GetComponent<ExplodingProjectile>();
 
 
-            var color = TypeEnumGenerator.GetColor(attack.type);
+                var color = TypeEnumGenerator.GetColor(attack.type);
 
-            expProj.Init(attack.damage, color, attack.combo);
+                expProj.Init(attack.damage, color, attack.combo, target);
+            }
+            
         }
     }
 }
@@ -61,11 +70,22 @@ public class Attack {
     public TypeEnum type;
     public int damage;
     public int combo;
-    public Attack(MatchEnum attackType, TypeEnum type, int damage, int combo)
+    public List<GameObject> targets;
+    public Attack(MatchEnum attackType, TypeEnum type, int damage, int combo, List<GameObject> targets)
     {
         this.attackType = attackType;
         this.type = type;
         this.damage = damage;
         this.combo = combo;
+        this.targets = targets;
+    }
+
+    public Attack(MatchEnum attackType, TypeEnum type, int damage, int combo, GameObject target)
+    {
+        this.attackType = attackType;
+        this.type = type;
+        this.damage = damage;
+        this.combo = combo;
+        targets = new List<GameObject>() { target };
     }
 }

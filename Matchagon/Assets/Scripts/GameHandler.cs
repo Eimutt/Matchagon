@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,8 +16,7 @@ public class GameHandler : MonoBehaviour
 
     private Combo combo;
 
-    private CombatUIHandler CombatUIHandler;
-
+    private Controls Controls;
     private Player Player;
 
     private float turnTimer;
@@ -26,23 +26,23 @@ public class GameHandler : MonoBehaviour
 
     public int turnLimit;
 
-    public Enemy[] Enemies;
+    public List<Enemy> Enemies;
     // Start is called before the first frame update
     void Start()
     {
         Turn = 1;
         Board = GameObject.Find("Board").GetComponent<Board>();
-        state = 4;
+        state = 5;
         combo = new Combo();
-        CombatUIHandler = GetComponent<CombatUIHandler>();
 
+        Controls = GameObject.Find("Player").GetComponent<Controls>();
         Player = GameObject.Find("Player").GetComponent<Player>();
 
         TimertText = GameObject.Find("TimerText").GetComponent<Text>();
         ComboText = GameObject.Find("ComboText").GetComponent<Text>();
         turnTimer = turnLimit;
 
-        Enemies = GameObject.FindObjectsOfType<Enemy>();
+        Enemies = GameObject.FindObjectsOfType<Enemy>().ToList();
     }
 
     // Update is called once per frame
@@ -74,6 +74,7 @@ public class GameHandler : MonoBehaviour
                         if(matches.Count == 0)
                         {
                             state = 2;
+                            return;
                         }
                     }
 
@@ -89,7 +90,7 @@ public class GameHandler : MonoBehaviour
 
                 break;
             case 2:
-                DoDamage();
+                ResolveTurn();
                 break;
 
             case 3:
@@ -103,30 +104,18 @@ public class GameHandler : MonoBehaviour
                 }
 
                 break;
+            case 4:
+                t += Time.deltaTime;
+                if (t > 1)
+                {
+                    PerformEnemyActions();
+                    state = 5;
+                    t = 0;
+                }
+
+                break;
+
         }
-        //if (DestroyState)
-        //{
-        //    t += Time.deltaTime;
-        //    if(t > 1)
-        //    {
-        //        if (matches.Count == 0)
-        //        {
-        //            DestroyState = false;
-        //            Board.CascadeBoard();
-        //        }
-
-        //        var match = matches[0];
-        //        match.Spheres.ForEach(s => s.SetDestroy());
-        //        matches.RemoveAt(0);
-        //        t = 0;
-
-                
-        //    }
-        //}
-
-        // else if (Input.GetKeyDown(KeyCode.R)){
-        //    Board.FillBoard();
-        //}
     }
 
     public void EndMove()
@@ -137,24 +126,37 @@ public class GameHandler : MonoBehaviour
         TimertText.text = "";
         state = 1;
 
-        Player.EndTurn();
+        Controls.EndTurn();
     }
 
-    void DoDamage()
+    void ResolveTurn()
     {
-        float i = 0;
         foreach (KeyValuePair<TypeEnum, int> entry in combo.damageDict)
         {
-            int damage = entry.Value;
-            Debug.Log(damage + " " + entry.Key.ToString() + " damage!");
-            //CombatUIHandler.CreateDamageText(new Vector3(8 + i, 2), entry.Key, entry.Value * combo.count);
-            //i += 1f;
-            Player.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, entry.Key, damage, combo.count);
+            int value = entry.Value;
 
-            foreach(Enemy enemy in Enemies)
+            if(entry.Key == TypeEnum.Shield)
             {
-                enemy.TakeDamage(damage * combo.count);
+                //Player.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, entry.Key, value, combo.count);
+                Player.GetShield(value * combo.count);
+            } else
+            {
+                if(Enemies.Count == 0 || !Enemies.Any(x => !x.Dead))
+                {
+                    continue;
+                }
+                var enemy = Enemies.First(x => !x.Dead);
+                enemy.AddIncomingDamage(value * combo.count);
+                var targets = enemy.gameObject;
+                Player.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, entry.Key, value, combo.count, targets);
+                //Enemies[0].TakeDamage(value * combo.count);
+
+                //foreach (Enemy enemy in Enemies)
+                //{
+                //    enemy.TakeDamage(value * combo.count);
+                //}
             }
+            
         }
         state = 3;
     }
@@ -163,5 +165,34 @@ public class GameHandler : MonoBehaviour
     {
         turnTimer = turnLimit;
         state = 0;
+    }
+
+    public void PerformEnemyActions()
+    {
+        int x = Enemies.Count;
+
+        int y = 0;
+        int c = 0;
+        while(c != x)
+        {
+            c++;
+            if (Enemies[y].Dead)
+            {
+                Destroy(Enemies[y].gameObject);
+                Enemies.RemoveAt(y);
+            } else
+            {
+                Enemies[y].TakeTurn(Player, Enemies);
+                y++;
+            }
+        }
+
+        if(Enemies.Count == 0)
+        {
+            //Game won
+            state = 99;
+        }
+
+        Player.ResetShield();
     }
 }

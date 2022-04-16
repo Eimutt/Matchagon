@@ -1,96 +1,82 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     private Board Board;
-    public Sphere Selected;
-    public Vector2Int Position;
-    private int maxX;
-    private int maxY;
-    private GameObject Cursor;
-    private GameHandler gameHandler;
+
+    public int Shield;
+    public int MaxHp;
+    public int CurrentHp;
+    public int Damage;
+
+    public float ColorTintDuration;
+    public Color ShieldColor;
+    public Color DamagedColor;
+    [SerializeField] private InvulnerabilityColor InvulnerabilityColor;
     // Start is called before the first frame update
     void Start()
     {
         Board = GameObject.Find("Board").GetComponent<Board>();
-        Cursor = GameObject.Find("Cursor");
-        maxX = Board.x - 1;
-        maxY = Board.y - 1;
-        Position = new Vector2Int(0,0);
-        MoveCursor();
-        gameHandler = GameObject.Find("GameHandler").GetComponent<GameHandler>();
+        CurrentHp = MaxHp;
+
+        UpdateUIHealth();
+        UpdateUIShield();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            if (!Selected)
-            {
-                Selected = Board.GetSphere(Position);
-                gameHandler.StartMove();
-            } else
-            {
-                gameHandler.EndMove();
-            }
-        } 
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            if (Position.x < maxX)
-            {
-                MoveSphere(1, 0);
-                Position += new Vector2Int(1, 0);
-            }
-                
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
 
-            if (Position.x > 0)
-            {
-                MoveSphere(-1, 0);
-                Position += new Vector2Int(-1, 0);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-
-            if (Position.y < maxY)
-            {
-                MoveSphere(0, 1);
-                Position += new Vector2Int(0, 1);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-
-            if (Position.y > 0)
-            {
-                MoveSphere(0, -1);
-                Position += new Vector2Int(0, -1);
-            }
-        }
-        MoveCursor();
     }
 
-    private void MoveCursor()
+    public void TakeDamage(int damage)
     {
-        Cursor.transform.position = new Vector3(Position.x, Position.y, 0);
-    }
-
-    public void MoveSphere(int deltaX, int deltaY)
-    {
-        if (Selected)
+        if(Shield > 0)
         {
-            Board.SwitchSpheres(Position.x, Position.x + deltaX, Position.y, Position.y + deltaY);
+            int tmp = damage;
+            damage -= Shield;
+            Shield -= tmp;
         }
+        CurrentHp -= Mathf.Max(0, damage);
+
+        InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
+
+        UpdateUIHealth();
+        UpdateUIShield();
+
     }
 
-    public void EndTurn()
+    public void GetShield(int shield)
     {
-        Selected = null;
+        InvulnerabilityColor.SetTintColor(ShieldColor, ColorTintDuration);
+        Shield += shield;
+        UpdateUIShield();
+    }
+
+    public void ResetShield()
+    {
+        Shield = 0;
+        UpdateUIShield();
+    }
+
+    public void NewTurn()
+    {
+        ResetShield();
+    }
+
+    public void UpdateUIHealth()
+    {
+
+        transform.Find("Canvas/Slider").GetComponent<Slider>().value = (float)CurrentHp / (float)MaxHp;
+        GameObject.Find("HpText").GetComponent<Text>().text = CurrentHp.ToString() + "/" + MaxHp.ToString();
+    }
+
+    public void UpdateUIShield()
+    {
+        transform.Find("Canvas/Slider/Shield").GetComponent<Image>().enabled = Shield > 0;
+        GameObject.Find("ShieldText").GetComponent<Text>().text = Shield > 0 ? "+(" + Shield.ToString() + ")" : "";
     }
 }
