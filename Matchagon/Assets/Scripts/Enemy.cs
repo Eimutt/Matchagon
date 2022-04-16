@@ -35,10 +35,15 @@ public class Enemy : MonoBehaviour
         float percentage = (float)CurrentHp / (float)MaxHp;
         transform.Find("Canvas/Slider").GetComponent<Slider>().value = percentage;
 
-        
+        if(CurrentHp < 0)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.3f);
+
+        }
+
     }
 
-    public void TakeTurn(Player x, List<Enemy> enemies)
+    public float TakeTurn(Player x, List<Enemy> enemies)
     {
         if (Dead) { Destroy(gameObject); }
         var ability = unitAbilities.Abilities[t % unitAbilities.Abilities.Count];
@@ -47,12 +52,14 @@ public class Enemy : MonoBehaviour
         {
             x.TakeDamage(Damage);
             Debug.Log("damaging " + x.name + " for " + Damage.ToString());
+            GetComponent<Shake>().Move();
         } else if(ability.Type == ActionEnum.Wait)
         {
 
         }
 
         t++;
+        return ability.time;
     }
 
     public void AddIncomingDamage(int damage)

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Sphere : MonoBehaviour
 {
-    private TypeEnum Type;
+    public TypeEnum Type;
     public bool destroy;
 
     public float t;
@@ -25,14 +25,20 @@ public class Sphere : MonoBehaviour
         {
             t += Time.deltaTime;
             Color tmp = GetComponent<SpriteRenderer>().color;
-            tmp.a = 1 - t;
+            tmp.a = 1 - (2 * t);
             GetComponent<SpriteRenderer>().color = tmp;
 
-            if(t > 1)
+            if(t > 0.5f)
             {
                 Destroy(this);
             }
         }
+    }
+
+    public void Init(TypeEnum type)
+    {
+        Type = type;
+        ColorSphere();
     }
 
     private void ColorSphere()
@@ -46,5 +52,11 @@ public class Sphere : MonoBehaviour
     public void SetDestroy()
     {
         destroy = true;
+    }
+
+    public void SetType(TypeEnum type)
+    {
+        Type = type;
+        ColorSphere();
     }
 }

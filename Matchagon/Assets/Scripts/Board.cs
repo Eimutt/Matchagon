@@ -311,7 +311,6 @@ public class Board : MonoBehaviour
 
     public void CascadeBoard()
     {
-        Debug.Log("Cascading");
         for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < y; j++)
@@ -349,4 +348,25 @@ public class Board : MonoBehaviour
                 .Select(x => matrix[rowNumber, x])
                 .ToList().GetRange(startPos, length);
     }
+
+    public void TransformSpheres(TypeEnum from, TypeEnum to)
+    {
+        for (int i = 0; i < x; i++)
+        {
+            for (int j = 0; j < y; j++)
+            {
+                if (Spheres[i, j].GetType() == from)
+                {
+                    //Destroy(Spheres[i, j].gameObject);
+
+                    //var Sphere = Instantiate(SphereObject, new Vector3(i, j, 0), Quaternion.identity, gameObject.transform);
+
+                    //Spheres[i, j] = Sphere.GetComponent<Sphere>();
+
+                    Spheres[i, j].SetType(to);
+                }
+            }
+        }
+    }
+
 }

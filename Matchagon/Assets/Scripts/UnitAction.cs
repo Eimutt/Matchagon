@@ -15,6 +15,7 @@ public abstract class GenericUnitAbility <T>
 {
     public T Type;
     public float id;
+    public float time;
 }
 
 public abstract class GenericUnitAbilityList<T, U> where T : GenericUnitAbility<U>

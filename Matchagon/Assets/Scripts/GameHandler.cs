@@ -8,7 +8,6 @@ public class GameHandler : MonoBehaviour
 {
     private Board Board;
     private int Turn;
-    private bool DestroyState;
     private List<Match> matches;
     private float t = 1;
 
@@ -26,7 +25,7 @@ public class GameHandler : MonoBehaviour
 
     public int turnLimit;
 
-    public List<Enemy> Enemies;
+    public EnemyHandler EnemyHandler;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +41,8 @@ public class GameHandler : MonoBehaviour
         ComboText = GameObject.Find("ComboText").GetComponent<Text>();
         turnTimer = turnLimit;
 
-        Enemies = GameObject.FindObjectsOfType<Enemy>().ToList();
+        EnemyHandler = GetComponent<EnemyHandler>();
+
     }
 
     // Update is called once per frame
@@ -52,7 +52,7 @@ public class GameHandler : MonoBehaviour
         {
             case 0:
                 turnTimer -= Time.deltaTime;
-                TimertText.text = turnTimer.ToString("n2");
+                TimertText.text = turnTimer.ToString("n1");
 
 
                 if (turnTimer <= 0)
@@ -63,7 +63,7 @@ public class GameHandler : MonoBehaviour
             case 1:
 
                 t += Time.deltaTime;
-                if (t > 1)
+                if (t > 0.5f)
                 {
                     if (matches.Count == 0)
                     {
@@ -108,13 +108,25 @@ public class GameHandler : MonoBehaviour
                 t += Time.deltaTime;
                 if (t > 1)
                 {
-                    PerformEnemyActions();
+                    EnemyHandler.PerformEnemyActions(Player);
                     state = 5;
                     t = 0;
                 }
 
                 break;
-
+            case 5:
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    Board.TransformSpheres(TypeEnum.Fire, TypeEnum.Grass);
+                } else if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    Board.TransformSpheres(TypeEnum.Grass, TypeEnum.Water);
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    Board.TransformSpheres(TypeEnum.Water, TypeEnum.Fire);
+                }
+                break;
         }
     }
 
@@ -137,24 +149,19 @@ public class GameHandler : MonoBehaviour
 
             if(entry.Key == TypeEnum.Shield)
             {
-                //Player.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, entry.Key, value, combo.count);
                 Player.GetShield(value * combo.count);
-            } else
+            } 
+            else
             {
-                if(Enemies.Count == 0 || !Enemies.Any(x => !x.Dead))
+                if(EnemyHandler.EnemiesLeft())
                 {
                     continue;
                 }
-                var enemy = Enemies.First(x => !x.Dead);
+                var enemy = EnemyHandler.GetFirstEnemy();
                 enemy.AddIncomingDamage(value * combo.count);
                 var targets = enemy.gameObject;
                 Player.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, entry.Key, value, combo.count, targets);
-                //Enemies[0].TakeDamage(value * combo.count);
-
-                //foreach (Enemy enemy in Enemies)
-                //{
-                //    enemy.TakeDamage(value * combo.count);
-                //}
+                
             }
             
         }
@@ -165,34 +172,16 @@ public class GameHandler : MonoBehaviour
     {
         turnTimer = turnLimit;
         state = 0;
+        Player.ResetShield();
     }
 
-    public void PerformEnemyActions()
+    public void AdvanceState()
     {
-        int x = Enemies.Count;
+        state++;
+    }
 
-        int y = 0;
-        int c = 0;
-        while(c != x)
-        {
-            c++;
-            if (Enemies[y].Dead)
-            {
-                Destroy(Enemies[y].gameObject);
-                Enemies.RemoveAt(y);
-            } else
-            {
-                Enemies[y].TakeTurn(Player, Enemies);
-                y++;
-            }
-        }
-
-        if(Enemies.Count == 0)
-        {
-            //Game won
-            state = 99;
-        }
-
-        Player.ResetShield();
+    public void Win()
+    {
+        state = 99;
     }
 }
