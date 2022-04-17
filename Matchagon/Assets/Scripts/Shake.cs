@@ -22,10 +22,11 @@ public class Shake : MonoBehaviour
     {
         if (moving)
         {
-            gameObject.transform.position += Vector3.Normalize(next - gameObject.transform.position) * Speed * Time.deltaTime;
+            transform.position += Vector3.Normalize(next - transform.position) * Speed * Time.deltaTime;
             
             if (Vector3.Distance(transform.position, next) < 0.05)
             {
+                transform.position = next;
                 ReachPoint();
             }
         }

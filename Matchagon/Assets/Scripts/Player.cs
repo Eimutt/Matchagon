@@ -16,10 +16,16 @@ public class Player : MonoBehaviour
     public Color ShieldColor;
     public Color DamagedColor;
     [SerializeField] private InvulnerabilityColor InvulnerabilityColor;
+
+
+    public Minion Minions;
+    private CombatAnimations CombatAnimations;
+
     // Start is called before the first frame update
     void Start()
     {
         Board = GameObject.Find("Board").GetComponent<Board>();
+        CombatAnimations.GetComponent<CombatAnimations>();
         CurrentHp = MaxHp;
 
         UpdateUIHealth();
@@ -78,5 +84,16 @@ public class Player : MonoBehaviour
     {
         transform.Find("Canvas/Slider/Shield").GetComponent<Image>().enabled = Shield > 0;
         GameObject.Find("ShieldText").GetComponent<Text>().text = Shield > 0 ? "+(" + Shield.ToString() + ")" : "";
+    }
+
+
+
+    public void QueueAttack(MatchEnum attackType, TypeEnum type, int damage, int combo, List<Enemy> targets)
+    {
+
+
+
+
+        //CombatAnimations.QueueAttack(attackType, type, damage, combo, targets);
     }
 }

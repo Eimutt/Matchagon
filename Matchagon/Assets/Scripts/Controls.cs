@@ -32,7 +32,7 @@ public class Controls : MonoBehaviour
             if (!Selected)
             {
                 Selected = Board.GetSphere(Position);
-                gameHandler.StartMove();
+                gameHandler.AdvanceState();
             }
             else
             {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyHandler : MonoBehaviour
 {
-    public List<Enemy> Enemies;
+    private List<Enemy> Enemies;
     private GameHandler GameHandler;
 
     private int eNum;
@@ -16,12 +16,20 @@ public class EnemyHandler : MonoBehaviour
 
     private Player Player;
     private bool active;
+
+    private List<Vector3> positions;
+
+    public Vector3 bottomLeft;
+    public float distanceDiff;
+
     // Start is called before the first frame update
     void Start()
     {
-
-        Enemies = GameObject.FindObjectsOfType<Enemy>().ToList();
+        positions = new List<Vector3>();
+        Enemies = new List<Enemy>();// GameObject.FindObjectsOfType<Enemy>().ToList();
         GameHandler = GameObject.Find("GameHandler").GetComponent<GameHandler>();
+
+        GetLegitimateSpawnPositions();
     }
 
     // Update is called once per frame
@@ -69,9 +77,56 @@ public class EnemyHandler : MonoBehaviour
     {
         return Enemies.First(x => !x.Dead);
     }
+    public List<Enemy> GetAllEnemies()
+    {
+        return Enemies;
+    }
 
-    public bool EnemiesLeft()
+    public bool NoEnemiesLeft()
     {
         return (Enemies.Count == 0 || !Enemies.Any(x => !x.Dead));
+    }
+
+    
+
+    public void AddEnemy(GameObject enemyGameObject)
+    {
+        bool positionFound = false;
+
+        Vector3 position = Vector3.zero;
+
+        int i = 0;
+        while (!positionFound)
+        {
+            position = positions[i];
+            if(!Enemies.Any(e => e.gameObject.transform.position == position))
+            {
+                positionFound = true;
+            }
+
+            i++;
+            if(i >= positions.Count)
+            {
+                Debug.Log("no room for enemy");
+                return;
+            }
+        }
+
+
+        GameObject enemyObject = Instantiate(enemyGameObject, position, Quaternion.identity);
+        Enemy enemy = enemyObject.GetComponent<Enemy>();
+
+        Enemies.Add(enemy);
+    }
+
+    private void GetLegitimateSpawnPositions()
+    {
+        for(int i = 0; i < 2; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                positions.Add(bottomLeft + new Vector3(i * distanceDiff, j * distanceDiff, 0));
+            }
+        }
     }
 }

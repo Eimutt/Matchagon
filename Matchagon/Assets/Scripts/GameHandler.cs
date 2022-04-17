@@ -1,8 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+
+public enum GameState
+{
+    StartOfTurn,
+    UserSpells,
+    Moving,
+    Cascade,
+    Resolve,
+    FillBoard,
+    EnemyTurn,
+    EnemyActions,
+    max
+    //Win
+}
+
 
 public class GameHandler : MonoBehaviour
 {
@@ -11,7 +27,7 @@ public class GameHandler : MonoBehaviour
     private List<Match> matches;
     private float t = 1;
 
-    private int state; //0 = play, 1 = resolve, 2 = damage, 3 = spawn
+    public GameState state; //0 = play, 1 = resolve, 2 = damage, 3 = spawn
 
     private Combo combo;
 
@@ -26,12 +42,14 @@ public class GameHandler : MonoBehaviour
     public int turnLimit;
 
     public EnemyHandler EnemyHandler;
+
+    public Encounter Encounter;
     // Start is called before the first frame update
     void Start()
     {
-        Turn = 1;
+        Turn = 0;
         Board = GameObject.Find("Board").GetComponent<Board>();
-        state = 5;
+        state = GameState.StartOfTurn;
         combo = new Combo();
 
         Controls = GameObject.Find("Player").GetComponent<Controls>();
@@ -42,7 +60,6 @@ public class GameHandler : MonoBehaviour
         turnTimer = turnLimit;
 
         EnemyHandler = GetComponent<EnemyHandler>();
-
     }
 
     // Update is called once per frame
@@ -50,7 +67,28 @@ public class GameHandler : MonoBehaviour
     {
         switch (state)
         {
-            case 0:
+            case GameState.StartOfTurn:
+                OnTurnStart();
+
+                break;
+            case GameState.UserSpells:
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    Board.TransformSpheres(TypeEnum.Fire, TypeEnum.Grass);
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    Board.TransformSpheres(TypeEnum.Grass, TypeEnum.Water);
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    Board.TransformSpheres(TypeEnum.Water, TypeEnum.Fire);
+                }
+                //don't do anything
+                //read inputs from contorls
+                break;
+
+            case GameState.Moving:
                 turnTimer -= Time.deltaTime;
                 TimertText.text = turnTimer.ToString("n1");
 
@@ -60,7 +98,7 @@ public class GameHandler : MonoBehaviour
                     EndMove();
                 }
                 break;
-            case 1:
+            case GameState.Cascade:
 
                 t += Time.deltaTime;
                 if (t > 0.5f)
@@ -73,7 +111,7 @@ public class GameHandler : MonoBehaviour
 
                         if(matches.Count == 0)
                         {
-                            state = 2;
+                            AdvanceState();
                             return;
                         }
                     }
@@ -89,43 +127,35 @@ public class GameHandler : MonoBehaviour
                 }
 
                 break;
-            case 2:
+            case GameState.Resolve:
                 ResolveTurn();
+                AdvanceState();
                 break;
 
-            case 3:
+            case GameState.FillBoard:
 
                 t += Time.deltaTime;
                 if (t > 1)
                 {
                     Board.FillBoard();
-                    state = 4;
+                    AdvanceState();
                     t = 0;
                 }
 
                 break;
-            case 4:
+            case GameState.EnemyTurn:
                 t += Time.deltaTime;
                 if (t > 1)
                 {
                     EnemyHandler.PerformEnemyActions(Player);
-                    state = 5;
+                    AdvanceState();
                     t = 0;
                 }
 
                 break;
-            case 5:
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    Board.TransformSpheres(TypeEnum.Fire, TypeEnum.Grass);
-                } else if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
-                    Board.TransformSpheres(TypeEnum.Grass, TypeEnum.Water);
-                }
-                else if (Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    Board.TransformSpheres(TypeEnum.Water, TypeEnum.Fire);
-                }
+            case GameState.EnemyActions:
+                if (EnemyHandler.NoEnemiesLeft())
+                    AdvanceState();
                 break;
         }
     }
@@ -136,7 +166,7 @@ public class GameHandler : MonoBehaviour
 
         combo = new Combo();
         TimertText.text = "";
-        state = 1;
+        AdvanceState();
 
         Controls.EndTurn();
     }
@@ -153,19 +183,16 @@ public class GameHandler : MonoBehaviour
             } 
             else
             {
-                if(EnemyHandler.EnemiesLeft())
+                if(EnemyHandler.NoEnemiesLeft())
                 {
                     continue;
                 }
-                var enemy = EnemyHandler.GetFirstEnemy();
-                enemy.AddIncomingDamage(value * combo.count);
-                var targets = enemy.gameObject;
-                Player.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, entry.Key, value, combo.count, targets);
                 
+                Player.QueueAttack(MatchEnum.Blob, entry.Key, value, combo.count, EnemyHandler.GetAllEnemies());
+
             }
             
         }
-        state = 3;
     }
 
     public void StartMove()
@@ -177,11 +204,39 @@ public class GameHandler : MonoBehaviour
 
     public void AdvanceState()
     {
-        state++;
+        state = (GameState)((((int)state) + 1) % (int)GameState.max);
+        Debug.Log(state.ToString());
     }
 
     public void Win()
     {
-        state = 99;
+        //state = GameState.Win;
+    }
+
+    public void NextTurn()
+    {
+        state = 0;
+    }
+
+    public void TrySendWave()
+    {
+        var wave = Encounter.Waves.FirstOrDefault(e => e.Turn == Turn);
+
+        if (wave != null)
+        {
+            for(int i = 0; i < wave.Quanitity; i++)
+            {
+                EnemyHandler.AddEnemy(wave.Enemy);
+            }
+        }
+    }
+
+    public void OnTurnStart()
+    {
+        Turn++;
+        turnTimer = turnLimit;
+        Player.ResetShield();
+        TrySendWave();
+        AdvanceState();
     }
 }
