@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Controls : MonoBehaviour
@@ -11,7 +12,9 @@ public class Controls : MonoBehaviour
     private int maxY;
     private GameObject Cursor;
     private GameHandler gameHandler;
+    private Player Player;
 
+    private List<Card> Cards;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +25,7 @@ public class Controls : MonoBehaviour
         Position = new Vector2Int(0, 0);
         MoveCursor();
         gameHandler = GameObject.Find("GameHandler").GetComponent<GameHandler>();
+        Player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -75,6 +79,31 @@ public class Controls : MonoBehaviour
                 Position += new Vector2Int(0, -1);
             }
         }
+
+        if(gameHandler.GetState() == GameState.UserSpells)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Player.PlayCard(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Player.PlayCard(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                Player.PlayCard(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                Player.PlayCard(3);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                Player.PlayCard(4);
+            }
+        }
+        
         MoveCursor();
     }
 

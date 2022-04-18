@@ -59,7 +59,7 @@ public class EnemyHandler : MonoBehaviour
 
         if (c == eNum && active)
         {
-            //GameHandler.AdvanceState();
+            GameHandler.AdvanceState();
             active = false;
         }
     }
@@ -103,7 +103,7 @@ public class EnemyHandler : MonoBehaviour
         while (!positionFound)
         {
             position = positions[i];
-            if(!Enemies.Any(e => e.gameObject.transform.position == position))
+            if(!Enemies.Any(e => e.startPos == position))
             {
                 positionFound = true;
             }
@@ -119,6 +119,7 @@ public class EnemyHandler : MonoBehaviour
 
         GameObject enemyObject = Instantiate(enemyGameObject, position, Quaternion.identity);
         Enemy enemy = enemyObject.GetComponent<Enemy>();
+        enemy.startPos = position;
 
         Enemies.Add(enemy);
     }

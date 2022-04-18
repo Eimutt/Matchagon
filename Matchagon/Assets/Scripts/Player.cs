@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     public int MaxHp;
     public int CurrentHp;
 
+    private int mana = 0;
+    private int maxMana = 5;
+
     public float ColorTintDuration;
     //public Color ShieldColor;
     public Color DamagedColor;
@@ -19,7 +22,11 @@ public class Player : MonoBehaviour
     private InvulnerabilityColor InvulnerabilityColor;
 
     public List<Minion> Minions;
+    private List<Vector3> positions;
+    public Vector3 bottomLeft;
+    public float distanceDiff;
 
+    public List<Card> Cards;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +39,11 @@ public class Player : MonoBehaviour
         Minions.Add(GetComponent<Minion>());
 
         InvulnerabilityColor = GetComponent<InvulnerabilityColor>();
+
+        positions = new List<Vector3>();
+        GetLegitimateSpawnPositions();
+        Cards = GameObject.FindObjectsOfType<Card>().ToList();
+        Cards.Reverse();
     }
 
     // Update is called once per frame
@@ -63,6 +75,16 @@ public class Player : MonoBehaviour
     //    Shield += shield;
     //    UpdateUIShield();
     //}
+    private void GetLegitimateSpawnPositions()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                positions.Add(bottomLeft + new Vector3(i * distanceDiff, j * distanceDiff, 0));
+            }
+        }
+    }
 
     public void ResetShield()
     {
@@ -73,6 +95,17 @@ public class Player : MonoBehaviour
     public void NewTurn()
     {
         ResetShield();
+        mana = mana < maxMana ? mana + 1 :  mana;
+        UpdatePlayableCards();
+    }
+
+    public void UpdatePlayableCards()
+    {
+        foreach(Card card in Cards)
+        {
+            card.gameObject.transform.Find("Cross").gameObject.SetActive(card.Cost > mana);
+        }
+        GameObject.Find("ManaText").GetComponent<Text>().text = mana.ToString() + "/" + maxMana.ToString();
     }
 
     public void UpdateUIHealth()
@@ -107,6 +140,10 @@ public class Player : MonoBehaviour
             }
             else
             {
+                if (entry.Key == TypeEnum.Light)
+                {
+                    mana = mana < maxMana ? mana + 1 : mana;
+                }
                 if (enemyHandler.NoEnemiesLeft())
                 {
                     continue;
@@ -148,6 +185,50 @@ public class Player : MonoBehaviour
             possibleAttack.source.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, possibleAttack.type, possibleAttack.damage, combo.count, enemy.gameObject);
 
             i++;
+        }
+    }
+
+    public void AddMinion(GameObject minionGameObject)
+    {
+        bool positionFound = false;
+
+        Vector3 position = Vector3.zero;
+
+        int i = 0;
+        while (!positionFound)
+        {
+            position = positions[i];
+            if (!Minions.Any(e => e.gameObject.transform.position == position))
+            {
+                positionFound = true;
+            }
+
+            i++;
+            if (i > positions.Count)
+            {
+                Debug.Log("no room for enemy");
+                return;
+            }
+        }
+
+
+        GameObject minionObject = Instantiate(minionGameObject, position, Quaternion.identity);
+        Minion minion = minionObject.GetComponent<Minion>();
+
+        Minions.Add(minion);
+    }
+
+    public void PlayCard(int cardIndex)
+    {
+        var card = Cards[cardIndex];
+        if(card.Cost <= mana)
+        {
+            card.Play();
+            mana -= card.Cost; 
+            UpdatePlayableCards();
+
+            Destroy(card.gameObject);
+            Cards.Remove(card);
         }
     }
 }

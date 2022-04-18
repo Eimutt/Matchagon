@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -357,15 +358,32 @@ public class Board : MonoBehaviour
             {
                 if (Spheres[i, j].GetType() == from)
                 {
-                    //Destroy(Spheres[i, j].gameObject);
-
-                    //var Sphere = Instantiate(SphereObject, new Vector3(i, j, 0), Quaternion.identity, gameObject.transform);
-
-                    //Spheres[i, j] = Sphere.GetComponent<Sphere>();
-
                     Spheres[i, j].SetType(to);
                 }
             }
+        }
+    }
+
+    public void TransformRandomSpheres(TypeEnum to, int count)
+    {
+        var points = new List<Tuple<int, int>>();
+
+        while (points.Count < count)
+        {
+            int i = UnityEngine.Random.Range(0, x);
+            int j = UnityEngine.Random.Range(0, x);
+            Tuple<int, int> t = new Tuple<int, int>(i, j);
+
+            if (!points.Contains(t))
+            {
+                points.Add(t);
+            }
+
+        }
+
+        foreach(Tuple<int,int> t in points)
+        {
+            Spheres[t.Item1, t.Item2].SetType(to);
         }
     }
 

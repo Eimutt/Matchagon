@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -1.2}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 80, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2547337116839293944
 MonoBehaviour:
@@ -431,8 +431,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1a8f73c121db24e99aeb459e5be04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 200
-  CurrentHp: 200
+  MaxHp: 300
+  CurrentHp: 300
   Damage: 10
   unitAbilities:
     Abilities:
@@ -444,6 +444,7 @@ MonoBehaviour:
       time: 1
   Dead: 0
   incomingDamage: 0
+  startPos: {x: 0, y: 0, z: 0}
 --- !u!114 &2547337118485380408
 MonoBehaviour:
   m_ObjectHideFlags: 0

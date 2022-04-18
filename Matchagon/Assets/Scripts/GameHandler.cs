@@ -72,18 +72,7 @@ public class GameHandler : MonoBehaviour
 
                 break;
             case GameState.UserSpells:
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    Board.TransformSpheres(TypeEnum.Fire, TypeEnum.Grass);
-                }
-                else if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
-                    Board.TransformSpheres(TypeEnum.Grass, TypeEnum.Water);
-                }
-                else if (Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    Board.TransformSpheres(TypeEnum.Water, TypeEnum.Fire);
-                }
+                
                 //don't do anything
                 //read inputs from contorls
                 break;
@@ -154,8 +143,8 @@ public class GameHandler : MonoBehaviour
 
                 break;
             case GameState.EnemyActions:
-                if (EnemyHandler.NoEnemiesLeft())
-                    AdvanceState();
+                //if (EnemyHandler.NoEnemiesLeft())
+                //    AdvanceState();
                 break;
         }
     }
@@ -222,7 +211,7 @@ public class GameHandler : MonoBehaviour
     {
         Turn++;
         turnTimer = turnLimit;
-        Player.ResetShield();
+        Player.NewTurn();
         TrySendWave();
         AdvanceState();
     }

@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
     public bool Dead;
 
     public int incomingDamage;
+
+    public Vector3 startPos;
     // Start is called before the first frame update
     void Start()
     {
