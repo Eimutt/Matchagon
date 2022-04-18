@@ -59,7 +59,7 @@ public class EnemyHandler : MonoBehaviour
 
         if (c == eNum && active)
         {
-            GameHandler.AdvanceState();
+            //GameHandler.AdvanceState();
             active = false;
         }
     }
@@ -84,7 +84,11 @@ public class EnemyHandler : MonoBehaviour
 
     public bool NoEnemiesLeft()
     {
-        return (Enemies.Count == 0 || !Enemies.Any(x => !x.Dead));
+        var noEnemies = Enemies.Count == 0 || !Enemies.Any(x => !x.Dead);
+        //if (noEnemies)
+        //    active = false;
+
+        return noEnemies;
     }
 
     

@@ -29,12 +29,12 @@ public class Controls : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (!Selected)
+            if (!Selected && gameHandler.GetState() == GameState.UserSpells)
             {
                 Selected = Board.GetSphere(Position);
                 gameHandler.AdvanceState();
             }
-            else
+            else if (gameHandler.GetState() == GameState.Moving)
             {
                 gameHandler.EndMove();
             }

@@ -70,4 +70,9 @@ public class Enemy : MonoBehaviour
             Dead = true;
         }
     }
+
+    public int GetDamageLeftAfterIncoming()
+    {
+        return CurrentHp - incomingDamage;
+    }
 }

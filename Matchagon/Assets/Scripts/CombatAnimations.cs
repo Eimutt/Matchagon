@@ -65,7 +65,6 @@ public class CombatAnimations : MonoBehaviour
 }
 
 public class Attack {
-
     public MatchEnum attackType;
     public TypeEnum type;
     public int damage;

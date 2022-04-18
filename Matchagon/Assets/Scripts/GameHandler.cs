@@ -160,6 +160,11 @@ public class GameHandler : MonoBehaviour
         }
     }
 
+    public GameState GetState()
+    {
+        return state;
+    }
+
     public void EndMove()
     {
         matches = Board.IdentifyMatches();
@@ -173,26 +178,8 @@ public class GameHandler : MonoBehaviour
 
     void ResolveTurn()
     {
-        foreach (KeyValuePair<TypeEnum, int> entry in combo.damageDict)
-        {
-            int value = entry.Value;
-
-            if(entry.Key == TypeEnum.Shield)
-            {
-                Player.GetShield(value * combo.count);
-            } 
-            else
-            {
-                if(EnemyHandler.NoEnemiesLeft())
-                {
-                    continue;
-                }
-                
-                Player.QueueAttack(MatchEnum.Blob, entry.Key, value, combo.count, EnemyHandler.GetAllEnemies());
-
-            }
-            
-        }
+        Player.ResolveTurn(combo, EnemyHandler);
+        
     }
 
     public void StartMove()
