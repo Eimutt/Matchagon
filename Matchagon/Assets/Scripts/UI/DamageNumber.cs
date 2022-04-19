@@ -40,7 +40,8 @@ public class DamageNumber : MonoBehaviour
             tmp.a = 1 - (timer/fadeoutDuration);
             GetComponent<TextMesh>().color = tmp;
 
-            GetComponent<TextMesh>().text = (damage * c).ToString();
+            int dmg = (int)(damage * (1 + 0.25f * (c - 1)));
+            GetComponent<TextMesh>().text = dmg.ToString("n0");
 
             if (timer > fadeoutDuration)
             {
@@ -53,8 +54,10 @@ public class DamageNumber : MonoBehaviour
 
             if (timer > (duration / 2) * (float)c / (float)combo) {
 
-                c = (c == combo) ? c : c + 1; 
-                GetComponent<TextMesh>().text = (damage * c).ToString();
+                c = (c == combo) ? c : c + 1;
+
+                int dmg = (int)(damage * (1 + 0.25f * (c - 1)));
+                GetComponent<TextMesh>().text = dmg.ToString("n0");
             }
 
 

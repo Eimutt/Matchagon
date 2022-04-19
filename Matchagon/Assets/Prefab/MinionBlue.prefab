@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3635525663451081857}
   - component: {fileID: 3635525663451081858}
   m_Layer: 0
-  m_Name: Minion
+  m_Name: MinionBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   ShieldColor: {r: 0.09019608, g: 0.92941177, b: 1, a: 1}
   InvulnerabilityColor: {fileID: 3635525663451081858}
   ColorTintDuration: 2
-  Damages: 0000000002000000020000000000000002000000
+  Damages: 000000000200000001000000000000000000000003000000
 --- !u!212 &3635525663451081856
 SpriteRenderer:
   m_ObjectHideFlags: 0

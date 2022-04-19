@@ -13,8 +13,6 @@ public class Controls : MonoBehaviour
     private GameObject Cursor;
     private GameHandler gameHandler;
     private Player Player;
-
-    private List<Card> Cards;
     // Start is called before the first frame update
     void Start()
     {
@@ -102,6 +100,23 @@ public class Controls : MonoBehaviour
             {
                 Player.PlayCard(4);
             }
+            else if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                Player.PlayCard(5);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                Player.PlayCard(6);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                Player.PlayCard(7);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                Player.PlayCard(8);
+            }
+
         }
         
         MoveCursor();

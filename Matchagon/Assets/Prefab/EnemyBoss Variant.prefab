@@ -101,17 +101,17 @@ PrefabInstance:
     - target: {fileID: 2547337118485380391, guid: bcb9000e800674c44a03b70f09ba3a6d,
         type: 3}
       propertyPath: MaxHp
-      value: 1000
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 2547337118485380391, guid: bcb9000e800674c44a03b70f09ba3a6d,
         type: 3}
       propertyPath: CurrentHp
-      value: 1000
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 2547337118485380391, guid: bcb9000e800674c44a03b70f09ba3a6d,
         type: 3}
       propertyPath: Damage
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcb9000e800674c44a03b70f09ba3a6d, type: 3}

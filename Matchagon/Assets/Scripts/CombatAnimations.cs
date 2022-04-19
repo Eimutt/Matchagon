@@ -34,13 +34,13 @@ public class CombatAnimations : MonoBehaviour
         Delay = 0.5f;
     }
 
-    public void QueueAttack(MatchEnum attackType, TypeEnum type, int damage, int combo, List<GameObject> targets)
+    //public void QueueAttack(MatchEnum attackType, TypeEnum type, int damage, int combo, List<GameObject> targets)
+    //{
+    //    attackQueue.Enqueue(new Attack(attackType, type, damage, combo, targets));
+    //}
+    public void QueueAttack(MatchEnum attackType, TypeEnum type, int baseDamage, int fullDamage, int combo, GameObject target)
     {
-        attackQueue.Enqueue(new Attack(attackType, type, damage, combo, targets));
-    }
-    public void QueueAttack(MatchEnum attackType, TypeEnum type, int damage, int combo, GameObject target)
-    {
-        attackQueue.Enqueue(new Attack(attackType, type, damage, combo, target));
+        attackQueue.Enqueue(new Attack(attackType, type, baseDamage, fullDamage, combo, target));
     }
 
     private void SpawnAttack()
@@ -57,7 +57,7 @@ public class CombatAnimations : MonoBehaviour
 
                 var color = TypeEnumGenerator.GetColor(attack.type);
 
-                expProj.Init(attack.damage, color, attack.combo, target);
+                expProj.Init(attack.baseDamage, attack.fullDamage, color, attack.combo, target);
             }
             
         }
@@ -67,23 +67,26 @@ public class CombatAnimations : MonoBehaviour
 public class Attack {
     public MatchEnum attackType;
     public TypeEnum type;
-    public int damage;
+    public int baseDamage;
+    public int fullDamage;
     public int combo;
     public List<GameObject> targets;
-    public Attack(MatchEnum attackType, TypeEnum type, int damage, int combo, List<GameObject> targets)
+    public Attack(MatchEnum attackType, TypeEnum type, int baseDamage, int fullDamage, int combo, List<GameObject> targets)
     {
         this.attackType = attackType;
         this.type = type;
-        this.damage = damage;
+        this.baseDamage = baseDamage;
+        this.fullDamage = fullDamage;
         this.combo = combo;
         this.targets = targets;
     }
 
-    public Attack(MatchEnum attackType, TypeEnum type, int damage, int combo, GameObject target)
+    public Attack(MatchEnum attackType, TypeEnum type, int baseDamage, int fullDamage, int combo, GameObject target)
     {
         this.attackType = attackType;
         this.type = type;
-        this.damage = damage;
+        this.baseDamage = baseDamage;
+        this.fullDamage = fullDamage;
         this.combo = combo;
         targets = new List<GameObject>() { target };
     }

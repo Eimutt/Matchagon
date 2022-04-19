@@ -26,7 +26,10 @@ public class Player : MonoBehaviour
     public Vector3 bottomLeft;
     public float distanceDiff;
 
-    public List<Card> Cards;
+    private static System.Random rng = new System.Random();
+
+    public List<Card> Deck;
+    public List<Card> Hand;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,8 +45,9 @@ public class Player : MonoBehaviour
 
         positions = new List<Vector3>();
         GetLegitimateSpawnPositions();
-        Cards = GameObject.FindObjectsOfType<Card>().ToList();
-        Cards.Reverse();
+
+        SpawnDeck();
+        Deck = Deck.OrderBy(a => rng.Next()).ToList();
     }
 
     // Update is called once per frame
@@ -95,15 +99,20 @@ public class Player : MonoBehaviour
     public void NewTurn()
     {
         ResetShield();
+        DrawCard();
         mana = mana < maxMana ? mana + 1 :  mana;
         UpdatePlayableCards();
     }
 
     public void UpdatePlayableCards()
     {
-        foreach(Card card in Cards)
+        int i = 0;
+        foreach(Card card in Hand)
         {
             card.gameObject.transform.Find("Cross").gameObject.SetActive(card.Cost > mana);
+
+            card.transform.localPosition = new Vector3(i, 0);
+            i++;
         }
         GameObject.Find("ManaText").GetComponent<Text>().text = mana.ToString() + "/" + maxMana.ToString();
     }
@@ -154,7 +163,7 @@ public class Player : MonoBehaviour
                     int minionElementDamage = minion.Damages[(int)entry.Key];
                     if (minionElementDamage != 0)
                     {
-                        attacks.Add(new PossibleAttack(minion, MatchEnum.Blob, entry.Key, value * minionElementDamage, combo.count));
+                        attacks.Add(new PossibleAttack(minion, MatchEnum.Blob, entry.Key, value * minionElementDamage, combo.count, combo.damageMultiplier));
                     }
                 }
             }
@@ -164,7 +173,7 @@ public class Player : MonoBehaviour
         //foreach() LAUNCH AOES
 
         //Loop through attacks and enemies
-        attacks.Sort((x, y) => y.damage.CompareTo(x.damage));
+        attacks.Sort((x, y) => y.fullDamage.CompareTo(x.fullDamage));
 
         int i = 0;
         int max = attacks.Count;
@@ -173,16 +182,16 @@ public class Player : MonoBehaviour
         {
             var enemy = enemyHandler.GetFirstEnemy();
 
-            var possibleAttack = attacks.FirstOrDefault(a => a.damage * a.combo > enemy.GetDamageLeftAfterIncoming());
+            var possibleAttack = attacks.FirstOrDefault(a => a.fullDamage > enemy.GetDamageLeftAfterIncoming());
 
             if (possibleAttack == null)
             {
                 possibleAttack = attacks[0];
             }
 
-            enemy.AddIncomingDamage(possibleAttack.damage * combo.count);
+            enemy.AddIncomingDamage(possibleAttack.fullDamage);
             attacks.Remove(possibleAttack);
-            possibleAttack.source.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, possibleAttack.type, possibleAttack.damage, combo.count, enemy.gameObject);
+            possibleAttack.source.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, possibleAttack.type, possibleAttack.baseDamage, possibleAttack.fullDamage, combo.count, enemy.gameObject);
 
             i++;
         }
@@ -220,15 +229,47 @@ public class Player : MonoBehaviour
 
     public void PlayCard(int cardIndex)
     {
-        var card = Cards[cardIndex];
+        var card = Hand[cardIndex];
         if(card.Cost <= mana)
         {
             card.Play();
-            mana -= card.Cost; 
+            mana -= card.Cost;
+            Destroy(card.gameObject);
+            Hand.Remove(card);
             UpdatePlayableCards();
 
-            Destroy(card.gameObject);
-            Cards.Remove(card);
+        }
+    }
+
+    public void SpawnDeck()
+    {
+        //var deck = GameObject.Find("Deck").transform;
+        //foreach (Card card in Deck)
+        //{
+        //    GameObject cardObj = Instantiate(card.gameObject, Vector3.zero, Quaternion.identity, deck);
+        //}
+    }
+
+    public void DrawCard()
+    {
+        if(Deck.Count == 0)
+        {
+            return;
+        }
+        var card = Deck[0];
+
+        Deck.Remove(card);
+
+        
+        if(Hand.Count < 9)
+        {
+            var hand = GameObject.Find("Hand");
+
+            GameObject cardObj = Instantiate(card.gameObject, hand.transform.position + new Vector3(Hand.Count, 0), Quaternion.identity, hand.transform);
+
+            cardObj.transform.parent = hand.transform;
+
+            Hand.Add(cardObj.GetComponent<Card>());
         }
     }
 }

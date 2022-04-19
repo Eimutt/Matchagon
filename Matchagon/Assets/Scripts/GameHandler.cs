@@ -110,6 +110,11 @@ public class GameHandler : MonoBehaviour
                     matches.RemoveAt(0);
                     t = 0;
 
+                    if(match.ElementType == TypeEnum.Grass)
+                    {
+                        Player.DrawCard();
+                    }
+
                     combo.IncreaseDamageType(match.ElementType, match.Spheres.Count);
 
                     ComboText.text = combo.count.ToString();

@@ -49,7 +49,7 @@ MonoBehaviour:
   ShieldColor: {r: 0.09019608, g: 0.92941177, b: 1, a: 1}
   InvulnerabilityColor: {fileID: 1426490194874618241}
   ColorTintDuration: 2
-  Damages: 0200000000000000000000000200000002000000
+  Damages: 020000000000000000000000000000000100000003000000
 --- !u!212 &1426490194874618244
 SpriteRenderer:
   m_ObjectHideFlags: 0

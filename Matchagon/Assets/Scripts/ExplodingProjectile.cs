@@ -9,7 +9,8 @@ public class ExplodingProjectile : MonoBehaviour
     public float ExplosionDuration;
     private float t;
     public float GrowthRate;
-    private int damage;
+    private int baseDamage;
+    private int fullDamage;
     private int combo;
     private Color color;
 
@@ -20,11 +21,12 @@ public class ExplodingProjectile : MonoBehaviour
         
     }
 
-    public void Init(int damage, Color color, int combo, GameObject target)
+    public void Init(int baseDamage, int fullDamage, Color color, int combo, GameObject target)
     {
         GetComponent<SpriteRenderer>().color = color;
         this.color = color;
-        this.damage = damage;
+        this.baseDamage = baseDamage;
+        this.fullDamage = fullDamage;
         this.combo = combo;
         this.target = target;
     }
@@ -62,8 +64,8 @@ public class ExplodingProjectile : MonoBehaviour
         GameObject damageText = Instantiate(damageTextPrefab, gameObject.transform.position, Quaternion.identity);
         DamageNumber dNum = damageText.GetComponent<DamageNumber>();
 
-        dNum.Init(color, damage, combo);
+        dNum.Init(color, baseDamage, combo);
 
-        target.GetComponent<Enemy>().TakeDamage(damage * combo);
+        target.GetComponent<Enemy>().TakeDamage(fullDamage);
     }
 }

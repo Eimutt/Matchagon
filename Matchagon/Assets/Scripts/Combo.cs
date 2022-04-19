@@ -6,6 +6,7 @@ public class Combo
 {
     public int count;
     public Dictionary<TypeEnum, int> damageDict;
+    public float damageMultiplier;
 
     public Combo()
     {
@@ -19,6 +20,7 @@ public class Combo
         
         damageDict[type] = currentDamage + damage;
         count++;
-        
+
+        damageMultiplier = 1 + 0.25f * (count - 1);
     }
 }
