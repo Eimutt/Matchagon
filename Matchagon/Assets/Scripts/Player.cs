@@ -241,6 +241,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void PlayCard(Card card)
+    {
+        if (card.Cost <= mana)
+        {
+            card.Play();
+            mana -= card.Cost;
+            Destroy(card.gameObject);
+            Hand.Remove(card);
+            UpdatePlayableCards();
+
+        }
+    }
+
     public void SpawnDeck()
     {
         //var deck = GameObject.Find("Deck").transform;

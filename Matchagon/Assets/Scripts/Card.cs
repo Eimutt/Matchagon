@@ -21,4 +21,9 @@ public class Card : MonoBehaviour
     {
 
     }
+
+    public void OnMouseDown()
+    {
+        GameObject.Find("Player").GetComponent<Player>().PlayCard(this);
+    }
 }
