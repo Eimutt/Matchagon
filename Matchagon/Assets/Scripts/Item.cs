@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card : MonoBehaviour
+public class Item : MonoBehaviour
 {
-    public int Cost;
-    public int Rarity;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,15 +14,5 @@ public class Card : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public virtual void Play()
-    {
-
-    }
-
-    public void OnMouseDown()
-    {
-        GameObject.Find("Player").GetComponent<Player>().PlayCard(this);
     }
 }

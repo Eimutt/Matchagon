@@ -11,7 +11,7 @@ public class Controls : MonoBehaviour
     private int maxX;
     private int maxY;
     private GameObject Cursor;
-    private GameHandler gameHandler;
+    private CombatHandler CombatHandler;
     private Player Player;
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,7 @@ public class Controls : MonoBehaviour
         maxY = Board.y - 1;
         Position = new Vector2Int(0, 0);
         MoveCursor();
-        gameHandler = GameObject.Find("GameHandler").GetComponent<GameHandler>();
+        CombatHandler = GameObject.Find("CombatHandler").GetComponent<CombatHandler>();
         Player = GameObject.Find("Player").GetComponent<Player>();
     }
 
@@ -31,14 +31,14 @@ public class Controls : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (!Selected && gameHandler.GetState() == GameState.UserSpells)
+            if (!Selected && CombatHandler.GetState() == GameState.UserSpells)
             {
                 Selected = Board.GetSphere(Position);
-                gameHandler.AdvanceState();
+                CombatHandler.AdvanceState();
             }
-            else if (gameHandler.GetState() == GameState.Moving)
+            else if (CombatHandler.GetState() == GameState.Moving)
             {
-                gameHandler.EndMove();
+                CombatHandler.EndMove();
             }
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -78,7 +78,7 @@ public class Controls : MonoBehaviour
             }
         }
 
-        if(gameHandler.GetState() == GameState.UserSpells)
+        if(CombatHandler.GetState() == GameState.UserSpells)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {

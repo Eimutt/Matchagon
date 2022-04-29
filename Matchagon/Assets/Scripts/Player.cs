@@ -34,7 +34,11 @@ public class Player : MonoBehaviour
     void Start()
     {
         Board = GameObject.Find("Board").GetComponent<Board>();
-        CurrentHp = MaxHp;
+
+        CurrentHp = GameObject.Find("GameHandler").GetComponent<PlayerData>().Health;
+        Deck = GameObject.Find("GameHandler").GetComponent<PlayerData>().Deck;
+
+        //CurrentHp = MaxHp;
 
         UpdateUIHealth();
         UpdateUIShield();
@@ -173,7 +177,7 @@ public class Player : MonoBehaviour
         //foreach() LAUNCH AOES
 
         //Loop through attacks and enemies
-        attacks.Sort((x, y) => y.fullDamage.CompareTo(x.fullDamage));
+        attacks.Sort((x, y) => x.fullDamage.CompareTo(y.fullDamage));
 
         int i = 0;
         int max = attacks.Count;
@@ -186,7 +190,7 @@ public class Player : MonoBehaviour
 
             if (possibleAttack == null)
             {
-                possibleAttack = attacks[0];
+                possibleAttack = attacks.Last();
             }
 
             enemy.AddIncomingDamage(possibleAttack.fullDamage);

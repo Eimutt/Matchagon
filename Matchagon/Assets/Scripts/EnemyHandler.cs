@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyHandler : MonoBehaviour
 {
     private List<Enemy> Enemies;
-    private GameHandler GameHandler;
+    private CombatHandler CombatHandler;
 
     private int eNum;
     private int y;
@@ -27,7 +27,7 @@ public class EnemyHandler : MonoBehaviour
     {
         positions = new List<Vector3>();
         Enemies = new List<Enemy>();// GameObject.FindObjectsOfType<Enemy>().ToList();
-        GameHandler = GameObject.Find("GameHandler").GetComponent<GameHandler>();
+        CombatHandler = GameObject.Find("CombatHandler").GetComponent<CombatHandler>();
 
         GetLegitimateSpawnPositions();
     }
@@ -59,7 +59,7 @@ public class EnemyHandler : MonoBehaviour
 
         if (c == eNum && active)
         {
-            GameHandler.AdvanceState();
+            CombatHandler.AdvanceState();
             active = false;
         }
     }
@@ -90,8 +90,6 @@ public class EnemyHandler : MonoBehaviour
 
         return noEnemies;
     }
-
-    
 
     public void AddEnemy(GameObject enemyGameObject)
     {

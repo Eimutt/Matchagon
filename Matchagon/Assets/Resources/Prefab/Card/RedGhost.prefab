@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cost: 2
+  Rarity: 0
   MinionPrefab: {fileID: 1426490194874618246, guid: 24c9f3e26e669844fb10d159bafbad9a,
     type: 3}
 --- !u!212 &5907672755002055390

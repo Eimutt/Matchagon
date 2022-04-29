@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card : MonoBehaviour
+public class PlayerData : MonoBehaviour
 {
-    public int Cost;
-    public int Rarity;
+    public int Health;
+    public List<Card> Deck;
+    public List<Item> Items;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,13 +19,13 @@ public class Card : MonoBehaviour
         
     }
 
-    public virtual void Play()
+    public void GetCard(Card card)
     {
-
+        Deck.Add(card);
     }
 
-    public void OnMouseDown()
+    public void GetItem(Item item)
     {
-        GameObject.Find("Player").GetComponent<Player>().PlayCard(this);
+        Items.Add(item);
     }
 }

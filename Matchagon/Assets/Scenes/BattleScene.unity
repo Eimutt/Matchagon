@@ -2767,7 +2767,7 @@ GameObject:
   - component: {fileID: 1897970142}
   - component: {fileID: 1897970143}
   m_Layer: 0
-  m_Name: GameHandler
+  m_Name: CombatHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2798,14 +2798,6 @@ MonoBehaviour:
         type: 3}
       Quanitity: 1
       Turn: 3
-    - Enemy: {fileID: 2547337118485380388, guid: bcb9000e800674c44a03b70f09ba3a6d,
-        type: 3}
-      Quanitity: 2
-      Turn: 5
-    - Enemy: {fileID: 4144539539746008711, guid: e233f97c2edfa834b8d4ae905c2d2374,
-        type: 3}
-      Quanitity: 1
-      Turn: 6
 --- !u!4 &1897970141
 Transform:
   m_ObjectHideFlags: 0
