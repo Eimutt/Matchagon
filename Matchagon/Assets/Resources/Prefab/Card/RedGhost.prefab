@@ -128,8 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9495fca193d53f047b6bb76ed108668c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cost: 2
+  Cost: 1
   Rarity: 0
+  Sprite: {fileID: 21300000, guid: 4a59ce0f43246714e9e2b7853179929b, type: 3}
+  Description: 0/1/0/0/0/3
   MinionPrefab: {fileID: 1426490194874618246, guid: 24c9f3e26e669844fb10d159bafbad9a,
     type: 3}
 --- !u!212 &5907672755002055390
@@ -221,7 +223,7 @@ Transform:
   m_GameObject: {fileID: 5907672756512328593}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.29999998, y: 0.29999998, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 5907672755002055376}
   m_RootOrder: 0

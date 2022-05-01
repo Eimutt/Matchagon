@@ -232,4 +232,10 @@ public class CombatHandler : MonoBehaviour
         TrySendWave();
         AdvanceState();
     }
+
+    public void IncreaseTimeForNextTurn(int seconds)
+    {
+        turnTimer += seconds;
+    }
+
 }

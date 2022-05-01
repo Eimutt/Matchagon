@@ -7,20 +7,13 @@ public class Reward : MonoBehaviour
 {
     public void Start()
     {
-        Debug.Log("new card"); 
-        Button btn = GetComponent<Button>();
-        btn.onClick.AddListener(PickRewar2d);
+        Debug.Log("new card");
     }
 
     public virtual void PickReward()
     {
-        var i = 1;
-    }
-    public void PickRewar2d()
-    {
-        var i = 1;
-    }
 
+    }
 }
 
 public class ItemReward : Reward

@@ -210,6 +210,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cost: 1
+  Rarity: 0
+  Sprite: {fileID: 21300000, guid: f481e7be57aa1d0429fca7aa652688c5, type: 3}
+  Description: Turn 5 random Orbs to Grass Orbs.
   spellType: BoardModification
   amount: 5
   elementType: 2

@@ -5,6 +5,7 @@ using UnityEngine;
 public class CombatAnimations : MonoBehaviour
 {
     public GameObject BasicAttack;
+    public GameObject AoeAttack;
     public GameObject Shield;
 
     public float Delay;
@@ -34,10 +35,10 @@ public class CombatAnimations : MonoBehaviour
         Delay = 0.5f;
     }
 
-    //public void QueueAttack(MatchEnum attackType, TypeEnum type, int damage, int combo, List<GameObject> targets)
-    //{
-    //    attackQueue.Enqueue(new Attack(attackType, type, damage, combo, targets));
-    //}
+    public void QueueAttack(MatchEnum attackType, TypeEnum type, int baseDamage, int fullDamage, int combo, List<GameObject> targets)
+    {
+        attackQueue.Enqueue(new Attack(attackType, type, baseDamage, fullDamage, combo, targets));
+    }
     public void QueueAttack(MatchEnum attackType, TypeEnum type, int baseDamage, int fullDamage, int combo, GameObject target)
     {
         attackQueue.Enqueue(new Attack(attackType, type, baseDamage, fullDamage, combo, target));
@@ -60,6 +61,15 @@ public class CombatAnimations : MonoBehaviour
                 expProj.Init(attack.baseDamage, attack.fullDamage, color, attack.combo, target);
             }
             
+        } else if (attack.attackType == MatchEnum.AOE)
+        {
+            GameObject aoeAttack = Instantiate(AoeAttack, gameObject.transform.position, Quaternion.Euler(0, 0, 0), gameObject.transform);
+            AreaProjectile areaProj = aoeAttack.GetComponent<AreaProjectile>();
+
+
+            var color = TypeEnumGenerator.GetColor(attack.type);
+
+            areaProj.Init(attack.baseDamage, attack.fullDamage, color, attack.combo, attack.targets);
         }
     }
 }

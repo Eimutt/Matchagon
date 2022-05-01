@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,11 @@ public class Minion : MonoBehaviour
     public int[] Damages = new int[0];
 
     private GameObject Tooltip;
+
+    public List<Effect> Effects;
+
+    public bool AOE;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +27,7 @@ public class Minion : MonoBehaviour
         InvulnerabilityColor = GetComponent<InvulnerabilityColor>();
 
         Tooltip = GameObject.Find("TooltipObject");
+        TriggerSummonEffects();
     }
 
     // Update is called once per frame
@@ -61,5 +68,15 @@ public class Minion : MonoBehaviour
         Tooltip.transform.Find("Dark/Text").GetComponent<Text>().text = Damages[3].ToString();
         Tooltip.transform.Find("Light/Text").GetComponent<Text>().text = Damages[4].ToString();
         Tooltip.transform.Find("Shield/Text").GetComponent<Text>().text = Damages[5].ToString();
+    }
+
+    public void TriggerStartOfTurnEffects()
+    {
+        Effects.Where(e => e.EffectType == EffectType.StartOfTurn).ToList().ForEach(e => e.Trigger());
+    }
+
+    public void TriggerSummonEffects()
+    {
+        Effects.Where(e => e.EffectType == EffectType.SummonEffect).ToList().ForEach(e => e.Trigger());
     }
 }

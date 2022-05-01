@@ -12,6 +12,9 @@ public class SpellCard : Card
         if(spellType == "BoardModification")
         {
             GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(elementType, amount);
+        } else if (spellType == "TimeIncrease")
+        {
+            GameObject.Find("CombatHandler").GetComponent<CombatHandler>().IncreaseTimeForNextTurn(amount);
         }
     }
 }

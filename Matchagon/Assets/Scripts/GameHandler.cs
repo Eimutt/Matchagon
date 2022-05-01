@@ -5,10 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GameHandler : MonoBehaviour
 {
+    public RewardScreen RewardScreen;
+    public WorldMap WorldMap;
     // Start is called before the first frame update
     void Start()
     {
-        
+        RewardScreen = GameObject.Find("VictoryScreen").GetComponent<RewardScreen>();
+        WorldMap = GameObject.Find("WorldMap").GetComponent<WorldMap>();
     }
 
     // Update is called once per frame
@@ -16,17 +19,18 @@ public class GameHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            EnterCombat();
+            //EnterCombat();
         }
     }
 
-    public void EnterCombat()
+    public void EnterCombat(Encounter encounter)
     {
         SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
         var battleScene = SceneManager.GetSceneByName("BattleScene");
-        StartCoroutine(SetActive(battleScene));
+        StartCoroutine(SetActive(battleScene, encounter));
+        WorldMap.gameObject.SetActive(false);
     }
-    public IEnumerator SetActive(Scene scene)
+    public IEnumerator SetActive(Scene scene, Encounter encounter)
     {
         int i = 0;
         while (i == 0)
@@ -36,12 +40,20 @@ public class GameHandler : MonoBehaviour
         }
         SceneManager.SetActiveScene(scene);
         GameObject.Find("CombatHandler").GetComponent<CombatHandler>().active = true;
+        GameObject.Find("CombatHandler").GetComponent<CombatHandler>().Encounter = encounter;
         yield break;
     }
 
     public void LeaveCombat()
     {
         SceneManager.UnloadScene("BattleScene");
+        RewardScreen.GenerateRewards();
+    }
 
+    public void CloseRewards()
+    {
+        RewardScreen.Close();
+        WorldMap.gameObject.SetActive(true);
+        WorldMap.ActivateMovement();
     }
 }

@@ -19,6 +19,14 @@ public class PlayerData : MonoBehaviour
         
     }
 
+    public void GetReward(Reward reward)
+    {
+        if(reward.GetType() == typeof(Card))
+        {
+            //GetCard(reward);
+        }
+    }
+
     public void GetCard(Card card)
     {
         Deck.Add(card);

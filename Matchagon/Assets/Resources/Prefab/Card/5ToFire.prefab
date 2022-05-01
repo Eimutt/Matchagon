@@ -129,6 +129,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cost: 1
+  Rarity: 0
+  Sprite: {fileID: 21300000, guid: e602bf8e65d2f6f40a64c81b1c269a63, type: 3}
+  Description: Turn 5 random Orbs to Fire Orbs.
   spellType: BoardModification
   amount: 5
   elementType: 0

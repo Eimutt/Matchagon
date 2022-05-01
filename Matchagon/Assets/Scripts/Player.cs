@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public int MaxHp;
     public int CurrentHp;
 
-    private int mana = 0;
+    private int mana = 2;
     private int maxMana = 5;
 
     public float ColorTintDuration;
@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
 
         SpawnDeck();
         Deck = Deck.OrderBy(a => rng.Next()).ToList();
+        DrawCard();
+        DrawCard();
     }
 
     // Update is called once per frame
@@ -106,6 +108,8 @@ public class Player : MonoBehaviour
         DrawCard();
         mana = mana < maxMana ? mana + 1 :  mana;
         UpdatePlayableCards();
+
+        Minions.ForEach(m => m.TriggerStartOfTurnEffects());
     }
 
     public void UpdatePlayableCards()
@@ -167,7 +171,7 @@ public class Player : MonoBehaviour
                     int minionElementDamage = minion.Damages[(int)entry.Key];
                     if (minionElementDamage != 0)
                     {
-                        attacks.Add(new PossibleAttack(minion, MatchEnum.Blob, entry.Key, value * minionElementDamage, combo.count, combo.damageMultiplier));
+                        attacks.Add(new PossibleAttack(minion, MatchEnum.Blob, entry.Key, value * minionElementDamage, combo.count, combo.damageMultiplier, minion.AOE));
                     }
                 }
             }
@@ -175,12 +179,33 @@ public class Player : MonoBehaviour
 
 
         //foreach() LAUNCH AOES
+        var aoeAttack = attacks.Where(a => a.Area).ToList();
+
+        int i = 0;
+        int max = aoeAttack.Count;
+
+        while (i < max && !enemyHandler.NoEnemiesLeft() && aoeAttack.Any())
+        {
+
+            var possibleAttack = aoeAttack.First();
+
+            foreach (Enemy enemy in enemyHandler.GetAllEnemies())
+            {
+                enemy.AddIncomingDamage(possibleAttack.fullDamage);
+            }
+            attacks.Remove(possibleAttack);
+            possibleAttack.source.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.AOE, possibleAttack.type, possibleAttack.baseDamage, possibleAttack.fullDamage, combo.count, enemyHandler.GetAllEnemies().Select(e => e.gameObject).ToList());
+
+            i++;
+        }
+        
+
 
         //Loop through attacks and enemies
         attacks.Sort((x, y) => x.fullDamage.CompareTo(y.fullDamage));
 
-        int i = 0;
-        int max = attacks.Count;
+        i = 0;
+        max = attacks.Count;
 
         while (i < max && !enemyHandler.NoEnemiesLeft())
         {

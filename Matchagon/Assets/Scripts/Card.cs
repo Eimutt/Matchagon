@@ -6,6 +6,8 @@ public class Card : MonoBehaviour
 {
     public int Cost;
     public int Rarity;
+    public Sprite Sprite;
+    public string Description;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,5 +28,17 @@ public class Card : MonoBehaviour
     public void OnMouseDown()
     {
         GameObject.Find("Player").GetComponent<Player>().PlayCard(this);
+    }
+
+    public void OnMouseEnter()
+    {
+        DetailedCardInfo detailedCardInfo = GameObject.Find("DetailedCardInfo").GetComponent<DetailedCardInfo>();
+        detailedCardInfo.Populate(Sprite, Cost.ToString(), Description);
+    }
+
+    public void OnMouseExit()
+    {
+        DetailedCardInfo detailedCardInfo = GameObject.Find("DetailedCardInfo").GetComponent<DetailedCardInfo>();
+        detailedCardInfo.FadeOut();
     }
 }

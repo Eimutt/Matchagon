@@ -8,5 +8,6 @@ public enum MatchEnum
     Quint,
     Quad,
     Triple,
-    Blob
+    Blob,
+    AOE
 }
