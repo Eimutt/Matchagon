@@ -107,7 +107,7 @@ public class EnemyHandler : MonoBehaviour
             }
 
             i++;
-            if(i >= positions.Count)
+            if(i > positions.Count)
             {
                 Debug.Log("no room for enemy");
                 return;
@@ -130,6 +130,14 @@ public class EnemyHandler : MonoBehaviour
             {
                 positions.Add(bottomLeft + new Vector3(i * distanceDiff, j * distanceDiff, 0));
             }
+        }
+    }
+
+    public void TriggerStartOfTurnEffects()
+    {
+        foreach(Enemy enemy in Enemies)
+        {
+            enemy.Effects.Where(e => e.EffectType == EffectType.StartOfTurn).ToList().ForEach(e => e.Trigger());
         }
     }
 }

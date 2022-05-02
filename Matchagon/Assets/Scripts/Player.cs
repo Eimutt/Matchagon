@@ -70,9 +70,14 @@ public class Player : MonoBehaviour
             damage -= Shield;
             Shield -= tmp;
         }
-        CurrentHp -= Mathf.Max(0, damage);
+        var healthDamage = Mathf.Max(0, damage);
 
-        InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
+        if(healthDamage > 0)
+        {
+            CurrentHp -= healthDamage;
+            InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
+            GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, healthDamage, 1);
+        }
 
         UpdateUIHealth();
         UpdateUIShield();

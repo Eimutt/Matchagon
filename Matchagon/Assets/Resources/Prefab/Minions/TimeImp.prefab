@@ -52,9 +52,11 @@ MonoBehaviour:
   ColorTintDuration: 2
   Damages: 000000000000000000000000030000000000000000000000
   Effects:
-  - effectName: TurnTimeIncrease3
+  - effectName: TurnTimeIncrease
+    effectStrength: 3
     EffectType: 0
-  - effectName: TurnTimeIncrease3
+  - effectName: TurnTimeIncrease
+    effectStrength: 3
     EffectType: 4
   AOE: 0
 --- !u!212 &5750005499783465874

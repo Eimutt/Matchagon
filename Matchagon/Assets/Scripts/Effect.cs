@@ -15,19 +15,19 @@ public abstract class GenericEffect<T>
 {
 
     public string effectName;
-
+    public int effectStrength;
     public EffectType EffectType;
 }
 [System.Serializable]
 public class Effect : GenericEffect<ActionEnum> {
     public void Trigger()
     {
-        if (effectName == "3RandomToGreen")
+        if (effectName == "RandomToGreen")
         {
-            GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(TypeEnum.Grass, 3);
-        } else if (effectName == "TurnTimeIncrease3")
+            GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(TypeEnum.Grass, effectStrength);
+        } else if (effectName == "TurnTimeIncrease")
         {
-            GameObject.Find("CombatHandler").GetComponent<CombatHandler>().IncreaseTimeForNextTurn(3);
+            GameObject.Find("CombatHandler").GetComponent<CombatHandler>().IncreaseTimeForNextTurn(effectStrength);
         }
     }
 }

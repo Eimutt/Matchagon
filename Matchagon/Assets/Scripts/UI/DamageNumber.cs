@@ -18,6 +18,8 @@ public class DamageNumber : MonoBehaviour
     private int damage;
     private int combo;
     public int c;
+
+    private bool heal;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +43,7 @@ public class DamageNumber : MonoBehaviour
             GetComponent<TextMesh>().color = tmp;
 
             int dmg = (int)(damage * (1 + 0.25f * (c - 1)));
-            GetComponent<TextMesh>().text = dmg.ToString("n0");
+            GetComponent<TextMesh>().text = (heal ? "+" : "") + dmg.ToString("n0");
 
             if (timer > fadeoutDuration)
             {
@@ -57,7 +59,7 @@ public class DamageNumber : MonoBehaviour
                 c = (c == combo) ? c : c + 1;
 
                 int dmg = (int)(damage * (1 + 0.25f * (c - 1)));
-                GetComponent<TextMesh>().text = dmg.ToString("n0");
+                GetComponent<TextMesh>().text = (heal ? "+" : "")  + dmg.ToString("n0");
             }
 
 
@@ -70,11 +72,12 @@ public class DamageNumber : MonoBehaviour
         }
     }
 
-    public void Init(Color color, int damage, int combo)
+    public void Init(Color color, int damage, int combo, bool heal)
     {
         GetComponent<TextMesh>().color = color;
-        GetComponent<TextMesh>().text = damage.ToString();
+        GetComponent<TextMesh>().text = (heal ? "+" : "") + damage.ToString();
         this.damage = damage;
         this.combo = combo;
+        this.heal = heal;
     }
 }

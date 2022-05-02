@@ -52,7 +52,8 @@ MonoBehaviour:
   ColorTintDuration: 2
   Damages: 000000000000000002000000000000000000000002000000
   Effects:
-  - effectName: 3RandomToGreen
+  - effectName: RandomToGreen
+    effectStrength: 3
     EffectType: 0
   AOE: 0
 --- !u!212 &6504222489139229056

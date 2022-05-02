@@ -14,6 +14,7 @@ public class Shake : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Points.Add(transform.position + new Vector3(-0.5f, 0, 0));
         Points.Add(transform.position);
     }
 

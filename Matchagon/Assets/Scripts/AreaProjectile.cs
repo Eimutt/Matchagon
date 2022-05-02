@@ -60,11 +60,7 @@ public class AreaProjectile : MonoBehaviour
     void ReachTarget(GameObject target)
     {
         //GetComponent<Animator>().enabled = true;
-
-        GameObject damageText = Instantiate(damageTextPrefab, target.transform.position, Quaternion.identity);
-        DamageNumber dNum = damageText.GetComponent<DamageNumber>();
-
-        dNum.Init(color, baseDamage, combo);
+        GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(target.transform.position, color, baseDamage, combo);
 
         target.GetComponent<Enemy>().TakeDamage(fullDamage);
     }

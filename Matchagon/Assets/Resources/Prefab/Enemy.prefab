@@ -439,12 +439,16 @@ MonoBehaviour:
     - Type: 0
       id: 0
       time: 1
-    - Type: 0
+    - Type: 5
       id: 0
       time: 1
   Dead: 0
   incomingDamage: 0
   startPos: {x: 0, y: 0, z: 0}
+  Effects:
+  - effectName: TurnTimeIncrease
+    effectStrength: -1
+    EffectType: 0
 --- !u!114 &2547337118485380408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,9 +461,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fbfb8c2fc9bef946b8232da85d9e373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2.5
-  Points:
-  - {x: 7.5, y: 2.35, z: 0}
+  Speed: 4
+  Points: []
   moving: 0
   i: 0
   next: {x: 0, y: 0, z: 0}

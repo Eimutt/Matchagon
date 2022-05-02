@@ -61,11 +61,8 @@ public class ExplodingProjectile : MonoBehaviour
         speed = 0;
         GetComponent<Animator>().enabled = true;
 
-        GameObject damageText = Instantiate(damageTextPrefab, gameObject.transform.position, Quaternion.identity);
-        DamageNumber dNum = damageText.GetComponent<DamageNumber>();
-
-        dNum.Init(color, baseDamage, combo);
-
+        GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(gameObject.transform.position, color, baseDamage, combo);
+        
         target.GetComponent<Enemy>().TakeDamage(fullDamage);
     }
 }

@@ -292,9 +292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fbfb8c2fc9bef946b8232da85d9e373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2.5
-  Points:
-  - {x: 7.5, y: 2.35, z: 0}
+  Speed: 4
+  Points: []
   moving: 0
   i: 0
   next: {x: 0, y: 0, z: 0}

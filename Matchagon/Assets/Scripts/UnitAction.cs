@@ -8,7 +8,8 @@ public enum ActionEnum {
     AttackAoe,
     Debuff,
     Buff,
-    Wait
+    Wait,
+    Heal
 }
 
 public abstract class GenericUnitAbility <T>
