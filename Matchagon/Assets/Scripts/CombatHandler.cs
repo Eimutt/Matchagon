@@ -229,9 +229,9 @@ public class CombatHandler : MonoBehaviour
         Turn++;
         turnTimer = turnLimit;
         Player.NewTurn();
+        TrySendWave();
         EnemyHandler.TriggerStartOfTurnEffects();
 
-        TrySendWave();
         AdvanceState();
     }
 

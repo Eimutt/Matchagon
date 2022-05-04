@@ -53,6 +53,10 @@ public class WorldMap : MonoBehaviour
 
         int last = 1;
         int options = 1;
+
+        var prefabs = EncounterPrefabs.Union(NodeObjectPrefabs).ToList();
+
+
         for (int i = 1; i < length; i++)
         {
             while (last == options)
@@ -67,8 +71,8 @@ public class WorldMap : MonoBehaviour
             {
                 if (encounter)
                 {
-                    int randomEncounter = Random.Range(0, EncounterPrefabs.Count);
-                    var node = Instantiate(EncounterPrefabs[randomEncounter], transform);
+                    int randomEncounter = Random.Range(0, prefabs.Count);
+                    var node = Instantiate(prefabs[randomEncounter], transform);
 
                     node.name = i + " " + j;
 
@@ -107,26 +111,35 @@ public class WorldMap : MonoBehaviour
                             var pathPart = Instantiate(Path, transform);
                             pathPart.transform.localPosition = p1 * (float)k/(float)pathParts + p2 * (1-(float)k/(float)pathParts);
                         }
-
                     }
                 }
                 else
                 {
-                    var node = Instantiate(NodeBase, transform);
+                    int randomEncounter = Random.Range(0, NodeObjectPrefabs.Count);
+                    var node = Instantiate(NodeObjectPrefabs[randomEncounter], transform);
 
                     node.name = i + " " + j;
 
                     float x = Random.Range(-randomOffset, randomOffset);
                     float y = Random.Range(-randomOffset, randomOffset);
 
-
                     node.transform.localPosition = posAlongLine(j * (1f / ((float)options + 1)), i, 1, 2) + new Vector3(x, y, 0);
 
-                    var mapNode = node.AddComponent<MapNode>();
+                    var mapNode = node.GetComponent<MapNode>();
                     mapNode.level = i;
+                    mapNode.order = (options / 2) - j + 1 + extra;
+
+                    if (mapNode.order == 0)
+                    {
+                        if (options % 2 == 0)
+                            extra = -1;
+                        mapNode.order = (options / 2) - j + 1 + extra;
+                    }
+
+
                     mapNodes.Add(mapNode);
 
-                    var list = mapNodes.Where(n => (n.level == (mapNode.level - 1))).ToList();
+                    var list = CalculateNodes(mapNode, options, last);
 
                     mapNode.reachableFrom.AddRange(list);
 
@@ -134,15 +147,14 @@ public class WorldMap : MonoBehaviour
 
                     foreach (var child in mapNode.reachableFrom)
                     {
-                        Vector3 p1 = child.transform.position;
-                        Vector3 p2 = mapNode.transform.position;
+                        Vector3 p1 = child.transform.localPosition;
+                        Vector3 p2 = mapNode.transform.localPosition;
 
-                        var pathPart1 = Instantiate(Path, transform);
-                        var pathPart2 = Instantiate(Path, transform);
-
-                        pathPart1.transform.localPosition = p1 * 0.33f + p2 * 0.66f;
-                        pathPart2.transform.localPosition = p1 * 0.66f + p2 * 0.33f;
-
+                        for (int k = 1; k < pathParts; k++)
+                        {
+                            var pathPart = Instantiate(Path, transform);
+                            pathPart.transform.localPosition = p1 * (float)k / (float)pathParts + p2 * (1 - (float)k / (float)pathParts);
+                        }
                     }
                 }
             }

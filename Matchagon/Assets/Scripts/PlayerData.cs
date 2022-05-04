@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
+    public int MaxHealth;
     public int Health;
+    public int Gold;
     public List<Card> Deck;
     public List<Item> Items;
     // Start is called before the first frame update

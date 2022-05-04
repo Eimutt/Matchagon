@@ -30,6 +30,16 @@ public class GameHandler : MonoBehaviour
         StartCoroutine(SetActive(battleScene, encounter));
         WorldMap.gameObject.SetActive(false);
     }
+
+    public void EnterStore()
+    {
+        SceneManager.LoadScene("StoreScene", LoadSceneMode.Additive);
+        var battleScene = SceneManager.GetSceneByName("StoreScene");
+        //StartCoroutine(SetActive(battleScene, encounter));
+        WorldMap.gameObject.SetActive(false);
+    }
+
+
     public IEnumerator SetActive(Scene scene, Encounter encounter)
     {
         int i = 0;

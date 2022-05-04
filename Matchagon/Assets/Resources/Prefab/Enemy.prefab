@@ -445,10 +445,7 @@ MonoBehaviour:
   Dead: 0
   incomingDamage: 0
   startPos: {x: 0, y: 0, z: 0}
-  Effects:
-  - effectName: TurnTimeIncrease
-    effectStrength: -1
-    EffectType: 0
+  Effects: []
 --- !u!114 &2547337118485380408
 MonoBehaviour:
   m_ObjectHideFlags: 0
