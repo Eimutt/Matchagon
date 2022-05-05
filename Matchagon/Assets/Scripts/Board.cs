@@ -10,10 +10,13 @@ public class Board : MonoBehaviour
     public int x;
     public int y;
     public GameObject SphereObject;
+
+    public SphereGenerator SphereGenerator;
     // Start is called before the first frame update
     void Start()
     {
         Spheres = new Sphere[x,y];
+        SphereGenerator = gameObject.GetComponent<SphereGenerator>();
         FillBoard();
     }
 
@@ -36,9 +39,11 @@ public class Board : MonoBehaviour
             {
                 if(Spheres[i,j] == null)
                 {
-                    var Sphere = Instantiate(SphereObject, new Vector3(i, j, 0), Quaternion.identity, gameObject.transform);
-
-                    Spheres[i, j] = Sphere.GetComponent<Sphere>();
+                    Spheres[i, j] = SphereGenerator.GenerateRandomSphere(i, j);
+                        
+                        //Instantiate(SphereObject, new Vector3(i, j, 0), Quaternion.identity, gameObject.transform);
+                          
+                    //= Sphere.GetComponent<Sphere>();
                 }
             }
         }
@@ -100,50 +105,93 @@ public class Board : MonoBehaviour
             {
                 if (partOfRegion[i, j] || Spheres[i,j] == null) continue;
 
-                partOfRegion[i, j] = true;
                 var type = Spheres[i, j].GetType();
-
-                Region region = new Region(type);
-                region.nodes.Add(new Vector2Int(i, j));
-
-                Stack<Vector2Int> stack = new Stack<Vector2Int>();
-
-                if(i + 1 < x && Spheres[i + 1, j] != null)
+                if (type == TypeEnum.Chromatic)
                 {
-                    stack.Push(new Vector2Int(i + 1, j));
-                }
-                if(j + 1 < y && Spheres[i, j + 1] != null)
-                {
-                    stack.Push(new Vector2Int(i, j + 1));
-                }
 
-                while(stack.Count != 0)
-                {
-                    var nextPos = stack.Pop();
+                    //Region regionUp = new Region(type);
+                    //regionUp.nodes.Add(new Vector2Int(i, j));
 
-                    if(Spheres[nextPos.x, nextPos.y] != null && Spheres[nextPos.x, nextPos.y].GetType() == type)
+                    //Stack<Vector2Int> stack = new Stack<Vector2Int>();
+                    //if (i + 1 < x && Spheres[i + 1, j] != null)
+                    //{
+                    //    stack.Push(new Vector2Int(i + 1, j));
+                    //}
+
+
+                    //Region regionRight = new Region(type);
+                    //region.nodes.Add(new Vector2Int(i, j));
+                    continue;
+                    partOfRegion[i,j] = true;
+
+                } 
+                else
+                {
+                    Region region = new Region(type);
+                    region.nodes.Add(new Vector2Int(i, j));
+
+                    Stack<Vector2Int> stack = new Stack<Vector2Int>();
+
+                    if (i + 1 < x && Spheres[i + 1, j] != null)
                     {
-                        partOfRegion[nextPos.x, nextPos.y] = true;
-                        region.nodes.Add(new Vector2Int(nextPos.x, nextPos.y));
-                        if(nextPos.x + 1 < x && !partOfRegion[nextPos.x + 1, nextPos.y])
+                        stack.Push(new Vector2Int(i + 1, j));
+                    }
+                    if (j + 1 < y && Spheres[i, j + 1] != null)
+                    {
+                        stack.Push(new Vector2Int(i, j + 1));
+                    }
+
+                    if (i - 1 >= 0 && Spheres[i - 1, j] != null && Spheres[i -1, j].GetType() == TypeEnum.Chromatic)
+                    {
+                        stack.Push(new Vector2Int(i - 1, j));
+                    }
+                    if (j - 1 >= 0 && Spheres[i, j - 1]  && Spheres[i, j - 1].GetType() == TypeEnum.Chromatic)
+                    {
+                        stack.Push(new Vector2Int(i, j - 1));
+                    }
+
+                    while (stack.Count != 0)
+                    {
+                        var nextPos = stack.Pop();
+
+                        if (Spheres[nextPos.x, nextPos.y] != null && (Spheres[nextPos.x, nextPos.y].GetType() == type || Spheres[nextPos.x, nextPos.y].GetType() == TypeEnum.Chromatic))
                         {
-                            stack.Push(new Vector2Int(nextPos.x + 1, nextPos.y));
-                        }
-                        if (nextPos.y + 1 < y && !partOfRegion[nextPos.x, nextPos.y + 1])
-                        {
-                            stack.Push(new Vector2Int(nextPos.x, nextPos.y + 1));
-                        }
-                        if (nextPos.x > 0 && !partOfRegion[nextPos.x - 1, nextPos.y])
-                        {
-                            stack.Push(new Vector2Int(nextPos.x - 1, nextPos.y));
-                        }
-                        if (nextPos.y > 0 && !partOfRegion[nextPos.x, nextPos.y - 1])
-                        {
-                            stack.Push(new Vector2Int(nextPos.x, nextPos.y - 1));
+                            if (Spheres[nextPos.x, nextPos.y].GetType() == TypeEnum.Chromatic)
+                            {
+                                partOfRegion[nextPos.x, nextPos.y] = false;
+                            }
+                            else
+                            {
+                                partOfRegion[nextPos.x, nextPos.y] = true;
+                            }
+                            region.nodes.Add(new Vector2Int(nextPos.x, nextPos.y));
+                            if (nextPos.x + 1 < x && !partOfRegion[nextPos.x + 1, nextPos.y])
+                            {
+                                if (!region.nodes.Contains(new Vector2Int(nextPos.x + 1, nextPos.y)) && !stack.Contains(new Vector2Int(nextPos.x + 1, nextPos.y)))
+                                    stack.Push(new Vector2Int(nextPos.x + 1, nextPos.y));
+                            }
+                            if (nextPos.y + 1 < y && !partOfRegion[nextPos.x, nextPos.y + 1])
+                            {
+                                if (!region.nodes.Contains(new Vector2Int(nextPos.x, nextPos.y + 1)) && !stack.Contains(new Vector2Int(nextPos.x, nextPos.y + 1)))
+                                   stack.Push(new Vector2Int(nextPos.x, nextPos.y + 1));
+                            }
+                            if (nextPos.x > 0 && !partOfRegion[nextPos.x - 1, nextPos.y])
+                            {
+                                if (!region.nodes.Contains(new Vector2Int(nextPos.x - 1, nextPos.y)) && !stack.Contains(new Vector2Int(nextPos.x - 1, nextPos.y)))
+                                   stack.Push(new Vector2Int(nextPos.x - 1, nextPos.y));
+                            }
+                            if (nextPos.y > 0 && !partOfRegion[nextPos.x, nextPos.y - 1])
+                            {
+                                if (!region.nodes.Contains(new Vector2Int(nextPos.x, nextPos.y - 1)) && !stack.Contains(new Vector2Int(nextPos.x, nextPos.y - 1)))
+                                   stack.Push(new Vector2Int(nextPos.x, nextPos.y - 1));
+                            }
                         }
                     }
+                    regions.Add(region);
                 }
-                regions.Add(region);
+
+
+                
             }
         }
         return regions;
@@ -295,19 +343,23 @@ public class Board : MonoBehaviour
     //}
 
 
-    public void DestroySpheres()
+    public bool DestroySpheres()
     {
+        bool destroyed = false;
         for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < y; j++)
             {
-                if (Spheres[i, j].destroy)
+                if (Spheres[i, j] != null && Spheres[i, j].destroy)
                 {
-                    Destroy(Spheres[i,j].gameObject);
+                    Spheres[i, j].SetFadeOut();
+                    //Destroy(Spheres[i,j].gameObject);
                     Spheres[i, j] = null;
+                    destroyed = true;
                 }
             }
         }
+        return destroyed;
     }
 
     public void CascadeBoard()
@@ -358,7 +410,7 @@ public class Board : MonoBehaviour
             {
                 if (Spheres[i, j].GetType() == from)
                 {
-                    Spheres[i, j].SetType(to);
+                    Spheres[i, j].SetType(to, SphereGenerator.GetColorSprite(to));
                 }
             }
         }
@@ -383,7 +435,8 @@ public class Board : MonoBehaviour
 
         foreach(Tuple<int,int> t in points)
         {
-            Spheres[t.Item1, t.Item2].SetType(to);
+            Spheres[t.Item1, t.Item2].SetType(to, SphereGenerator.GetColorSprite(to));
+            
         }
     }
 

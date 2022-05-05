@@ -94,13 +94,19 @@ public class CombatHandler : MonoBehaviour
             case GameState.Cascade:
 
                 t += Time.deltaTime;
-                if (t > 0.5f)
+                if (t > 0.55f)
                 {
                     if (matches.Count == 0)
                     {
+                        t = 0;
+                        if (Board.DestroySpheres())
+                        {
+                            t -= 0.5f;
+                            return;
+                        }
                         Board.CascadeBoard(); 
                         matches = Board.IdentifyMatches();
-                        t = 0;
+                        
 
                         if(matches.Count == 0)
                         {
@@ -110,11 +116,14 @@ public class CombatHandler : MonoBehaviour
                     }
 
                     var match = matches[0];
-                    match.Spheres.ForEach(s => s.SetDestroy());
+                    match.Spheres.ForEach(s => s.TriggerMatch());
                     matches.RemoveAt(0);
                     t = 0;
 
-                    if(match.ElementType == TypeEnum.Grass)
+                    if(match.ElementType == TypeEnum.Light)
+                    {
+                        Player.DrawCard();
+                    } else if (match.ElementType == TypeEnum.Dark)
                     {
                         Player.DrawCard();
                     }

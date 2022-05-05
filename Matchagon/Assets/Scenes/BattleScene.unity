@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1260,6 +1260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1098683297}
   - component: {fileID: 1098683298}
+  - component: {fileID: 1098683299}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -1295,6 +1296,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 6
   y: 6
+  SphereObject: {fileID: 3446149553869900355, guid: 1bc9657ac9745d7488a44c43f9ccdba4,
+    type: 3}
+  SphereGenerator: {fileID: 0}
+--- !u!114 &1098683299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098683296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548bdf45834ab5f478bf117db91480a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TypeWeights:
+  - Type: 0
+    Weight: 22
+    Sprite: {fileID: 21300000, guid: 8e34d3edb5cd1e648a3b0c392933e911, type: 3}
+  - Type: 1
+    Weight: 22
+    Sprite: {fileID: 21300000, guid: c68aa9c1d64a4354e8ef5c42b1286ea0, type: 3}
+  - Type: 2
+    Weight: 22
+    Sprite: {fileID: 21300000, guid: ab6cd9a8fb7881145b58949f8688758a, type: 3}
+  - Type: 5
+    Weight: 22
+    Sprite: {fileID: 21300000, guid: 8679dc4c14a5e814eb3d07c421ab1731, type: 3}
+  - Type: 6
+    Weight: 2
+    Sprite: {fileID: 21300000, guid: 3729ab70af4891648b2749cfce62d342, type: 3}
+  - Type: 3
+    Weight: 4
+    Sprite: {fileID: 21300000, guid: f3edda709c5096148a7082793c1af733, type: 3}
+  - Type: 4
+    Weight: 4
+    Sprite: {fileID: 21300000, guid: ef5a3e040ddbfe9409f929ecfd7c3c8a, type: 3}
   SphereObject: {fileID: 3446149553869900355, guid: 1bc9657ac9745d7488a44c43f9ccdba4,
     type: 3}
 --- !u!1 &1100710278

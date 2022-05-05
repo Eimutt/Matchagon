@@ -10,7 +10,8 @@ public enum TypeEnum
     Grass,
     Dark,
     Light,
-    Shield
+    Shield,
+    Chromatic
 }
 
 

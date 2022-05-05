@@ -25,9 +25,11 @@ public class RewardScreen : MonoBehaviour
 
     public void GenerateCardRewards(int rarity)
     {
+        Random.seed = System.DateTime.Now.Millisecond;
         int xpos = -170;
         for(int i = 0; i < 3; i++)
         {
+            
             int r = UnityEngine.Random.Range(0, CardPrefabs.Length);
             var card = CardPrefabs[r];
 

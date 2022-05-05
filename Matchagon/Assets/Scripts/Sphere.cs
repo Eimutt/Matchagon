@@ -8,29 +8,35 @@ public class Sphere : MonoBehaviour
 {
     public TypeEnum Type;
     public bool destroy;
+    private bool fadeout;
 
     public float t;
 
+    public float ColorTintDuration;
+    //public Color ShieldColor;
+    [SerializeField]
+    private InvulnerabilityColor InvulnerabilityColor;
     // Start is called before the first frame update
     void Start()
     {
-        Type = TypeEnumGenerator.GetRandomType();
-        ColorSphere();
+        //Type = TypeEnumGenerator.GetRandomType();
+        //ColorSphere();
+        InvulnerabilityColor = GetComponent<InvulnerabilityColor>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (destroy)
+        if (fadeout)
         {
             t += Time.deltaTime;
-            Color tmp = GetComponent<SpriteRenderer>().color;
-            tmp.a = 1 - (2 * t);
-            GetComponent<SpriteRenderer>().color = tmp;
+            //Color tmp = GetComponent<SpriteRenderer>().color;
+            //tmp.a = 1 - (2 * t);
+            //GetComponent<SpriteRenderer>().color = tmp;
 
-            if(t > 0.5f)
+            if(t > ColorTintDuration * 2)
             {
-                Destroy(this);
+                Destroy(this.gameObject);
             }
         }
     }
@@ -49,14 +55,24 @@ public class Sphere : MonoBehaviour
 
     public TypeEnum GetType() { return Type; }
 
-    public void SetDestroy()
+    public void TriggerMatch()
     {
         destroy = true;
+        
+        InvulnerabilityColor.SetTintColor(TypeEnumGenerator.GetColor(Type), ColorTintDuration);
+
     }
 
-    public void SetType(TypeEnum type)
+    public void SetFadeOut()
+    {
+        fadeout = true;
+        InvulnerabilityColor.SetFadeOut(TypeEnumGenerator.GetColor(Type), ColorTintDuration*2);
+    }
+
+    public void SetType(TypeEnum type, Sprite sprite)
     {
         Type = type;
-        ColorSphere();
+        GetComponent<SpriteRenderer>().sprite = sprite;
+        //ColorSphere();
     }
 }

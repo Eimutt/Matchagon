@@ -13,6 +13,12 @@ public class Combo
         damageDict = new Dictionary<TypeEnum, int>();
     }
 
+    public Combo(int startCombo)
+    {
+        damageDict = new Dictionary<TypeEnum, int>();
+        count = startCombo;
+    }
+
     public void IncreaseDamageType(TypeEnum type, int damage)
     {
         int currentDamage = 0;
