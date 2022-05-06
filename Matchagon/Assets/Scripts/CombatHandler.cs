@@ -122,7 +122,7 @@ public class CombatHandler : MonoBehaviour
 
                     if(match.ElementType == TypeEnum.Light)
                     {
-                        Player.DrawCard();
+                        Player.GrantTemporaryMana(1);
                     } else if (match.ElementType == TypeEnum.Dark)
                     {
                         Player.DrawCard();

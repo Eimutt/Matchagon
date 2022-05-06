@@ -12,8 +12,9 @@ public class Player : MonoBehaviour
     public int MaxHp;
     public int CurrentHp;
 
-    private int mana = 2;
-    private int maxMana = 5;
+    private int mana = 0;
+    private int maxMana = 0;
+    private int tmpMana;
 
     public float ColorTintDuration;
     //public Color ShieldColor;
@@ -30,6 +31,8 @@ public class Player : MonoBehaviour
 
     public List<Card> Deck;
     public List<Card> Hand;
+
+    public float[] DamageMultiplier = new float[] { 1, 1, 1, 1, 1, 1 };
     // Start is called before the first frame update
     void Start()
     {
@@ -111,7 +114,9 @@ public class Player : MonoBehaviour
     {
         ResetShield();
         DrawCard();
-        mana = mana < maxMana ? mana + 1 :  mana;
+        IncreaseMana();
+        mana = maxMana + tmpMana;
+        tmpMana = 0;
         UpdatePlayableCards();
 
         Minions.ForEach(m => m.TriggerStartOfTurnEffects());
@@ -173,7 +178,7 @@ public class Player : MonoBehaviour
 
                 foreach (Minion minion in Minions)
                 {
-                    int minionElementDamage = minion.Damages[(int)entry.Key];
+                    float minionElementDamage = (float)minion.Damages[(int)entry.Key] * DamageMultiplier[(int)entry.Key];
                     if (minionElementDamage != 0)
                     {
                         attacks.Add(new PossibleAttack(minion, MatchEnum.Blob, entry.Key, value * minionElementDamage, combo.count, combo.damageMultiplier, minion.AOE));
@@ -318,5 +323,20 @@ public class Player : MonoBehaviour
 
             Hand.Add(cardObj.GetComponent<Card>());
         }
+    }
+
+    public void ChangeDamage(TypeEnum type, int percentage)
+    {
+        DamageMultiplier[(int)type] *= 1 + ((float)percentage / 100f);
+    }
+
+    public void IncreaseMana()
+    {
+        maxMana = maxMana == 10 ? 10: maxMana + 1;
+    }
+
+    public void GrantTemporaryMana(int amount)
+    {
+        tmpMana += amount;
     }
 }

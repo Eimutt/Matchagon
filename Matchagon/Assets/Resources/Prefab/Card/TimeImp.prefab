@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cost: 2
-  Rarity: 0
+  Rarity: 1
   Sprite: {fileID: 21300000, guid: 9d04325408ab1834fa79ba4c40662eb3, type: 3}
   Description: 0/0/0/3/0/0 Increases timer by 3 seconds.
   MinionPrefab: {fileID: 5750005499783465872, guid: ba66fcc67af907047be5402a7eb420aa,

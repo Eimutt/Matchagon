@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cost: 1
-  Rarity: 0
+  Rarity: 1
   Sprite: {fileID: 21300000, guid: d306f686dec28f94cb38fbaf167f4de7, type: 3}
   Description: Turn 5 random Orbs to Chromatic Orbs.
   spellType: BoardModification

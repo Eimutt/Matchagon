@@ -11,12 +11,12 @@ public class PossibleAttack
     public int fullDamage;
     public int combo;
     public bool Area;
-    public PossibleAttack(Minion source, MatchEnum attackType, TypeEnum type, int damage, int combo, float multiplier, bool area)
+    public PossibleAttack(Minion source, MatchEnum attackType, TypeEnum type, float damage, int combo, float multiplier, bool area)
     {
         this.source = source;
         this.attackType = attackType;
         this.type = type;
-        this.baseDamage = damage;
+        this.baseDamage = (int)damage;
         this.fullDamage = (int)(damage * multiplier);
         this.combo = combo;
         this.Area = area;

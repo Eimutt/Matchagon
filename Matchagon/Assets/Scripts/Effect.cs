@@ -29,5 +29,9 @@ public class Effect : GenericEffect<ActionEnum> {
         {
             GameObject.Find("CombatHandler").GetComponent<CombatHandler>().IncreaseTimeForNextTurn(effectStrength);
         }
+        else if (effectName == "GrassDamageMultiplier")
+        {
+            GameObject.Find("Player").GetComponent<Player>().ChangeDamage(TypeEnum.Grass, effectStrength);
+        }
     }
 }

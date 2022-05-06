@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cost: 1
-  Rarity: 0
+  Rarity: 1
   Sprite: {fileID: 21300000, guid: 489af37f2662d0f47946c8f981c37c10, type: 3}
   Description: Increases timer by 7 seconds this turn.
   spellType: TimeIncrease
