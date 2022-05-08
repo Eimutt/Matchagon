@@ -571,7 +571,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: s
 --- !u!222 &473643877
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1163,7 +1163,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: 0}
+  m_AnchoredPosition: {x: -508, y: 168}
   m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1016133362
@@ -1322,7 +1322,7 @@ MonoBehaviour:
     Weight: 22
     Sprite: {fileID: 21300000, guid: ab6cd9a8fb7881145b58949f8688758a, type: 3}
   - Type: 5
-    Weight: 22
+    Weight: 11
     Sprite: {fileID: 21300000, guid: 8679dc4c14a5e814eb3d07c421ab1731, type: 3}
   - Type: 6
     Weight: 2
@@ -1814,7 +1814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: -150}
+  m_AnchoredPosition: {x: -570, y: -90}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1550140173
@@ -3093,15 +3093,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4699945113363561761, guid: 8743d9b6aebc47b408bc99d3fc782abc,
+        type: 3}
+      propertyPath: sliderPrefab
+      value: 
+      objectReference: {fileID: 3833977744625501095, guid: c8b49e9b7e3e86f4bb42e8a118391abe,
+        type: 3}
+    - target: {fileID: 4699945113363561761, guid: 8743d9b6aebc47b408bc99d3fc782abc,
+        type: 3}
+      propertyPath: distanceDiff
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699945113363561761, guid: 8743d9b6aebc47b408bc99d3fc782abc,
+        type: 3}
+      propertyPath: bottomLeft.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4699945113363561766, guid: 8743d9b6aebc47b408bc99d3fc782abc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 4699945113363561766, guid: 8743d9b6aebc47b408bc99d3fc782abc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4699945113363561766, guid: 8743d9b6aebc47b408bc99d3fc782abc,
         type: 3}

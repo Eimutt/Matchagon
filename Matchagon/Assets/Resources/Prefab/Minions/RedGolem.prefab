@@ -48,11 +48,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShieldColor: {r: 0.09019608, g: 0.92941177, b: 1, a: 1}
-  InvulnerabilityColor: {fileID: 4870744172063127955}
+  DamagedColor: {r: 0, g: 0, b: 0, a: 0}
   ColorTintDuration: 2
   Damages: 020000000000000000000000000000000000000002000000
   Effects: []
   AOE: 1
+  position: 0
+  MaxHealth: 30
+  CurrentHealth: 30
 --- !u!212 &4870744172063127958
 SpriteRenderer:
   m_ObjectHideFlags: 0

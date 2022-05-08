@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
 
         if(ability.Type == ActionEnum.Attack)
         {
-            x.TakeDamage(Damage);
+            x.AttackFirstMinion(Damage);
             GetComponent<Shake>().Move();
 
         }

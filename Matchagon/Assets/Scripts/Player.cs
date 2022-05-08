@@ -33,6 +33,12 @@ public class Player : MonoBehaviour
     public List<Card> Hand;
 
     public float[] DamageMultiplier = new float[] { 1, 1, 1, 1, 1, 1 };
+
+    public GameObject sliderPrefab;
+    public GameObject spawnPointPrefab;
+    private List<GameObject> spawnPoints;
+
+    public Card selectedCard;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,20 +53,23 @@ public class Player : MonoBehaviour
         UpdateUIShield();
 
         Minions.Add(GetComponent<Minion>());
+        GetComponent<Minion>().position = 0;
 
         InvulnerabilityColor = GetComponent<InvulnerabilityColor>();
 
         positions = new List<Vector3>();
+        spawnPoints = new List<GameObject>();
         GetLegitimateSpawnPositions();
 
         SpawnDeck();
         Deck = Deck.OrderBy(a => rng.Next()).ToList();
         DrawCard();
         DrawCard();
-    }
 
-    // Update is called once per frame
-    void Update()
+}
+
+// Update is called once per frame
+void Update()
     {
 
     }
@@ -95,12 +104,18 @@ public class Player : MonoBehaviour
     //}
     private void GetLegitimateSpawnPositions()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 5; i++)
         {
-            for (int j = 0; j < 3; j++)
-            {
-                positions.Add(bottomLeft + new Vector3(i * distanceDiff, j * distanceDiff, 0));
-            }
+            var pos = bottomLeft + new Vector3(1 + i * distanceDiff, i % 2 == 0 ? -1 * distanceDiff : 1 * distanceDiff, 0);
+            positions.Add(pos);
+
+            var spawnPoint = Instantiate(spawnPointPrefab, pos, Quaternion.identity, transform);
+            spawnPoints.Add(spawnPoint);
+            spawnPoint.name = "Spawn" + i;
+
+            spawnPoint.GetComponent<SpawnPoint>().position = i + 1;
+
+            spawnPoint.SetActive(false);
         }
     }
 
@@ -236,6 +251,57 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void TryPlayCard(int cardIndex)
+    {
+        var card = Hand[cardIndex];
+        if(card.GetType() == typeof(MinionCard))
+        {
+            SelectMinionCard(cardIndex);
+        } else
+        {
+            PlayCard(cardIndex);
+        }
+
+    }
+
+    public void SelectMinionCard(int cardIndex)
+    {
+        var card = Hand[cardIndex];
+        if (card.Cost <= mana)
+        {
+            card.gameObject.transform.position += new Vector3(0, 0.5f, 0);
+            ShowViableSpawnPoints();
+
+            selectedCard = card;
+        }
+    }
+
+    public void ShowViableSpawnPoints()
+    {
+        for (int i = 0; i < spawnPoints.Count ; i++)
+        {
+
+
+
+            if (!Minions.Any(e => e.position - 1 == i))
+            {
+                spawnPoints[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                spawnPoints[i].gameObject.SetActive(false);
+            }
+        }
+    }
+    
+    public void HideSpawnPoints() {
+        for (int i = 0; i < spawnPoints.Count; i++)
+        {
+            spawnPoints[i].gameObject.SetActive(false);
+        }
+    }
+
+
     public void AddMinion(GameObject minionGameObject)
     {
         bool positionFound = false;
@@ -245,14 +311,14 @@ public class Player : MonoBehaviour
         int i = 0;
         while (!positionFound)
         {
-            position = positions[i];
-            if (!Minions.Any(e => e.gameObject.transform.position == position))
+            i++;
+            position = positions[i - 1];
+            if (!Minions.Any(e => e.position == i))
             {
                 positionFound = true;
             }
 
-            i++;
-            if (i > positions.Count)
+            if (i > positions.Count + 1)
             {
                 Debug.Log("no room for enemy");
                 return;
@@ -261,9 +327,38 @@ public class Player : MonoBehaviour
 
 
         GameObject minionObject = Instantiate(minionGameObject, position, Quaternion.identity);
+
+        GameObject hpbar = Instantiate(sliderPrefab, minionObject.transform);
+
         Minion minion = minionObject.GetComponent<Minion>();
+        minion.position = i;
 
         Minions.Add(minion);
+    }
+
+    public void AddMinion(int positionIndex)
+    {
+        var position = positions[positionIndex - 1];
+
+        var x = (MinionCard)selectedCard;
+
+        GameObject minionObject = Instantiate(x.MinionPrefab, position, Quaternion.identity);
+
+        GameObject hpbar = Instantiate(sliderPrefab, minionObject.transform);
+
+        Minion minion = minionObject.GetComponent<Minion>();
+        minion.position = positionIndex;
+
+        Minions.Add(minion);
+
+        HideSpawnPoints();
+
+        mana -= selectedCard.Cost;
+        Destroy(selectedCard.gameObject);
+        Hand.Remove(selectedCard);
+        UpdatePlayableCards();
+
+        selectedCard = null;
     }
 
     public void PlayCard(int cardIndex)
@@ -332,11 +427,30 @@ public class Player : MonoBehaviour
 
     public void IncreaseMana()
     {
-        maxMana = maxMana == 10 ? 10: maxMana + 1;
+        maxMana = maxMana == 5 ? 5: maxMana + 1;
     }
 
     public void GrantTemporaryMana(int amount)
     {
         tmpMana += amount;
+    }
+
+    public void AttackFirstMinion(int damage)
+    {
+        var target = Minions.OrderByDescending(m => m.position).First();
+
+        if(target.position == 0)
+        {
+            TakeDamage(damage);
+        } else
+        {
+            target.TakeDamage(damage);
+            if (target.Dead)
+            {
+                Minions.Remove(target);
+                Destroy(target.gameObject);
+            }
+        }
+
     }
 }

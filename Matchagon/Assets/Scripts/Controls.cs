@@ -29,7 +29,7 @@ public class Controls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (!Selected && CombatHandler.GetState() == GameState.UserSpells)
             {
@@ -41,7 +41,7 @@ public class Controls : MonoBehaviour
                 CombatHandler.EndMove();
             }
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             if (Position.x < maxX)
             {
@@ -50,7 +50,7 @@ public class Controls : MonoBehaviour
             }
 
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(KeyCode.A))
         {
 
             if (Position.x > 0)
@@ -59,7 +59,7 @@ public class Controls : MonoBehaviour
                 Position += new Vector2Int(-1, 0);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(KeyCode.W))
         {
 
             if (Position.y < maxY)
@@ -68,7 +68,7 @@ public class Controls : MonoBehaviour
                 Position += new Vector2Int(0, 1);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.S))
         {
 
             if (Position.y > 0)
@@ -78,45 +78,69 @@ public class Controls : MonoBehaviour
             }
         }
 
-        if(CombatHandler.GetState() == GameState.UserSpells)
+        if (CombatHandler.GetState() == GameState.UserSpells && Player.selectedCard == null)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Player.PlayCard(0);
+                Player.TryPlayCard(0);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                Player.PlayCard(1);
+                //Player.PlayCard(1);
+                Player.TryPlayCard(1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                Player.PlayCard(2);
+                Player.TryPlayCard(2);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                Player.PlayCard(3);
+                Player.TryPlayCard(3);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                Player.PlayCard(4);
+                Player.TryPlayCard(4);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha6))
             {
-                Player.PlayCard(5);
+                Player.TryPlayCard(5);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha7))
             {
-                Player.PlayCard(6);
+                Player.TryPlayCard(6);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha8))
             {
-                Player.PlayCard(7);
+                Player.TryPlayCard(7);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha9))
             {
-                Player.PlayCard(8);
+                Player.TryPlayCard(8);
             }
 
+        }
+        else if (CombatHandler.GetState() == GameState.UserSpells && Player.selectedCard != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Player.AddMinion(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Player.AddMinion(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                Player.AddMinion(3);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                Player.AddMinion(4);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                Player.AddMinion(5);
+            }
         }
         
         MoveCursor();

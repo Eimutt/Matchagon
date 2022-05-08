@@ -985,12 +985,15 @@ MonoBehaviour:
   Health: 150
   Gold: 0
   Deck:
-  - {fileID: 4754214062555254034, guid: 157b80ce16b8bcd4d8a8f3b8ece6ba12, type: 3}
-  - {fileID: 4754214062555254034, guid: 157b80ce16b8bcd4d8a8f3b8ece6ba12, type: 3}
-  - {fileID: 4754214062555254034, guid: 157b80ce16b8bcd4d8a8f3b8ece6ba12, type: 3}
-  - {fileID: 5525783382388491449, guid: d0d842391665d43499e1d38754abe933, type: 3}
-  - {fileID: 3071275746342859049, guid: c9e02b1f2ddfa3544afa49a69f340d61, type: 3}
-  - {fileID: 3071275746342859049, guid: c9e02b1f2ddfa3544afa49a69f340d61, type: 3}
+  - {fileID: 1124983423850404972, guid: f21556fbd6ef6e646b2b9fb63babe9ed, type: 3}
+  - {fileID: 671836586890821436, guid: 266bb414e5aad604fabaab8deb5b8dde, type: 3}
+  - {fileID: 5592207670235157653, guid: b014c047155e32840af3b3ebb297297c, type: 3}
+  - {fileID: 5026969185466317923, guid: de8336a49da13a8488be09b63cbf2e8f, type: 3}
+  - {fileID: 4340684016238223540, guid: b1b1665c892b40f488a0b2298079645c, type: 3}
+  - {fileID: 5907672755002055391, guid: 072beeb3d6d24b34c9ca0db7aa414537, type: 3}
+  - {fileID: 839144242364136264, guid: 15e4ea669d315f448a82f32adc6dbac6, type: 3}
+  - {fileID: 3631613578159523853, guid: 509cc840a8a0b7949bb528fa37212a0c, type: 3}
+  - {fileID: 706259058696523233, guid: 573829ac3ebe74249b14ddd73f623da2, type: 3}
   Items: []
 --- !u!1 &1570636272
 GameObject:

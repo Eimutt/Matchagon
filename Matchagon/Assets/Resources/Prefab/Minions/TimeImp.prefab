@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShieldColor: {r: 0.09019608, g: 0.92941177, b: 1, a: 1}
-  InvulnerabilityColor: {fileID: 5750005499783465879}
+  DamagedColor: {r: 0, g: 0, b: 0, a: 0}
   ColorTintDuration: 2
-  Damages: 000000000000000000000000030000000000000000000000
+  Damages: 000000000000000000000000050000000000000000000000
   Effects:
   - effectName: TurnTimeIncrease
     effectStrength: 3
@@ -59,6 +59,10 @@ MonoBehaviour:
     effectStrength: 3
     EffectType: 4
   AOE: 0
+  position: 0
+  MaxHealth: 12
+  CurrentHealth: 12
+  Dead: 0
 --- !u!212 &5750005499783465874
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class Minion : MonoBehaviour
     private CombatAnimations CombatAnimations;
     public Color ShieldColor;
     [SerializeField]
+    public Color DamagedColor;
     private InvulnerabilityColor InvulnerabilityColor;
     public float ColorTintDuration = 1f;
     public int[] Damages = new int[0];
@@ -19,6 +20,12 @@ public class Minion : MonoBehaviour
 
     public bool AOE;
 
+    public int position;
+
+    public int MaxHealth;
+    public int CurrentHealth;
+
+    public bool Dead;
     // Start is called before the first frame update
     void Start()
     {
@@ -78,5 +85,23 @@ public class Minion : MonoBehaviour
     public void TriggerSummonEffects()
     {
         Effects.Where(e => e.EffectType == EffectType.SummonEffect).ToList().ForEach(e => e.Trigger());
+    }
+
+    public void TakeDamage(int damage)
+    {
+        var healthDamage = Mathf.Max(0, damage);
+
+
+        CurrentHealth -= healthDamage;
+        InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
+        GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, healthDamage, 1);
+
+        float percentage = (float)CurrentHealth / (float)MaxHealth;
+        transform.Find("HpBarSlider(Clone)/Slider").GetComponent<Slider>().value = percentage;
+
+        if(CurrentHealth <= 0)
+        {
+            Dead = true;
+        }
     }
 }
