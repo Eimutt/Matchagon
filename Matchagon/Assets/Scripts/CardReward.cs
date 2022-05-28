@@ -11,13 +11,12 @@ public class CardReward : Reward
     {
         base.Start();
         Button btn = GetComponent<Button>();
-        btn.onClick.AddListener(PickReward);
+        btn.onClick.AddListener(SelectCard);
     }
-    public void PickReward()
-    {
-        GameObject.Find("GameHandler").GetComponent<PlayerData>().GetCard(card);
 
-        GameObject.Find("GameHandler").GetComponent<GameHandler>().CloseRewards();
+    public void SelectCard()
+    {
+        GameObject.Find("VictoryScreen").GetComponent<RewardScreen>().SelectCard(card);
     }
 
 }

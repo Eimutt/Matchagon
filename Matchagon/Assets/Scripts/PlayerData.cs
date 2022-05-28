@@ -38,4 +38,9 @@ public class PlayerData : MonoBehaviour
     {
         Items.Add(item);
     }
+
+    public void GetGold(int gold)
+    {
+        Gold += gold;
+    }
 }

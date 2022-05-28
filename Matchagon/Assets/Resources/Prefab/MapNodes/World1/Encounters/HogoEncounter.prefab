@@ -126,7 +126,7 @@ MonoBehaviour:
   order: 0
   reachableFrom: []
   DeadEnd: 1
-  sprite: {fileID: 21300000, guid: 7e3d3597c1586e546851594fe21d986a, type: 3}
+  sprite: {fileID: 21300000, guid: abf22a2895877f047a6b5885df4ab861, type: 3}
   encounter:
     Waves:
     - Enemy: {fileID: 2714039493885062645, guid: c1484fdb3b917b341af03a99a3c71b6e,

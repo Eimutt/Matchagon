@@ -43,9 +43,10 @@ public class CombatHandler : MonoBehaviour
 
     public EnemyHandler EnemyHandler;
 
-    public Encounter Encounter;
-
     public bool active;
+
+    public Encounter Encounter;
+    public EncounterInfo EncounterInfo;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +63,8 @@ public class CombatHandler : MonoBehaviour
         turnTimer = turnLimit;
 
         EnemyHandler = GetComponent<EnemyHandler>();
+
+        EncounterInfo = GameObject.Find("EncounterInfo").GetComponent<EncounterInfo>();
     }
 
     // Update is called once per frame

@@ -23,8 +23,6 @@ public class SphereGenerator : MonoBehaviour
 
         var randomInt = Random.Range(0, WeightSum);
 
-        Debug.Log(randomInt);
-
         foreach (TypeWeight typeWeight in TypeWeights)
         {
             if (randomInt < typeWeight.Weight)

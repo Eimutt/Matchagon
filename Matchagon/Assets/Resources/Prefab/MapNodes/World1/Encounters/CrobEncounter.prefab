@@ -216,17 +216,13 @@ MonoBehaviour:
       Turn: 1
     - Enemy: {fileID: 6587247137408374682, guid: 484f20ea58bbc884ba73168f336df3c3,
         type: 3}
-      Quanitity: 3
+      Quanitity: 2
       Turn: 2
     - Enemy: {fileID: 6587247137408374682, guid: 484f20ea58bbc884ba73168f336df3c3,
         type: 3}
-      Quanitity: 4
+      Quanitity: 3
       Turn: 3
-    - Enemy: {fileID: 6587247137408374682, guid: 484f20ea58bbc884ba73168f336df3c3,
-        type: 3}
-      Quanitity: 5
-      Turn: 4
     - Enemy: {fileID: 6772567637094521615, guid: 4a255f1b4b4a4954681ee63a9c1d05af,
         type: 3}
       Quanitity: 2
-      Turn: 5
+      Turn: 4
