@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoreNode : MapNode
+public class TreasureNode : MapNode
 {
-    public Encounter encounter;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +19,6 @@ public class StoreNode : MapNode
     public override void ActivateNode()
     {
 
-        GameObject.Find("GameHandler").GetComponent<GameHandler>().EnterStore();
+        GameObject.Find("GameHandler").GetComponent<GameHandler>().EnterTreasure();
     }
 }

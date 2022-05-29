@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9495fca193d53f047b6bb76ed108668c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Druid
   Cost: 3
   Rarity: 2
   Sprite: {fileID: 21300000, guid: 79d415a0651fcc44190a93d9fe31685b, type: 3}

@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class RewardScreen : MonoBehaviour
 {
     public Card[] CardPrefabs;
-    public GameObject CardBase;
+    public Item[] ItemPrefabs;
+    public GameObject RewardBase;
 
     public GameObject confirmButton;
 
-    private Card SelectedCard;
+    private Reward SelectedReward;
     private int GoldReward;
 
     public int goldMax;
@@ -20,6 +21,7 @@ public class RewardScreen : MonoBehaviour
     void Start()
     {
         CardPrefabs = Resources.LoadAll<Card>("Prefab/Card");
+        ItemPrefabs = Resources.LoadAll<Item>("Prefab/Items");
 
         confirmButton = transform.Find("Rewards/ConfirmReward").gameObject;
         transform.Find("Rewards").gameObject.SetActive(false);
@@ -44,27 +46,56 @@ public class RewardScreen : MonoBehaviour
             int r = UnityEngine.Random.Range(0, CardPrefabs.Length);
             var card = CardPrefabs[r];
 
-            var cardObj = Instantiate(CardBase, transform.Find("Rewards/Card Rewards"));
+            var cardObj = Instantiate(RewardBase, transform.Find("Rewards/Card Rewards"));
             cardObj.GetComponent<RectTransform>().localPosition = new Vector3(xpos, 0, 0); GetComponent<RectTransform>();
             cardObj.transform.Find("Image").GetComponent<Image>().sprite = card.Sprite;
+            cardObj.transform.Find("Name").GetComponent<Text>().text = card.Name;
             cardObj.transform.Find("Cost").GetComponent<Text>().text = card.Cost.ToString();
             cardObj.transform.Find("Description").GetComponent<Text>().text = card.Description;
-            cardObj.GetComponent<CardReward>().card = card;
+            cardObj.name = card.Name;
+
+
+            var cardReward = cardObj.AddComponent<CardReward>();
+            cardReward.card = card;
             xpos += 170;
         }
-
     }
 
-    public void GenerateRewards()
+
+    public void GenerateItemReward()
+    {
+        int r = UnityEngine.Random.Range(0, ItemPrefabs.Length);
+        var item = ItemPrefabs[r];
+
+        var itemObj = Instantiate(RewardBase, transform.Find("Rewards/Card Rewards"));
+        itemObj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0); GetComponent<RectTransform>();
+        itemObj.transform.Find("Image").GetComponent<Image>().sprite = item.Sprite;
+        itemObj.transform.Find("Name").GetComponent<Text>().text = item.Name;
+        itemObj.transform.Find("Description").GetComponent<Text>().text = item.Description;
+        itemObj.name = item.Name;
+
+        var itemReward = itemObj.AddComponent<ItemReward>();
+        itemReward.Item = item;
+    }
+
+    public void GenerateBattleRewards()
     {
         transform.Find("Rewards").gameObject.SetActive(true);
         GenerateCardRewards(0);
         GenerateGoldAmount();
     }
 
+    public void GenerateTreasureRewards()
+    {
+        transform.Find("Rewards").gameObject.SetActive(true);
+        GenerateItemReward();
+    }
+
     public void GenerateGoldAmount()
     {
         GoldReward = Random.Range(goldMin, goldMax);
+
+        transform.Find("Rewards/GoldReward").gameObject.SetActive(true);
         transform.Find("Rewards/GoldReward/Text").GetComponent<Text>().text = " + " + GoldReward.ToString();
 
     }
@@ -75,21 +106,20 @@ public class RewardScreen : MonoBehaviour
         {
             Destroy(child.gameObject);
         };
-        
+
+        transform.Find("Rewards/GoldReward").gameObject.SetActive(false);
         transform.Find("Rewards").gameObject.SetActive(false);
     }
 
-    public void SelectCard(Card card)
+    public void SelectReward(Reward reward)
     {
-        SelectedCard = card;
+        SelectedReward = reward;
         UpdateSelectedButton();
     }
 
-    
-
     public void PickReward()
     {
-        GameObject.Find("GameHandler").GetComponent<PlayerData>().GetCard(SelectedCard);
+        GameObject.Find("GameHandler").GetComponent<PlayerData>().GetReward(SelectedReward);
         GameObject.Find("GameHandler").GetComponent<PlayerData>().GetGold(GoldReward);
 
         GameObject.Find("GameHandler").GetComponent<GameHandler>().CloseRewards();
@@ -99,7 +129,7 @@ public class RewardScreen : MonoBehaviour
     private void UpdateSelectedButton()
     {
         confirmButton.GetComponent<Button>().interactable = true;
-        confirmButton.transform.Find("Text").GetComponent<Text>().text = "Pick " + SelectedCard.name + " + " + GoldReward.ToString() + " gold"; 
+        confirmButton.transform.Find("Text").GetComponent<Text>().text = "Pick " + SelectedReward.name + " + " + GoldReward.ToString() + " gold"; 
 
     }
 

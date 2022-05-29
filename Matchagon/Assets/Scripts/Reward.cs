@@ -15,13 +15,3 @@ public class Reward : MonoBehaviour
 
     }
 }
-
-public class ItemReward : Reward
-{
-    public Item item;
-    public override void PickReward()
-    {
-
-        GameObject.Find("GameHandler").GetComponent<PlayerData>().GetItem(item);
-    }
-}

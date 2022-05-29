@@ -16,7 +16,7 @@ public class CardReward : Reward
 
     public void SelectCard()
     {
-        GameObject.Find("VictoryScreen").GetComponent<RewardScreen>().SelectCard(card);
+        GameObject.Find("VictoryScreen").GetComponent<RewardScreen>().SelectReward(this);
     }
 
 }

@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a0a293792f25648a1f62bcb2dbbe2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: CLOCK
   Cost: 1
   Rarity: 1
   Sprite: {fileID: 21300000, guid: 489af37f2662d0f47946c8f981c37c10, type: 3}

@@ -163,6 +163,12 @@ void Update()
         GameObject.Find("ShieldText").GetComponent<Text>().text = Shield > 0 ? "+(" + Shield.ToString() + ")" : "";
     }
 
+    public void GetShield(int shield)
+    {
+        Shield += shield;
+        UpdateUIShield();
+    }
+
     public void ResolveTurn(Combo combo, EnemyHandler enemyHandler)
     {
         List<PossibleAttack> attacks = new List<PossibleAttack>();

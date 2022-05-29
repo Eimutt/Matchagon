@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerData : MonoBehaviour
 {
@@ -23,9 +24,13 @@ public class PlayerData : MonoBehaviour
 
     public void GetReward(Reward reward)
     {
-        if(reward.GetType() == typeof(Card))
+        if (reward.GetType() == typeof(CardReward))
         {
-            //GetCard(reward);
+            var card = (CardReward)reward;
+            GetCard(card.card);
+        } else if (reward.GetType() == typeof(ItemReward)){
+            var item = (ItemReward)reward;
+            GetItem(item.Item);
         }
     }
 
@@ -42,5 +47,21 @@ public class PlayerData : MonoBehaviour
     public void GetGold(int gold)
     {
         Gold += gold;
+        GameObject.Find("Gold").GetComponent<Text>().text = Gold.ToString();
+        //Play animation
+    }
+
+    public void LoseGold(int gold)
+    {
+        Gold -= gold;
+        GameObject.Find("Gold").GetComponent<Text>().text = Gold.ToString();
+        //Play animation
+
+    }
+
+    public void UpdateHealth(int newHealth)
+    {
+        Health = newHealth;
+        GameObject.Find("Health").GetComponent<Text>().text = newHealth + "/" + MaxHealth;
     }
 }

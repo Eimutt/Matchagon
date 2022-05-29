@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
+    public string Name;
     public int Cost;
     public int Rarity;
     public Sprite Sprite;

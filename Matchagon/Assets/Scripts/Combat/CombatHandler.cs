@@ -210,7 +210,7 @@ public class CombatHandler : MonoBehaviour
         if(EnemyHandler.NoEnemiesLeft() && Encounter.Waves.All(e => e.Turn <= Turn))
         {
 
-            GameObject.Find("GameHandler").GetComponent<PlayerData>().Health = Player.CurrentHp;
+            GameObject.Find("GameHandler").GetComponent<PlayerData>().UpdateHealth(Player.CurrentHp);
             GameObject.Find("GameHandler").GetComponent<GameHandler>().LeaveCombat();
 
         }

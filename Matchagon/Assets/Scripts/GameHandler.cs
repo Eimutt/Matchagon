@@ -17,9 +17,9 @@ public class GameHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.H))
         {
-            //EnterCombat();
+            EnterShop();
         }
     }
 
@@ -31,10 +31,10 @@ public class GameHandler : MonoBehaviour
         WorldMap.gameObject.SetActive(false);
     }
 
-    public void EnterStore()
+    public void EnterShop()
     {
-        SceneManager.LoadScene("StoreScene", LoadSceneMode.Additive);
-        var battleScene = SceneManager.GetSceneByName("StoreScene");
+        SceneManager.LoadScene("ShopScene", LoadSceneMode.Additive);
+        var battleScene = SceneManager.GetSceneByName("ShopScene");
         //StartCoroutine(SetActive(battleScene, encounter));
         WorldMap.gameObject.SetActive(false);
     }
@@ -58,7 +58,19 @@ public class GameHandler : MonoBehaviour
     public void LeaveCombat()
     {
         SceneManager.UnloadScene("BattleScene");
-        RewardScreen.GenerateRewards();
+        RewardScreen.GenerateBattleRewards();
+    }
+
+    public void EnterTreasure()
+    {
+        RewardScreen.GenerateTreasureRewards();
+    }
+
+    public void LeaveShop()
+    {
+        SceneManager.UnloadScene("ShopScene");
+        WorldMap.gameObject.SetActive(true);
+        WorldMap.ActivateMovement();
     }
 
     public void CloseRewards()
