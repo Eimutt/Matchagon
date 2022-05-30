@@ -34,7 +34,7 @@ public class Card : MonoBehaviour
     public void OnMouseEnter()
     {
         DetailedCardInfo detailedCardInfo = GameObject.Find("DetailedCardInfo").GetComponent<DetailedCardInfo>();
-        detailedCardInfo.Populate(Sprite, Cost.ToString(), Description);
+        detailedCardInfo.Populate(Sprite, Name, Cost.ToString(), Description, Rarity, true);
     }
 
     public void OnMouseExit()

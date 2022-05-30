@@ -56,7 +56,7 @@ public class ShowDeck : MonoBehaviour
             cardObj.transform.localPosition = new Vector3(xStart + xCount * xDif, yStart + yCount * yDif);
 
             DetailedCardInfo detailedCardInfo = cardObj.GetComponent<DetailedCardInfo>();
-            detailedCardInfo.Populate(card.Sprite, card.Cost.ToString(), card.Description);
+            detailedCardInfo.Populate(card.Sprite, card.name, card.Cost.ToString(), card.Description, card.Rarity, false);
 
             xCount++;
             if(xCount >= rowMax)

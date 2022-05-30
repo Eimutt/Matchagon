@@ -48,12 +48,16 @@ public class RewardScreen : MonoBehaviour
 
             var cardObj = Instantiate(RewardBase, transform.Find("Rewards/Card Rewards"));
             cardObj.GetComponent<RectTransform>().localPosition = new Vector3(xpos, 0, 0); GetComponent<RectTransform>();
-            cardObj.transform.Find("Image").GetComponent<Image>().sprite = card.Sprite;
-            cardObj.transform.Find("Name").GetComponent<Text>().text = card.Name;
-            cardObj.transform.Find("Cost").GetComponent<Text>().text = card.Cost.ToString();
-            cardObj.transform.Find("Description").GetComponent<Text>().text = card.Description;
+            //cardObj.transform.Find("Image").GetComponent<Image>().sprite = card.Sprite;
+            //cardObj.transform.Find("Name").GetComponent<Text>().text = card.Name;
+            //cardObj.transform.Find("Cost").GetComponent<Text>().text = card.Cost.ToString();
+            //cardObj.transform.Find("Description").GetComponent<Text>().text = card.Description;
+
+            DetailedCardInfo detailedCardInfo = cardObj.GetComponent<DetailedCardInfo>();
+            detailedCardInfo.Populate(card.Sprite, card.Name, card.Cost.ToString(), card.Description, card.Rarity, false);
             cardObj.name = card.Name;
 
+            cardObj.AddComponent<Button>();
 
             var cardReward = cardObj.AddComponent<CardReward>();
             cardReward.card = card;
@@ -69,10 +73,12 @@ public class RewardScreen : MonoBehaviour
 
         var itemObj = Instantiate(RewardBase, transform.Find("Rewards/Card Rewards"));
         itemObj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0); GetComponent<RectTransform>();
-        itemObj.transform.Find("Image").GetComponent<Image>().sprite = item.Sprite;
-        itemObj.transform.Find("Name").GetComponent<Text>().text = item.Name;
-        itemObj.transform.Find("Description").GetComponent<Text>().text = item.Description;
+
+        DetailedCardInfo detailedCardInfo = itemObj.GetComponent<DetailedCardInfo>();
+        detailedCardInfo.Populate(item.Sprite, item.Name, "", item.Description, item.Rarity, false);
         itemObj.name = item.Name;
+
+        itemObj.AddComponent<Button>();
 
         var itemReward = itemObj.AddComponent<ItemReward>();
         itemReward.Item = item;

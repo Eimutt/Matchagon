@@ -1201,7 +1201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardPrefabs: []
   ItemPrefabs: []
-  RewardBase: {fileID: 7654732833909825178, guid: 661acb764cc84e84199ab7a900651a2f,
+  RewardBase: {fileID: 1685760629940263646, guid: 425eea43086d6284b96eb200e0c8563c,
     type: 3}
   confirmButton: {fileID: 0}
   goldMax: 15
@@ -1537,11 +1537,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 150
   Health: 150
-  Gold: 150
+  Gold: 0
   Deck:
   - {fileID: 4340684016238223540, guid: b1b1665c892b40f488a0b2298079645c, type: 3}
   - {fileID: 5907672755002055391, guid: 072beeb3d6d24b34c9ca0db7aa414537, type: 3}
-  - {fileID: 3631613578159523853, guid: 509cc840a8a0b7949bb528fa37212a0c, type: 3}
+  - {fileID: 839144242364136264, guid: 15e4ea669d315f448a82f32adc6dbac6, type: 3}
+  - {fileID: 839144242364136264, guid: 15e4ea669d315f448a82f32adc6dbac6, type: 3}
+  - {fileID: 6170630613339471603, guid: 48e13de35cdf68241a2596283cdb6c3b, type: 3}
+  - {fileID: 5026969185466317923, guid: de8336a49da13a8488be09b63cbf2e8f, type: 3}
+  - {fileID: 1124983423850404972, guid: f21556fbd6ef6e646b2b9fb63babe9ed, type: 3}
+  - {fileID: 5525783382388491449, guid: d0d842391665d43499e1d38754abe933, type: 3}
   Items: []
 --- !u!1 &1570636272
 GameObject:
