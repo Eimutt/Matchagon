@@ -17,7 +17,6 @@ public class Board : MonoBehaviour
     {
         Spheres = new Sphere[x,y];
         SphereGenerator = gameObject.GetComponent<SphereGenerator>();
-        FillBoard();
     }
 
     // Update is called once per frame
@@ -437,6 +436,30 @@ public class Board : MonoBehaviour
         {
             Spheres[t.Item1, t.Item2].SetType(to, SphereGenerator.GetColorSprite(to));
             
+        }
+    }
+
+    public void HideRandomSpheres(int count)
+    {
+        var points = new List<Tuple<int, int>>();
+
+        while (points.Count < count)
+        {
+            int i = UnityEngine.Random.Range(0, x);
+            int j = UnityEngine.Random.Range(0, x);
+            Tuple<int, int> t = new Tuple<int, int>(i, j);
+
+            if (!points.Contains(t))
+            {
+                points.Add(t);
+            }
+
+        }
+
+        foreach (Tuple<int, int> t in points)
+        {
+            Spheres[t.Item1, t.Item2].HideType();
+
         }
     }
 

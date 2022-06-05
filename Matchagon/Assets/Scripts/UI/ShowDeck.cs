@@ -1,18 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShowDeck : MonoBehaviour
 {
     public GameObject DeckContainer;
-    public GameObject DetailedCardInfo;
     public bool active;
-
-    public float xDif;
-    public float yDif;
-    public float xStart;
-    public float yStart;
-    public float rowMax;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +29,7 @@ public class ShowDeck : MonoBehaviour
         if (active)
         {
             Close();
+
         } else
         {
             Show();
@@ -43,37 +38,16 @@ public class ShowDeck : MonoBehaviour
 
     public void Show()
     {
-        DeckContainer.active = true;
-        List<Card> cards = GameObject.Find("GameHandler").GetComponent<PlayerData>().Deck;
+        DeckContainer.GetComponent<DeckView>().Show();
 
-
-        int xCount = 0;
-        int yCount = 0;
-        foreach(var card in cards)
-        {
-            var cardObj = Instantiate(DetailedCardInfo, Vector3.zero, Quaternion.identity, DeckContainer.transform);
-
-            cardObj.transform.localPosition = new Vector3(xStart + xCount * xDif, yStart + yCount * yDif);
-
-            DetailedCardInfo detailedCardInfo = cardObj.GetComponent<DetailedCardInfo>();
-            detailedCardInfo.Populate(card.Sprite, card.name, card.Cost.ToString(), card.Description, card.Rarity, false);
-
-            xCount++;
-            if(xCount >= rowMax)
-            {
-                yCount++;
-                xCount = 0;
-            }
-        }
         active = true;
+        GameObject.Find("WorldMap").GetComponent<WorldMap>().SetMove(false);
     }
 
     public void Close()
     {
-        DeckContainer.active = false;
-        DeckContainer.Clear();
+        DeckContainer.GetComponent<DeckView>().Close();
         active = false;
+        GameObject.Find("WorldMap").GetComponent<WorldMap>().SetMove(true);
     }
-
-
 }

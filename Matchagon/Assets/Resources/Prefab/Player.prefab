@@ -527,6 +527,7 @@ MonoBehaviour:
   - {fileID: 5907672755002055391, guid: 072beeb3d6d24b34c9ca0db7aa414537, type: 3}
   - {fileID: 5907672755002055391, guid: 072beeb3d6d24b34c9ca0db7aa414537, type: 3}
   Hand: []
+  StartMinions: []
   DamageMultiplier:
   - 1
   - 1
@@ -537,6 +538,7 @@ MonoBehaviour:
   sliderPrefab: {fileID: 0}
   spawnPointPrefab: {fileID: 2458180238367029620, guid: d1749c8a7579c834f8519ae312a58770,
     type: 3}
+  selectedCard: {fileID: 0}
 --- !u!212 &4699945113363561767
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -645,7 +647,7 @@ MonoBehaviour:
   ShieldColor: {r: 0.09019608, g: 0.92941177, b: 1, a: 1}
   DamagedColor: {r: 0, g: 0, b: 0, a: 0}
   ColorTintDuration: 1
-  Damages: 020000000200000002000000020000000200000002000000
+  Damages: 010000000100000001000000000000000000000001000000
   Effects: []
   AOE: 0
   position: 0

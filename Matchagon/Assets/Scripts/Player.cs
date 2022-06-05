@@ -29,8 +29,10 @@ public class Player : MonoBehaviour
 
     private static System.Random rng = new System.Random();
 
+    public List<Item> Items;
     public List<Card> Deck;
     public List<Card> Hand;
+    public List<MinionCard> StartMinions;
 
     public float[] DamageMultiplier = new float[] { 1, 1, 1, 1, 1, 1 };
 
@@ -46,6 +48,9 @@ public class Player : MonoBehaviour
 
         CurrentHp = GameObject.Find("GameHandler").GetComponent<PlayerData>().Health;
         Deck = GameObject.Find("GameHandler").GetComponent<PlayerData>().Deck;
+        Items = GameObject.Find("GameHandler").GetComponent<PlayerData>().Items;
+
+        StartMinions = GameObject.Find("GameHandler").GetComponent<PlayerData>().StartRoster;
 
         //CurrentHp = MaxHp;
 
@@ -61,15 +66,14 @@ public class Player : MonoBehaviour
         spawnPoints = new List<GameObject>();
         GetLegitimateSpawnPositions();
 
-        SpawnDeck();
-        Deck = Deck.OrderBy(a => rng.Next()).ToList();
-        DrawCard();
-        DrawCard();
 
-}
+        Deck = Deck.OrderBy(a => rng.Next()).ToList();
+        Deck.ForEach(d => d.gameObject.SetActive(true));
+
+    }
 
 // Update is called once per frame
-void Update()
+    void Update()
     {
 
     }
@@ -134,6 +138,7 @@ void Update()
         tmpMana = 0;
         UpdatePlayableCards();
 
+        TriggerStartOfTurnItemEffects();
         Minions.ForEach(m => m.TriggerStartOfTurnEffects());
     }
 
@@ -225,6 +230,7 @@ void Update()
                 enemy.AddIncomingDamage(possibleAttack.fullDamage);
             }
             attacks.Remove(possibleAttack);
+            aoeAttack.Remove(possibleAttack);
             possibleAttack.source.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.AOE, possibleAttack.type, possibleAttack.baseDamage, possibleAttack.fullDamage, combo.count, enemyHandler.GetAllEnemies().Select(e => e.gameObject).ToList());
 
             i++;
@@ -334,7 +340,7 @@ void Update()
 
         GameObject minionObject = Instantiate(minionGameObject, position, Quaternion.identity);
 
-        GameObject hpbar = Instantiate(sliderPrefab, minionObject.transform);
+        //GameObject hpbar = Instantiate(sliderPrefab, minionObject.transform);
 
         Minion minion = minionObject.GetComponent<Minion>();
         minion.position = i;
@@ -350,7 +356,7 @@ void Update()
 
         GameObject minionObject = Instantiate(x.MinionPrefab, position, Quaternion.identity);
 
-        GameObject hpbar = Instantiate(sliderPrefab, minionObject.transform);
+        //GameObject hpbar = Instantiate(sliderPrefab, minionObject.transform);
 
         Minion minion = minionObject.GetComponent<Minion>();
         minion.position = positionIndex;
@@ -394,15 +400,6 @@ void Update()
         }
     }
 
-    public void SpawnDeck()
-    {
-        //var deck = GameObject.Find("Deck").transform;
-        //foreach (Card card in Deck)
-        //{
-        //    GameObject cardObj = Instantiate(card.gameObject, Vector3.zero, Quaternion.identity, deck);
-        //}
-    }
-
     public void DrawCard()
     {
         if(Deck.Count == 0)
@@ -443,7 +440,7 @@ void Update()
 
     public void AttackFirstMinion(int damage)
     {
-        var target = Minions.OrderByDescending(m => m.position).First();
+        var target = Minions.OrderBy(m => m.position).First();
 
         if(target.position == 0)
         {
@@ -458,5 +455,34 @@ void Update()
             }
         }
 
+    }
+
+    public void StartOfBattle()
+    {
+        SpawnStartMinions();
+        DrawCard();
+        DrawCard(); 
+        TriggerStartOfCombatItemEffects();
+    }
+
+    public void TriggerStartOfCombatItemEffects()
+    {
+        Items.ForEach(i => i.Effects.Where(e => e.EffectType == EffectType.StartOfCombat).ToList().ForEach(e => e.Trigger()));
+    }
+
+    public void TriggerStartOfTurnItemEffects()
+    {
+        Items.ForEach(i => i.Effects.Where(e => e.EffectType == EffectType.StartOfTurn).ToList().ForEach(e => e.Trigger()));
+    }
+
+
+    private void SpawnStartMinions()
+    {
+        foreach (var minionCard in StartMinions)
+        {
+            Deck.Remove(minionCard);
+
+            AddMinion(minionCard.MinionPrefab);
+        }
     }
 }

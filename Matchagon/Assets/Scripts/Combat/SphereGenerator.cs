@@ -7,7 +7,7 @@ public class SphereGenerator : MonoBehaviour
 {
     public List<TypeWeight> TypeWeights;
     public GameObject SphereObject;
-    private int WeightSum;
+    private float WeightSum;
 
     private void Awake()
     {
@@ -41,12 +41,19 @@ public class SphereGenerator : MonoBehaviour
     {
         return TypeWeights.First(t => t.Type == typeEnum).Sprite;
     }
+
+
+    public void MultiplyWeight(TypeEnum typeEnum, float weightMultiplification)
+    {
+        TypeWeights.FirstOrDefault(t => t.Type == typeEnum).Weight *= weightMultiplification;
+        WeightSum = TypeWeights.Sum(t => t.Weight);
+    }
 }
 
 public abstract class GenericTypeWeight
 {
     public TypeEnum Type;
-    public int Weight;
+    public float Weight;
     public Sprite Sprite;
 }
 [System.Serializable]

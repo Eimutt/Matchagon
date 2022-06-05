@@ -9,7 +9,9 @@ public enum EffectType
     OnKill,
     OnDeath,
     SummonEffect,
-    StartOfCombat
+    StartOfCombat,
+    OnPickUp,
+    OnRemoval
 }
 
 public abstract class GenericEffect<T>
@@ -26,7 +28,14 @@ public class Effect : GenericEffect<ActionEnum> {
         if (effectName == "RandomToGreen")
         {
             GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(TypeEnum.Grass, effectStrength);
-        } else if (effectName == "TurnTimeIncrease")
+        }
+        if (effectName == "HideRandom")
+        {
+            GameObject.Find("Board").GetComponent<Board>().HideRandomSpheres(effectStrength);
+        }
+
+
+        else if (effectName == "TurnTimeIncrease")
         {
             GameObject.Find("CombatHandler").GetComponent<CombatHandler>().IncreaseTimeForNextTurn(effectStrength);
         }
@@ -45,6 +54,26 @@ public class Effect : GenericEffect<ActionEnum> {
         else if (effectName == "DrawCard")
         {
             GameObject.Find("Player").GetComponent<Player>().DrawCard();
+        }
+        else if (effectName == "ModifySpawnRateFire")
+        {
+            GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Fire, effectStrength);
+        }
+        else if (effectName == "ModifySpawnRateWater")
+        {
+            GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Water, effectStrength);
+        }
+        else if (effectName == "ModifySpawnRateGrass")
+        {
+            GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Grass, effectStrength);
+        }
+        else if (effectName == "ModifySpawnRateMana")
+        {
+            GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Light, effectStrength);
+        }
+        else if (effectName == "ModifySpawnPower")
+        {
+            GameObject.Find("GameHandler").GetComponent<PlayerData>().ModifySpawnPower(effectStrength);
         }
     }
 }

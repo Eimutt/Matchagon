@@ -282,7 +282,10 @@ MonoBehaviour:
   startPos: {x: 0, y: 0, z: 0}
   Effects:
   - effectName: TurnTimeIncrease
-    effectStrength: -4
+    effectStrength: -3
+    EffectType: 0
+  - effectName: HideRandom
+    effectStrength: 1
     EffectType: 0
 --- !u!114 &2714039493885062644
 MonoBehaviour:

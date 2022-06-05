@@ -288,4 +288,9 @@ public class WorldMap : MonoBehaviour
         canMove = true;
         Destroy(currentLevel.transform.Find("NodeSprite").gameObject);
     }
+
+    public void SetMove(bool movement)
+    {
+        canMove = movement;
+    }
 }

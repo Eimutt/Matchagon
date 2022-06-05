@@ -252,4 +252,12 @@ public class CombatHandler : MonoBehaviour
         turnTimer += seconds;
     }
 
+    public void StartOfBattle()
+    {
+
+        Player.StartOfBattle();
+
+        Board.FillBoard();
+        active = true;
+    }
 }

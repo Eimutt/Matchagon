@@ -135,6 +135,7 @@ MonoBehaviour:
   Description: 2/2/2/0/0/0/2 Has 3 heads :)
   MinionPrefab: {fileID: 5431998135259802519, guid: 1aaa82c1f52eaae42865ee7be8ba40c3,
     type: 3}
+  PowerCost: 3
 --- !u!212 &5525783382388491448
 SpriteRenderer:
   m_ObjectHideFlags: 0

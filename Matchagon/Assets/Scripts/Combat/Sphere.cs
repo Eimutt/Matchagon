@@ -75,4 +75,8 @@ public class Sphere : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = sprite;
         //ColorSphere();
     }
+    public void HideType()
+    {
+        GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/hidden");
+    }
 }

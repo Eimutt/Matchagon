@@ -51,7 +51,7 @@ public class GameHandler : MonoBehaviour
         SceneManager.SetActiveScene(scene);
         GameObject.Find("CombatHandler").GetComponent<CombatHandler>().Encounter = encounter;
         GameObject.Find("EncounterInfo").GetComponent<EncounterInfo>().PopulateUI(encounter.Waves);
-        GameObject.Find("CombatHandler").GetComponent<CombatHandler>().active = true;
+        GameObject.Find("CombatHandler").GetComponent<CombatHandler>().StartOfBattle();
         yield break;
     }
 

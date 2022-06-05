@@ -11,7 +11,9 @@ public enum TypeEnum
     Dark,
     Light,
     Shield,
-    Chromatic
+    Chromatic,
+    Death,
+    Hidden
 }
 
 
