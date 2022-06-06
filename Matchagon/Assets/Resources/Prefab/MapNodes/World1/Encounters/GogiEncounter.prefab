@@ -136,11 +136,11 @@ MonoBehaviour:
     - Enemy: {fileID: 2547337118485380388, guid: bcb9000e800674c44a03b70f09ba3a6d,
         type: 3}
       Quanitity: 1
-      Turn: 3
+      Turn: 2
     - Enemy: {fileID: 2547337118485380388, guid: bcb9000e800674c44a03b70f09ba3a6d,
         type: 3}
-      Quanitity: 1
-      Turn: 4
+      Quanitity: 2
+      Turn: 3
 --- !u!1 &2833337699975253577
 GameObject:
   m_ObjectHideFlags: 0

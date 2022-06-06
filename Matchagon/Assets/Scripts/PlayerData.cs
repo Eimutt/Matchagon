@@ -20,6 +20,7 @@ public class PlayerData : MonoBehaviour
     void Start()
     {
         CreateCardCopies();
+        GameObject.Find("Gold").GetComponent<Text>().text = Gold.ToString();
     }
 
     // Update is called once per frame
