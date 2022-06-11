@@ -29,6 +29,7 @@ public class WorldMap : MonoBehaviour
 
     private bool canMove = true;
 
+    public bool Fog;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,8 @@ public class WorldMap : MonoBehaviour
         playerCharacterSprite = Instantiate(playerCharacterPrefab, transform);
 
         MoveToStartNode(mapNodes[0]);
+
+        AddFog();
     }
 
     // Update is called once per frame
@@ -292,5 +295,13 @@ public class WorldMap : MonoBehaviour
     public void SetMove(bool movement)
     {
         canMove = movement;
+    }
+
+    public void AddFog()
+    {
+        if (Fog)
+        {
+            GameObject.Find("Fog").AddComponent<FogHandler>();
+        }
     }
 }
