@@ -135,7 +135,7 @@ MonoBehaviour:
   Description: 0/4/0/0/0/0/2 Attack hits all enemies
   MinionPrefab: {fileID: 4870744172063127956, guid: 6d8abc402a5cafa4991f7646a911958c,
     type: 3}
-  PowerCost: 3
+  PowerCost: 8
 --- !u!212 &6170630613339471602
 SpriteRenderer:
   m_ObjectHideFlags: 0

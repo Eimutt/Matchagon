@@ -7,11 +7,13 @@ public class GameHandler : MonoBehaviour
 {
     public RewardScreen RewardScreen;
     public WorldMap WorldMap;
+    public GameObject Fog;
     // Start is called before the first frame update
     void Start()
     {
         RewardScreen = GameObject.Find("VictoryScreen").GetComponent<RewardScreen>();
         WorldMap = GameObject.Find("WorldMap").GetComponent<WorldMap>();
+        Fog = GameObject.Find("Fog");
     }
 
     // Update is called once per frame
@@ -29,6 +31,7 @@ public class GameHandler : MonoBehaviour
         var battleScene = SceneManager.GetSceneByName("BattleScene");
         StartCoroutine(SetActive(battleScene, encounter));
         WorldMap.gameObject.SetActive(false);
+        Fog.SetActive(false);
     }
 
     public void EnterShop()
@@ -37,6 +40,7 @@ public class GameHandler : MonoBehaviour
         var battleScene = SceneManager.GetSceneByName("ShopScene");
         //StartCoroutine(SetActive(battleScene, encounter));
         WorldMap.gameObject.SetActive(false);
+        Fog.SetActive(false);
     }
 
 
@@ -70,6 +74,7 @@ public class GameHandler : MonoBehaviour
     {
         SceneManager.UnloadScene("ShopScene");
         WorldMap.gameObject.SetActive(true);
+        Fog.SetActive(true);
         WorldMap.ActivateMovement();
     }
 
@@ -77,6 +82,8 @@ public class GameHandler : MonoBehaviour
     {
         RewardScreen.Close();
         WorldMap.gameObject.SetActive(true);
+
+        Fog.SetActive(true);
         WorldMap.ActivateMovement();
     }
 }

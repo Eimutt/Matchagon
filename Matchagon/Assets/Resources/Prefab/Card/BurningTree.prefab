@@ -54,7 +54,7 @@ MonoBehaviour:
   Description: 2/0/2/0/0/1
   MinionPrefab: {fileID: 2167825773021458747, guid: 017fd7eadc094c24d9710e3fe86c87da,
     type: 3}
-  PowerCost: 2
+  PowerCost: 6
 --- !u!212 &839144242364136265
 SpriteRenderer:
   m_ObjectHideFlags: 0

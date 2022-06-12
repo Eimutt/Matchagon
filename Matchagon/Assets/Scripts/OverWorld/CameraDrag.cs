@@ -31,7 +31,10 @@ public class CameraDrag : MonoBehaviour
             ParentObj.transform.position = StartPos + diff;
         }
 
-
+        if (Input.GetKeyDown("space"))
+        {
+            ParentObj.transform.position = Vector3.zero - GameObject.Find("PlayerSprite(Clone)").transform.localPosition;
+        }
     }
 
     public void OnMouseDown()

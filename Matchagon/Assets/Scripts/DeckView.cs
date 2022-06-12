@@ -23,6 +23,8 @@ public class DeckView : MonoBehaviour
     public int PowerLimit;
 
     public PlayerData PlayerData;
+
+    private Transform CardsObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,8 @@ public class DeckView : MonoBehaviour
 
         PowerLimit = PlayerData.PowerLimit;
         UpdatePowerLimit();
+
+        CardsObj = transform.Find("Scrollback/Cards");
     }
 
     // Update is called once per frame
@@ -59,7 +63,7 @@ public class DeckView : MonoBehaviour
         int yCount = 0;
         foreach (var card in Cards)
         {
-            var cardObj = Instantiate(DetailedCardInfo, Vector3.zero, Quaternion.identity, transform.Find("Cards"));
+            var cardObj = Instantiate(DetailedCardInfo, Vector3.zero, Quaternion.identity, CardsObj);
 
             cardObj.transform.localPosition = new Vector3(xStart + xCount * xDif, yStart + yCount * yDif);
 
@@ -87,13 +91,7 @@ public class DeckView : MonoBehaviour
                 var rosterSlot2 = cardObj.AddComponent<RosterSlot>();
                 rosterSlot2.Minion = minionCard;
             }
-                
-
-
-
-
-
-
+            
             xCount++;
             if (xCount >= rowMax)
             {
@@ -101,9 +99,10 @@ public class DeckView : MonoBehaviour
                 xCount = 0;
             }
 
-
-
         }
+        RectTransform rectTransform = CardsObj.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, (yCount + 1) * 230f);
+
     }
 
     public void Close()
@@ -119,7 +118,7 @@ public class DeckView : MonoBehaviour
 
     public void Clear()
     {
-        transform.Find("Cards").Clear();
+        CardsObj.Clear();
         transform.Find("StartTeam").ClearChildren();
     }
 

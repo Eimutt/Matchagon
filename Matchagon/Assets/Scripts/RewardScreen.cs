@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RewardScreen : MonoBehaviour
 {
-    public Card[] CardPrefabs;
-    public Item[] ItemPrefabs;
+    public List<Card> CardPrefabs;
+    public List<Item> ItemPrefabs;
     public GameObject RewardBase;
 
     public GameObject confirmButton;
@@ -17,11 +18,12 @@ public class RewardScreen : MonoBehaviour
     public int goldMax;
     public int goldMin;
 
+    public 
     // Start is called before the first frame update
     void Start()
     {
-        CardPrefabs = Resources.LoadAll<Card>("Prefab/Card");
-        ItemPrefabs = Resources.LoadAll<Item>("Prefab/Items");
+        CardPrefabs = Resources.LoadAll<Card>("Prefab/Card").ToList();
+        ItemPrefabs = Resources.LoadAll<Item>("Prefab/Items").ToList();
 
         confirmButton = transform.Find("Rewards/ConfirmReward").gameObject;
         transform.Find("Rewards").gameObject.SetActive(false);
@@ -43,7 +45,7 @@ public class RewardScreen : MonoBehaviour
         for(int i = 0; i < 3; i++)
         {
             
-            int r = UnityEngine.Random.Range(0, CardPrefabs.Length);
+            int r = UnityEngine.Random.Range(0, CardPrefabs.Count);
             var card = CardPrefabs[r];
 
             var cardObj = Instantiate(RewardBase, transform.Find("Rewards/Card Rewards"));
@@ -68,8 +70,9 @@ public class RewardScreen : MonoBehaviour
 
     public void GenerateItemReward()
     {
-        int r = UnityEngine.Random.Range(0, ItemPrefabs.Length);
-        var item = ItemPrefabs[r];
+        var normalItems = ItemPrefabs.Where(i => !i.Special).ToList();
+        int r = UnityEngine.Random.Range(0, normalItems.Count);
+        var item = normalItems[r];
 
         var itemObj = Instantiate(RewardBase, transform.Find("Rewards/Card Rewards"));
         itemObj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0); GetComponent<RectTransform>();
@@ -84,17 +87,36 @@ public class RewardScreen : MonoBehaviour
         itemReward.Item = item;
     }
 
+    public void GenerateSpawnPowerReward(int amount)
+    {
+        if(amount == 1)
+        {
+            var spawn1 = ItemPrefabs.Where(i => i.Name == "Flag1").FirstOrDefault();
+            transform.Find("Rewards/Spawn Power").GetComponent<ItemReward>().Item = spawn1;
+
+            transform.Find("Rewards/Spawn Power/Image").GetComponent<Image>().sprite = spawn1.Sprite;
+        }
+        else if (amount == 3)
+        {
+            var spawn3 = ItemPrefabs.Where(i => i.Name == "Flag3").FirstOrDefault();
+            transform.Find("Rewards/Spawn Power").GetComponent<ItemReward>().Item = spawn3;
+            transform.Find("Rewards/Spawn Power/Image").GetComponent<Image>().sprite = spawn3.Sprite;
+        }
+    }
+
     public void GenerateBattleRewards()
     {
         transform.Find("Rewards").gameObject.SetActive(true);
         GenerateCardRewards(0);
         GenerateGoldAmount();
+        GenerateSpawnPowerReward(1);
     }
 
     public void GenerateTreasureRewards()
     {
         transform.Find("Rewards").gameObject.SetActive(true);
         GenerateItemReward();
+        GenerateSpawnPowerReward(3);
     }
 
     public void GenerateGoldAmount()
@@ -143,6 +165,5 @@ public class RewardScreen : MonoBehaviour
     {
         confirmButton.GetComponent<Button>().interactable = false;
         confirmButton.transform.Find("Text").GetComponent<Text>().text = "Select a card";
-
     }
 }

@@ -135,7 +135,7 @@ MonoBehaviour:
   Description: 0/2/0/1/0/2 Increases all grass damage.
   MinionPrefab: {fileID: 8128954606181003805, guid: b137c6f34ab575e47aebef6b467dd96a,
     type: 3}
-  PowerCost: 2
+  PowerCost: 4
 --- !u!212 &4754214062555254035
 SpriteRenderer:
   m_ObjectHideFlags: 0

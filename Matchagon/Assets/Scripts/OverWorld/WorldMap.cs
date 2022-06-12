@@ -277,10 +277,10 @@ public class WorldMap : MonoBehaviour
         if (canMove)
         {
             currentLevel = nextNode;
-            playerCharacterSprite.transform.position = nextNode.transform.position + new Vector3(0, 0.25f, 0);
 
+            var moveScript = playerCharacterSprite.AddComponent<Move>();
+            moveScript.Init(nextNode.transform.position + new Vector3(0, 0.25f, 0), 1, nextNode.ActivateNode);
 
-            nextNode.ActivateNode();
             canMove = false;
         }
 

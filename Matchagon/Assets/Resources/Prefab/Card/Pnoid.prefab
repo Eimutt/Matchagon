@@ -135,7 +135,7 @@ MonoBehaviour:
   Description: 0/0/2/0/0/1 Doubles damage when only minion
   MinionPrefab: {fileID: 5436924294573780162, guid: cbf01ae7b0f417f429ed45c919ce55d9,
     type: 3}
-  PowerCost: 3
+  PowerCost: 4
 --- !u!212 &6319148732015507293
 SpriteRenderer:
   m_ObjectHideFlags: 0

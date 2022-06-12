@@ -135,7 +135,7 @@ MonoBehaviour:
   Description: 3/0/0/0/0/0 Double damage when less than 10 orbs left
   MinionPrefab: {fileID: 8593045349696825292, guid: 59e5cbd37f4e2474fa4e96be20806a71,
     type: 3}
-  PowerCost: 2
+  PowerCost: 6
 --- !u!212 &688491397694386677
 SpriteRenderer:
   m_ObjectHideFlags: 0

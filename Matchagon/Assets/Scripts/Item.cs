@@ -9,6 +9,7 @@ public class Item : MonoBehaviour
     public Sprite Sprite;
     public string Description;
 
+    public bool Special;
     public List<Effect> Effects;
 
     // Start is called before the first frame update
