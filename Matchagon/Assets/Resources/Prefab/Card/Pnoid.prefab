@@ -130,12 +130,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Pnoid
   Cost: 2
+  SummonCost: 5
   Rarity: 1
   Sprite: {fileID: 21300000, guid: e87aa2bf32f2f0c448f0b792ffd35a70, type: 3}
   Description: 0/0/2/0/0/1 Doubles damage when only minion
   MinionPrefab: {fileID: 5436924294573780162, guid: cbf01ae7b0f417f429ed45c919ce55d9,
     type: 3}
-  PowerCost: 4
+  PowerCost: 5
 --- !u!212 &6319148732015507293
 SpriteRenderer:
   m_ObjectHideFlags: 0

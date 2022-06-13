@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Burning Tree
   Cost: 2
+  SummonCost: 6
   Rarity: 1
   Sprite: {fileID: 21300000, guid: 5ee260872c25bc342921fe2806c96911, type: 3}
   Description: 2/0/2/0/0/1

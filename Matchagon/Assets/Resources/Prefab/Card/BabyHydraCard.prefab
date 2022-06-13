@@ -130,12 +130,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Baby Hydra
   Cost: 3
+  SummonCost: 10
   Rarity: 3
   Sprite: {fileID: 21300000, guid: 0d9a035614390204198b401735fd4014, type: 3}
   Description: 2/2/2/0/0/0/2 Has 3 heads :)
   MinionPrefab: {fileID: 5431998135259802519, guid: 1aaa82c1f52eaae42865ee7be8ba40c3,
     type: 3}
-  PowerCost: 8
+  PowerCost: 10
 --- !u!212 &5525783382388491448
 SpriteRenderer:
   m_ObjectHideFlags: 0

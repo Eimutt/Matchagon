@@ -30,6 +30,9 @@ public class WorldMap : MonoBehaviour
     private bool canMove = true;
 
     public bool Fog;
+
+    private int Difficulty;
+    public int DifficultyIncreaseFrequency;
     // Start is called before the first frame update
     void Start()
     {
@@ -115,6 +118,10 @@ public class WorldMap : MonoBehaviour
                             pathPart.transform.localPosition = p1 * (float)k/(float)pathParts + p2 * (1-(float)k/(float)pathParts);
                         }
                     }
+                    if(mapNode.GetType() == typeof(EncounterNode))
+                    {
+                        mapNode.GetComponent<EncounterNode>().Difficulty = Difficulty;
+                    }
                 }
                 else
                 {
@@ -166,6 +173,9 @@ public class WorldMap : MonoBehaviour
 
             last = options;
 
+            if (i % DifficultyIncreaseFrequency == 0){
+                Difficulty++;
+            }
         }
 
         //remove unconnected

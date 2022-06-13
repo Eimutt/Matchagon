@@ -21,6 +21,8 @@ public class Shop : MonoBehaviour
     public int CardMaxCost;
     public int ItemMinCost;
     public int ItemMaxCost;
+    public int CardRarityCostIncrease;
+    public int ItemRarityCostIncrease;
 
     public int startX, startY;
     public int Dif;
@@ -60,7 +62,7 @@ public class Shop : MonoBehaviour
 
                 var itemshopItem = itemObj.AddComponent<ItemShopItem>();
                 itemshopItem.Item = item;
-                itemshopItem.Cost = Random.Range(ItemMinCost, ItemMaxCost);
+                itemshopItem.Cost = Random.Range(ItemMinCost, ItemMaxCost) + item.Rarity * ItemRarityCostIncrease;
                 itemObj.transform.Find("GoldCost/Text").GetComponent<Text>().text = itemshopItem.Cost.ToString();
             }
         }
@@ -87,7 +89,7 @@ public class Shop : MonoBehaviour
 
                 var cardshopItem = cardObj.AddComponent<CardShopItem>();
                 cardshopItem.Card = card;
-                cardshopItem.Cost = Random.Range(CardMinCost, CardMaxCost);
+                cardshopItem.Cost = Random.Range(CardMinCost, CardMaxCost) + card.Rarity * CardRarityCostIncrease;
                 cardObj.transform.Find("GoldCost/Text").GetComponent<Text>().text = cardshopItem.Cost.ToString();
             }
         }

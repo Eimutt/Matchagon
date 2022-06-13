@@ -95,9 +95,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Ruby
-  Rarity: 2
+  Rarity: 3
   Sprite: {fileID: 21300000, guid: 53d35bb8425e2ab4889b2a0b0b72a226, type: 3}
   Description: Prevents fire spheres from spawning.
+  Special: 0
   Effects:
   - effectName: ModifySpawnRateFire
     effectStrength: 0

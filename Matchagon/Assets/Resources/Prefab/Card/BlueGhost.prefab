@@ -211,12 +211,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Blue ghost
   Cost: 1
+  SummonCost: 3
   Rarity: 0
   Sprite: {fileID: 21300000, guid: ce97ffde58027b744902c5fe4e6f9198, type: 3}
   Description: 0/0/1/0/0/3
   MinionPrefab: {fileID: 3635525663451081853, guid: fd10d63e85797344bbca72e617a88a86,
     type: 3}
-  PowerCost: 2
+  PowerCost: 3
 --- !u!212 &3631613578159523854
 SpriteRenderer:
   m_ObjectHideFlags: 0

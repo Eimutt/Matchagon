@@ -95,9 +95,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Flower
-  Rarity: 1
+  Rarity: 0
   Sprite: {fileID: 21300000, guid: e46dc5f57f97e5b439849fa4b6f703e1, type: 3}
   Description: Draws an extra card at start of combat.
+  Special: 0
   Effects:
   - effectName: DrawCard
     effectStrength: 0

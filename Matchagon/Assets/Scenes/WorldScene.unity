@@ -1008,7 +1008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.03137255, g: 0.32156864, b: 0.16078432, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1573,7 +1573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.03137255, g: 0.32156864, b: 0.16078432, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2474,7 +2474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 150
   Health: 150
-  Gold: 150
+  Gold: 45
   DeckPrefabs:
   - {fileID: 4340684016238223540, guid: b1b1665c892b40f488a0b2298079645c, type: 3}
   - {fileID: 3631613578159523853, guid: 509cc840a8a0b7949bb528fa37212a0c, type: 3}
@@ -3022,7 +3022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ae50b9774b69d64395b3cfd1a345bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 16
+  length: 12
   maxOptions: 5
   minOptions: 2
   pathParts: 7
@@ -3045,6 +3045,7 @@ MonoBehaviour:
   playerCharacterPrefab: {fileID: 1911968613101528071, guid: d1711670262801142974cb0de31f1821,
     type: 3}
   Fog: 1
+  DifficultyIncreaseFrequency: 7
 --- !u!1 &388131314064820062
 GameObject:
   m_ObjectHideFlags: 0

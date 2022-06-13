@@ -500,11 +500,13 @@ MonoBehaviour:
   MaxHp: 150
   CurrentHp: 150
   ColorTintDuration: 1
+  ShieldColor: {r: 0.25872195, g: 0.8783187, b: 0.9622642, a: 1}
   DamagedColor: {r: 0.5660378, g: 0.2803489, b: 0.2803489, a: 1}
   InvulnerabilityColor: {fileID: 4699945113363561770}
   Minions: []
   bottomLeft: {x: -5, y: 1, z: 0}
   distanceDiff: 1
+  Items: []
   Deck:
   - {fileID: 1124983423850404972, guid: f21556fbd6ef6e646b2b9fb63babe9ed, type: 3}
   - {fileID: 1124983423850404972, guid: f21556fbd6ef6e646b2b9fb63babe9ed, type: 3}

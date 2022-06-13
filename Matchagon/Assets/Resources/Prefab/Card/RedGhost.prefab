@@ -130,12 +130,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Fire ghost
   Cost: 1
+  SummonCost: 3
   Rarity: 0
   Sprite: {fileID: 21300000, guid: 4a59ce0f43246714e9e2b7853179929b, type: 3}
   Description: 0/1/0/0/0/3
   MinionPrefab: {fileID: 1426490194874618246, guid: 24c9f3e26e669844fb10d159bafbad9a,
     type: 3}
-  PowerCost: 2
+  PowerCost: 3
 --- !u!212 &5907672755002055390
 SpriteRenderer:
   m_ObjectHideFlags: 0

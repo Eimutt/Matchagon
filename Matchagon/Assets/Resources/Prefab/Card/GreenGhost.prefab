@@ -130,12 +130,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Green ghost
   Cost: 1
+  SummonCost: 3
   Rarity: 0
   Sprite: {fileID: 21300000, guid: b7863e6dedd8f6c4da4f65d3deaeb0b3, type: 3}
   Description: 0/0/1/0/0/3
   MinionPrefab: {fileID: 7810400956087091118, guid: 4dce66d3cf869c84a955c7016458aa7a,
     type: 3}
-  PowerCost: 2
+  PowerCost: 3
 --- !u!212 &4340684016238223541
 SpriteRenderer:
   m_ObjectHideFlags: 0

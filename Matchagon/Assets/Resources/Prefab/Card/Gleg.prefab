@@ -130,12 +130,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Gleg
   Cost: 3
+  SummonCost: 8
   Rarity: 2
   Sprite: {fileID: 21300000, guid: 4f86a8644c965d7448b22aec94f56d0f, type: 3}
   Description: 3/0/0/0/0/0 Double damage when less than 10 orbs left
   MinionPrefab: {fileID: 8593045349696825292, guid: 59e5cbd37f4e2474fa4e96be20806a71,
     type: 3}
-  PowerCost: 6
+  PowerCost: 8
 --- !u!212 &688491397694386677
 SpriteRenderer:
   m_ObjectHideFlags: 0

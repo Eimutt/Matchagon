@@ -46,11 +46,12 @@ public class DetailedCardInfo : MonoBehaviour
 
     }
 
-    public void Populate(Sprite sprite, string name, string cost, string description, int rarity, bool fades)
+    public void Populate(Sprite sprite, string name, string cost, string summonCost, string description, int rarity, bool fades)
     {
         transform.Find("Image").GetComponent<Image>().sprite = sprite;
         transform.Find("Name").GetComponent<Text>().text = name;
         transform.Find("Cost").GetComponent<Text>().text = cost;
+        transform.Find("SummonCost").GetComponent<Text>().text = summonCost == "0" ? "" : summonCost;
         transform.Find("Description").GetComponent<Text>().text = description;
         transform.Find("Rarity").GetComponent<Image>().color = GetColor(rarity);
         Fades = fades;

@@ -12,6 +12,7 @@ public abstract class GenericWave<T>
 
 public abstract class GenericEncounter<T, U> where T : GenericWave<U>
 {
+    public int Difficulty;
     public List<T> Waves;
 }
 

@@ -95,9 +95,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Emerald
-  Rarity: 2
+  Rarity: 3
   Sprite: {fileID: 21300000, guid: ceac61b56e14ce24f97d1e2359ffc95a, type: 3}
   Description: Prevents Grass spheres from spawning.
+  Special: 0
   Effects:
   - effectName: ModifySpawnRateGrass
     effectStrength: 0

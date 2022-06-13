@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Golem
   Cost: 4
+  SummonCost: 8
   Rarity: 2
   Sprite: {fileID: 21300000, guid: 06bbf2235f409f04b98b5b5d9f940810, type: 3}
   Description: 0/4/0/0/0/0/2 Attack hits all enemies

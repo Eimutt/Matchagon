@@ -54,8 +54,9 @@ MonoBehaviour:
   Effects: []
   AOE: 0
   position: 0
-  MaxHealth: 8
-  CurrentHealth: 8
+  MaxHealth: 10
+  CurrentHealth: 10
+  Dead: 0
 --- !u!212 &3635525663451081856
 SpriteRenderer:
   m_ObjectHideFlags: 0

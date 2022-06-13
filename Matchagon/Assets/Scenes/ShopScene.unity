@@ -869,10 +869,12 @@ MonoBehaviour:
     type: 3}
   CantAfford: {fileID: 21300000, guid: 44b8dce96e5f5204a936398194f81e4c, type: 3}
   Sale: {fileID: 21300000, guid: f2089de8be1907c47a994588b8e94d2e, type: 3}
-  CardMinCost: 20
-  CardMaxCost: 35
-  ItemMinCost: 55
-  ItemMaxCost: 75
+  CardMinCost: 15
+  CardMaxCost: 25
+  ItemMinCost: 35
+  ItemMaxCost: 50
+  CardRarityCostIncrease: 5
+  ItemRarityCostIncrease: 10
   startX: -90
   startY: -100
   Dif: 180

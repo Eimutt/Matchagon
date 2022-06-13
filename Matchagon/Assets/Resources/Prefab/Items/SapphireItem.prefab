@@ -95,9 +95,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Sapphire
-  Rarity: 2
+  Rarity: 3
   Sprite: {fileID: 21300000, guid: fcd734a05c85d1e45abdda500963e710, type: 3}
   Description: Prevents water spheres from spawning.
+  Special: 0
   Effects:
   - effectName: ModifySpawnRateWater
     effectStrength: 0

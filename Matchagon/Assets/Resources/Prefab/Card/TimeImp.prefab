@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Time Imp
   Cost: 2
+  SummonCost: 5
   Rarity: 2
   Sprite: {fileID: 21300000, guid: 9d04325408ab1834fa79ba4c40662eb3, type: 3}
   Description: 0/0/0/3/0/0 Increases timer by 3 seconds.

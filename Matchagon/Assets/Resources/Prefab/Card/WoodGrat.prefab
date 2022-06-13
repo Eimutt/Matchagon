@@ -211,13 +211,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Wood Grat
   Cost: 2
+  SummonCost: 5
   Rarity: 1
   Sprite: {fileID: 21300000, guid: 88e800adf0d9c4f41b86436bd1853fde, type: 3}
   Description: 0/2/0/0/0/3 Turns 2 random orbs into green orbs at the start of each
     turn.
   MinionPrefab: {fileID: 6504222489139229058, guid: 3129e942b6456834d8bf1b337399263f,
     type: 3}
-  PowerCost: 4
+  PowerCost: 5
 --- !u!212 &3071275746342859048
 SpriteRenderer:
   m_ObjectHideFlags: 0

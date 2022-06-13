@@ -130,12 +130,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Druid
   Cost: 3
+  SummonCost: 7
   Rarity: 1
   Sprite: {fileID: 21300000, guid: 79d415a0651fcc44190a93d9fe31685b, type: 3}
   Description: 0/2/0/1/0/2 Increases all grass damage.
   MinionPrefab: {fileID: 8128954606181003805, guid: b137c6f34ab575e47aebef6b467dd96a,
     type: 3}
-  PowerCost: 4
+  PowerCost: 7
 --- !u!212 &4754214062555254035
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -56,7 +56,7 @@ public class RewardScreen : MonoBehaviour
             //cardObj.transform.Find("Description").GetComponent<Text>().text = card.Description;
 
             DetailedCardInfo detailedCardInfo = cardObj.GetComponent<DetailedCardInfo>();
-            detailedCardInfo.Populate(card.Sprite, card.Name, card.Cost.ToString(), card.Description, card.Rarity, false);
+            detailedCardInfo.Populate(card.Sprite, card.Name, card.Cost.ToString(), card.SummonCost.ToString(), card.Description, card.Rarity, false);
             cardObj.name = card.Name;
 
             cardObj.AddComponent<Button>();
@@ -78,7 +78,7 @@ public class RewardScreen : MonoBehaviour
         itemObj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0); GetComponent<RectTransform>();
 
         DetailedCardInfo detailedCardInfo = itemObj.GetComponent<DetailedCardInfo>();
-        detailedCardInfo.Populate(item.Sprite, item.Name, "", item.Description, item.Rarity, false);
+        detailedCardInfo.Populate(item.Sprite, item.Name, "", "", item.Description, item.Rarity, false);
         itemObj.name = item.Name;
 
         itemObj.AddComponent<Button>();

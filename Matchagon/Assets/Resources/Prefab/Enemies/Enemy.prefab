@@ -433,7 +433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHp: 80
   CurrentHp: 80
-  Damage: 12
+  Damage: 8
   unitAbilities:
     Abilities:
     - Type: 0

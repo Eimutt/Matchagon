@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     private int tmpMana;
 
     public float ColorTintDuration;
-    //public Color ShieldColor;
+    public Color ShieldColor;
     public Color DamagedColor;
     [SerializeField]
     private InvulnerabilityColor InvulnerabilityColor;
@@ -80,23 +80,25 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if(Shield > 0)
-        {
-            int tmp = damage;
-            damage -= Shield;
-            Shield -= tmp;
-        }
-        var healthDamage = Mathf.Max(0, damage);
+        //if(Shield > 0)
+        //{
+        //    int tmp = damage;
+        //    damage -= Shield;
+        //    Shield -= tmp;
+        //}
+        //var healthDamage = Mathf.Max(0, damage);
 
-        if(healthDamage > 0)
-        {
-            CurrentHp -= healthDamage;
-            InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
-            GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, healthDamage, 1);
-        }
-
-        UpdateUIHealth();
-        UpdateUIShield();
+        //if(healthDamage > 0)
+        //{
+        //    CurrentHp -= healthDamage;
+        //    InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
+        //    GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, healthDamage, 1);
+        //}
+        CurrentHp -= damage;
+        InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
+        GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, damage, 1);
+        //UpdateUIHealth();
+        //UpdateUIShield();
 
     }
 
@@ -340,7 +342,7 @@ public class Player : MonoBehaviour
 
         GameObject minionObject = Instantiate(minionGameObject, position, Quaternion.identity);
 
-        //GameObject hpbar = Instantiate(sliderPrefab, minionObject.transform);
+        GameObject hpbar = Instantiate(sliderPrefab, minionObject.transform);
 
         Minion minion = minionObject.GetComponent<Minion>();
         minion.position = i;
@@ -356,7 +358,7 @@ public class Player : MonoBehaviour
 
         GameObject minionObject = Instantiate(x.MinionPrefab, position, Quaternion.identity);
 
-        //GameObject hpbar = Instantiate(sliderPrefab, minionObject.transform);
+        GameObject hpbar = Instantiate(sliderPrefab, minionObject.transform);
 
         Minion minion = minionObject.GetComponent<Minion>();
         minion.position = positionIndex;
@@ -440,21 +442,35 @@ public class Player : MonoBehaviour
 
     public void AttackFirstMinion(int damage)
     {
-        var target = Minions.OrderBy(m => m.position).First();
+        var target = Minions.OrderBy(m => m.position).Last();
 
-        if(target.position == 0)
+        int tmp = damage;
+        if (Shield > 0)
+        {
+            damage -= Shield;
+            Shield -= tmp;
+        }
+        var healthDamage = Mathf.Max(0, damage);
+
+        if (healthDamage > 0)
         {
             TakeDamage(damage);
-        } else
-        {
             target.TakeDamage(damage);
             if (target.Dead)
             {
                 Minions.Remove(target);
                 Destroy(target.gameObject);
             }
+            //InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
+            //GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, healthDamage, 1);
+        } else
+        {
+            InvulnerabilityColor.SetTintColor(ShieldColor, ColorTintDuration);
+            GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, ShieldColor, tmp, 1);
         }
 
+        UpdateUIHealth();
+        UpdateUIShield();
     }
 
     public void StartOfBattle()

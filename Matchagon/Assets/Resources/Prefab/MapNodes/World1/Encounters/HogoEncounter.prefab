@@ -127,12 +127,24 @@ MonoBehaviour:
   reachableFrom: []
   DeadEnd: 1
   sprite: {fileID: 21300000, guid: abf22a2895877f047a6b5885df4ab861, type: 3}
-  encounter:
+  Difficulty: 0
+  EncounterVariants:
+  - Difficulty: 0
     Waves:
     - Enemy: {fileID: 2714039493885062645, guid: c1484fdb3b917b341af03a99a3c71b6e,
         type: 3}
       Quanitity: 1
       Turn: 1
+  - Difficulty: 1
+    Waves:
+    - Enemy: {fileID: 2714039493885062645, guid: c1484fdb3b917b341af03a99a3c71b6e,
+        type: 3}
+      Quanitity: 2
+      Turn: 1
+    - Enemy: {fileID: 2714039493885062645, guid: c1484fdb3b917b341af03a99a3c71b6e,
+        type: 3}
+      Quanitity: 1
+      Turn: 2
 --- !u!1 &3511338831923069284
 GameObject:
   m_ObjectHideFlags: 0

@@ -68,7 +68,7 @@ public class DeckView : MonoBehaviour
             cardObj.transform.localPosition = new Vector3(xStart + xCount * xDif, yStart + yCount * yDif);
 
             DetailedCardInfo detailedCardInfo = cardObj.GetComponent<DetailedCardInfo>();
-            detailedCardInfo.Populate(card.Sprite, card.name, card.Cost.ToString(), card.Description, card.Rarity, false);
+            detailedCardInfo.Populate(card.Sprite, card.name, card.Cost.ToString(), card.SummonCost.ToString(), card.Description, card.Rarity, false);
 
 
             if (card.GetType() == typeof(MinionCard))

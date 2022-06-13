@@ -49,12 +49,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Zoul
   Cost: 3
+  SummonCost: 7
   Rarity: 1
   Sprite: {fileID: 21300000, guid: 2d793f3734b4d4d40be25b413451aeb9, type: 3}
-  Description: 0/1/0/0/2/2 Doubles mana sphere spawn rate. AOE
+  Description: 0/1/0/0/1/1 Doubles mana sphere spawn rate. AOE
   MinionPrefab: {fileID: 7033416811857082841, guid: 5f43a98b96d32d64e9c71704ca31b6d1,
     type: 3}
-  PowerCost: 5
+  PowerCost: 7
 --- !u!212 &2614058212616492922
 SpriteRenderer:
   m_ObjectHideFlags: 0
