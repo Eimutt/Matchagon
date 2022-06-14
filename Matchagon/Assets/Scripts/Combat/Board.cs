@@ -56,9 +56,14 @@ public class Board : MonoBehaviour
         Spheres[x1, y1] = Sphere2;
         Spheres[x2, y2] = Sphere1;
 
-        Spheres[x1, y1].gameObject.transform.position = new Vector3(x1, y1);
+        var move1 = Spheres[x1, y1].gameObject.AddComponent<Move>();
+        move1.Init(new Vector3(x1, y1), 0.1f);
+        var move2 = Spheres[x2, y2].gameObject.AddComponent<Move>();
+        move2.Init(new Vector3(x2, y2), 0.1f);
 
-        Spheres[x2, y2].gameObject.transform.position = new Vector3(x2, y2);
+        //Spheres[x1, y1].gameObject.transform.position = new Vector3(x1, y1);
+
+        //Spheres[x2, y2].gameObject.transform.position = new Vector3(x2, y2);
     }
 
     public List<Match> IdentifyMatches()
@@ -375,7 +380,12 @@ public class Board : MonoBehaviour
                         {
 
                             var sphere = Spheres[i, k];
-                            sphere.gameObject.transform.position = new Vector3(i, j);
+
+                            var move = sphere.gameObject.AddComponent<Move>();
+                            move.Init(new Vector3(i, j), 0.1f);
+
+
+                            //sphere.gameObject.transform.position = new Vector3(i, j);
 
                             Spheres[i, j] = sphere;
                             Spheres[i, k] = null;

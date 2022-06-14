@@ -26,7 +26,7 @@ public class Move : MonoBehaviour
 
         if(t >= 1)
         {
-            Action.Invoke();
+            if(Action != null) Action.Invoke();
             Destroy(this);
         }
     }
@@ -37,5 +37,12 @@ public class Move : MonoBehaviour
         Duration = duration;
         TargetPos = target;
         Action = action;
+    }
+
+    public void Init(Vector3 target, float duration)
+    {
+        StartPos = gameObject.transform.position;
+        Duration = duration;
+        TargetPos = target;
     }
 }
