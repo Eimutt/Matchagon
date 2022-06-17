@@ -26,7 +26,8 @@ public class Move : MonoBehaviour
 
         if(t >= 1)
         {
-            if(Action != null) Action.Invoke();
+            gameObject.transform.position = TargetPos;
+            if (Action != null) Action.Invoke();
             Destroy(this);
         }
     }

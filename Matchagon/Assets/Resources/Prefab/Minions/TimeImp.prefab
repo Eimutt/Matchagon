@@ -50,7 +50,7 @@ MonoBehaviour:
   ShieldColor: {r: 0.09019608, g: 0.92941177, b: 1, a: 1}
   DamagedColor: {r: 0, g: 0, b: 0, a: 0}
   ColorTintDuration: 2
-  Damages: 000000000000000000000000050000000000000000000000
+  Damages: 000000000000000000000000320000000000000000000000
   Effects:
   - effectName: TurnTimeIncrease
     effectStrength: 3

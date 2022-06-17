@@ -73,11 +73,22 @@ public class WorldMap : MonoBehaviour
             int extra = 0;
 
             bool encounter = (i % 1 == 0);
+
+            int lastEncounter = -1;
             for (int j = 1; j <= options; j++)
             {
+
                 if (encounter)
                 {
+
                     int randomEncounter = Random.Range(0, prefabs.Count);
+
+                    while (randomEncounter == lastEncounter)
+                    {
+                        randomEncounter = Random.Range(0, prefabs.Count);
+                    }
+                    lastEncounter = randomEncounter;
+
                     var node = Instantiate(prefabs[randomEncounter], transform);
 
                     node.name = i + " " + j;

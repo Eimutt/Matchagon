@@ -178,6 +178,9 @@ public class Player : MonoBehaviour
 
     public void ResolveTurn(Combo combo, EnemyHandler enemyHandler)
     {
+
+        TriggerComboEffects(combo.count);
+
         List<PossibleAttack> attacks = new List<PossibleAttack>();
 
 
@@ -489,6 +492,14 @@ public class Player : MonoBehaviour
     public void TriggerStartOfTurnItemEffects()
     {
         Items.ForEach(i => i.Effects.Where(e => e.EffectType == EffectType.StartOfTurn).ToList().ForEach(e => e.Trigger()));
+    }
+
+    public void TriggerComboEffects(int count)
+    {
+        foreach (Minion minion in Minions)
+        {
+            minion.Effects.Where(e => e.EffectType == EffectType.OnCombo && e.ComboLimit <= count).ToList().ForEach(e => e.Trigger());
+        }
     }
 
 

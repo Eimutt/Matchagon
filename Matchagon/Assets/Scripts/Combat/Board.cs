@@ -12,6 +12,9 @@ public class Board : MonoBehaviour
     public GameObject SphereObject;
 
     public SphereGenerator SphereGenerator;
+
+    public GameObject HiddenFog;
+    public Sprite sprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -468,7 +471,22 @@ public class Board : MonoBehaviour
 
         foreach (Tuple<int, int> t in points)
         {
-            Spheres[t.Item1, t.Item2].HideType();
+            var fog = Instantiate(HiddenFog);
+            fog.transform.localPosition = new Vector3(t.Item1, t.Item2);
+            var originalTexture = sprite.texture;
+
+            Texture2D copyTexture = new Texture2D(originalTexture.width, originalTexture.height);
+            copyTexture.SetPixels(originalTexture.GetPixels());
+            copyTexture.Apply();
+
+
+            var s = Sprite.Create(
+            copyTexture,
+            sprite.rect,
+            new Vector2(0.5f, 0.5f),
+            sprite.pixelsPerUnit);
+            fog.GetComponent<SpriteRenderer>().sprite = s;
+            //Spheres[t.Item1, t.Item2].HideType();
 
         }
     }

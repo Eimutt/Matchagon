@@ -50,12 +50,13 @@ MonoBehaviour:
   ShieldColor: {r: 0.09019608, g: 0.92941177, b: 1, a: 1}
   DamagedColor: {r: 0, g: 0, b: 0, a: 0}
   ColorTintDuration: 2
-  Damages: 020000000000000002000000000000000000000001000000
+  Damages: 0f000000000000000f000000000000000000000000000000
   Effects: []
   AOE: 0
   position: 0
   MaxHealth: 15
   CurrentHealth: 15
+  Dead: 0
 --- !u!212 &2167825773021458745
 SpriteRenderer:
   m_ObjectHideFlags: 0

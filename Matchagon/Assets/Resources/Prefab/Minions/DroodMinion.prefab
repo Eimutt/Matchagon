@@ -50,15 +50,31 @@ MonoBehaviour:
   ShieldColor: {r: 0.09019608, g: 0.92941177, b: 1, a: 1}
   DamagedColor: {r: 0, g: 0, b: 0, a: 0}
   ColorTintDuration: 2
-  Damages: 000000000000000002000000010000000000000001000000
+  Damages: 0000000000000000140000000a0000000000000001000000
   Effects:
   - effectName: GrassDamageMultiplier
     effectStrength: 25
     EffectType: 4
+    ComboLimit: 0
+    Function:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11500000, guid: a43f10cb7e8cf9445979d936e8e0c246, type: 3}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   AOE: 0
   position: 0
   MaxHealth: 15
   CurrentHealth: 15
+  Dead: 0
 --- !u!212 &8128954606181003807
 SpriteRenderer:
   m_ObjectHideFlags: 0

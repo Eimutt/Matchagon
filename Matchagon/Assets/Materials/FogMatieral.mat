@@ -34,6 +34,6 @@ Material:
     - _SoftCutoff: 10
     - _VisionRange: 1
     m_Colors:
-    - Color_6D7B4CA8: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 0.4745098}
+    - Color_6D7B4CA8: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 0.4745098}
     - _CharacterPosition: {r: -8, g: -4, b: 0, a: 0}
     - _FogSpeed: {r: 0.1, g: 0.15, b: 0.1, a: 1}

@@ -133,7 +133,7 @@ MonoBehaviour:
   SummonCost: 8
   Rarity: 2
   Sprite: {fileID: 21300000, guid: 06bbf2235f409f04b98b5b5d9f940810, type: 3}
-  Description: 0/4/0/0/0/0/2 Attack hits all enemies
+  Description: 0/2/0/0/0/0/2 Attack hits all enemies
   MinionPrefab: {fileID: 4870744172063127956, guid: 6d8abc402a5cafa4991f7646a911958c,
     type: 3}
   PowerCost: 8

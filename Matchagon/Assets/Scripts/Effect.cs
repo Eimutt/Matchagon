@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum EffectType
 {
@@ -11,20 +13,30 @@ public enum EffectType
     SummonEffect,
     StartOfCombat,
     OnPickUp,
-    OnRemoval
+    OnRemoval,
+    OnCombo
 }
+
+[Serializable] public class IntEvent : UnityEvent<int> { }
 
 public abstract class GenericEffect<T>
 {
-
     public string effectName;
     public int effectStrength;
     public EffectType EffectType;
+    public int ComboLimit;
+
+
+    public IntEvent Function;
 }
 [System.Serializable]
 public class Effect : GenericEffect<ActionEnum> {
     public void Trigger()
     {
+        Function.Invoke(effectStrength);
+
+
+
         if (effectName == "RandomToGreen")
         {
             GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(TypeEnum.Grass, effectStrength);
@@ -51,10 +63,6 @@ public class Effect : GenericEffect<ActionEnum> {
         {
             GameObject.Find("Player").GetComponent<Player>().GetShield(effectStrength);
         }
-        else if (effectName == "DrawCard")
-        {
-            GameObject.Find("Player").GetComponent<Player>().DrawCard();
-        }
         else if (effectName == "ModifySpawnRateFire")
         {
             GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Fire, effectStrength);
@@ -71,9 +79,9 @@ public class Effect : GenericEffect<ActionEnum> {
         {
             GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Light, effectStrength);
         }
-        else if (effectName == "ModifySpawnPower")
-        {
-            GameObject.Find("GameHandler").GetComponent<PlayerData>().ModifySpawnPower(effectStrength);
-        }
+
+        
+
     }
+    
 }
