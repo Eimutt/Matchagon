@@ -56,15 +56,52 @@ MonoBehaviour:
     effectStrength: 25
     EffectType: 4
     ComboLimit: 0
+    InstanceFunction:
+      m_PersistentCalls:
+        m_Calls: []
     Function:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11500000, guid: a43f10cb7e8cf9445979d936e8e0c246, type: 3}
+        - m_Target: {fileID: 3466885528227232834, guid: 1459f02f77609014897da8a06658fd78,
+            type: 3}
+          m_MethodName: ModifyGrassDamageMultiplier
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - effectName: GrassDamageMultiplier
+    effectStrength: -25
+    EffectType: 3
+    ComboLimit: 0
+    InstanceFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
           m_MethodName: 
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Function:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3466885528227232834, guid: 1459f02f77609014897da8a06658fd78,
+            type: 3}
+          m_MethodName: ModifyGrassDamageMultiplier
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

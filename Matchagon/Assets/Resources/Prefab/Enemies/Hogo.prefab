@@ -281,12 +281,50 @@ MonoBehaviour:
   incomingDamage: 0
   startPos: {x: 0, y: 0, z: 0}
   Effects:
-  - effectName: TurnTimeIncrease
-    effectStrength: -3
-    EffectType: 0
+  - effectName: RemoveFog
+    effectStrength: 0
+    EffectType: 3
+    ComboLimit: 0
+    InstanceFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3466885528227232834, guid: 1459f02f77609014897da8a06658fd78,
+            type: 3}
+          m_MethodName: DestroyBoardObjectsFromSource
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Function:
+      m_PersistentCalls:
+        m_Calls: []
   - effectName: HideRandom
-    effectStrength: 1
-    EffectType: 0
+    effectStrength: 6
+    EffectType: 4
+    ComboLimit: 0
+    InstanceFunction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3466885528227232834, guid: 1459f02f77609014897da8a06658fd78,
+            type: 3}
+          m_MethodName: HideRandom
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Function:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &2714039493885062644
 MonoBehaviour:
   m_ObjectHideFlags: 0

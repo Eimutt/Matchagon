@@ -34,7 +34,8 @@ public class Player : MonoBehaviour
     public List<Card> Hand;
     public List<MinionCard> StartMinions;
 
-    public float[] DamageMultiplier = new float[] { 1, 1, 1, 1, 1, 1 };
+    public float[] TypeDamageMultipliers = new float[] { 100, 100, 100, 100, 100, 100 };
+    public float GlobalDamageMultiplier;
 
     public GameObject sliderPrefab;
     public GameObject spawnPointPrefab;
@@ -209,7 +210,7 @@ public class Player : MonoBehaviour
 
                 foreach (Minion minion in Minions)
                 {
-                    float minionElementDamage = (float)minion.Damages[(int)entry.Key] * DamageMultiplier[(int)entry.Key];
+                    float minionElementDamage = (float)minion.Damages[(int)entry.Key] * (float)(TypeDamageMultipliers[(int)entry.Key] * (GlobalDamageMultiplier)/10000);
                     if (minionElementDamage != 0)
                     {
                         attacks.Add(new PossibleAttack(minion, MatchEnum.Blob, entry.Key, value * minionElementDamage, combo.count, combo.damageMultiplier, minion.AOE));
@@ -428,10 +429,25 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ChangeDamage(TypeEnum type, int percentage)
+    public void ChangeTypeDamagePercentage(TypeEnum type, int percentage)
     {
-        DamageMultiplier[(int)type] *= 1 + ((float)percentage / 100f);
+        TypeDamageMultipliers[(int)type] *= 1 + ((float)percentage / 100f);
     }
+    public void ChangeTypeDamageFlat(TypeEnum type, int flatPercentage)
+    {
+        TypeDamageMultipliers[(int)type] += (float)flatPercentage;
+    }
+
+    public void ChangeGlobalDamageFlat(int flatPercentage)
+    {
+        GlobalDamageMultiplier += (float)flatPercentage;
+    }
+
+    public void ChangeGlobalDamagePercentage(int flatPercentage)
+    {
+        GlobalDamageMultiplier += (float)flatPercentage;
+    }
+
 
     public void IncreaseMana()
     {
@@ -463,6 +479,7 @@ public class Player : MonoBehaviour
             {
                 Minions.Remove(target);
                 Destroy(target.gameObject);
+                target.Effects.Where(e => e.EffectType == EffectType.OnDeath).ToList().ForEach(e => e.Trigger());
             }
             //InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
             //GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, healthDamage, 1);

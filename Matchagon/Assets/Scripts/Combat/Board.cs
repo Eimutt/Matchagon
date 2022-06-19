@@ -452,7 +452,7 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void HideRandomSpheres(int count)
+    public void HideRandomSpheres(int sourceId, int count)
     {
         var points = new List<Tuple<int, int>>();
 
@@ -471,7 +471,7 @@ public class Board : MonoBehaviour
 
         foreach (Tuple<int, int> t in points)
         {
-            var fog = Instantiate(HiddenFog);
+            var fog = Instantiate(HiddenFog, transform);
             fog.transform.localPosition = new Vector3(t.Item1, t.Item2);
             var originalTexture = sprite.texture;
 
@@ -486,9 +486,17 @@ public class Board : MonoBehaviour
             new Vector2(0.5f, 0.5f),
             sprite.pixelsPerUnit);
             fog.GetComponent<SpriteRenderer>().sprite = s;
+
+            fog.GetComponent<BoardObject>().Source = sourceId;
+
             //Spheres[t.Item1, t.Item2].HideType();
 
         }
+    }
+
+    public void DestroyBoardObjectsFromSource(int sourceId)
+    {
+        transform.GetComponentsInChildren<BoardObject>().Where(b => b.Source == sourceId).ToList().ForEach(b => Destroy(b.gameObject));
     }
 
 }

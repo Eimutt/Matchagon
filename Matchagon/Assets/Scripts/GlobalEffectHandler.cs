@@ -15,18 +15,80 @@ public class GlobalEffectHandler : MonoBehaviour
     {
         
     }
+
     public void DrawCard(int amount)
     {
-        GameObject.Find("Player").GetComponent<Player>().DrawCard();
+        for(int i = 0; i < amount; i++)
+            GameObject.Find("Player").GetComponent<Player>().DrawCard();
     }
 
     public void ModifySpawnPower(int amount)
     {
-
+        GameObject.Find("GameHandler").GetComponent<PlayerData>().ModifySpawnPower(amount);
+    }
+    public void HideRandom(int sourceId, int amount)
+    {
+        GameObject.Find("Board").GetComponent<Board>().HideRandomSpheres(sourceId, amount);
     }
 
-    public void Test()
+    public void DestroyBoardObjectsFromSource(int sourceId, int amount)
     {
+        GameObject.Find("Board").GetComponent<Board>().DestroyBoardObjectsFromSource(sourceId);
+    }
 
+    public void RandomToGreen(int amount)
+    {
+        GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(TypeEnum.Grass, amount);
+    }
+    public void ModifyTurnTime(int amount)
+    {
+        GameObject.Find("CombatHandler").GetComponent<CombatHandler>().IncreaseTimeForNextTurn(amount);
+    }
+    public void ModifyGrassDamageMultiplier(int amount)
+    {
+        GameObject.Find("Player").GetComponent<Player>().ChangeTypeDamageFlat(TypeEnum.Grass, amount);
+    }
+    public void ModifyWaterDamageMultiplier(int amount)
+    {
+        GameObject.Find("Player").GetComponent<Player>().ChangeTypeDamageFlat(TypeEnum.Water, amount);
+    }
+    public void ModifyFireDamageMultiplier(int amount)
+    {
+        GameObject.Find("Player").GetComponent<Player>().ChangeTypeDamageFlat(TypeEnum.Fire, amount);
+    }
+
+    public void ModifyGlobalDamageFlat(int amount)
+    {
+        GameObject.Find("Player").GetComponent<Player>().ChangeGlobalDamageFlat(amount);
+    }
+    public void ModifyGlobalDamagePercentage(int amount)
+    {
+        GameObject.Find("Player").GetComponent<Player>().ChangeGlobalDamagePercentage(amount);
+    }
+
+    public void ModifyShieldValue(int amount)
+    {
+        GameObject.Find("Player").GetComponent<Player>().GetShield(amount);
+    }
+
+    public void ModifySpawnRateFire(int amount)
+    {
+        GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Fire, amount);
+    }
+    public void ModifySpawnRateGrass(int amount)
+    {
+        GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Grass, amount);
+    }
+    public void ModifySpawnRateWater(int amount)
+    {
+        GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Water, amount);
+    }
+    public void ModifySpawnRateMana(int amount)
+    {
+        GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Light, amount);
+    }
+    public void ModifySpawnRateShield(int amount)
+    {
+        GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Shield, amount);
     }
 }

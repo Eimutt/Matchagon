@@ -49,6 +49,8 @@ public class EnemyHandler : MonoBehaviour
                 {
                     Destroy(Enemies[y].gameObject);
                     Enemies.RemoveAt(y);
+
+                    Enemies[y].Effects.Where(e => e.EffectType == EffectType.OnDeath).ToList().ForEach(e => e.Trigger(Enemies[y].GetInstanceID()));
                 }
                 else
                 {
@@ -121,6 +123,8 @@ public class EnemyHandler : MonoBehaviour
         enemy.startPos = position;
 
         Enemies.Add(enemy);
+
+        enemy.Effects.Where(e => e.EffectType == EffectType.SummonEffect).ToList().ForEach(e => e.Trigger(enemy.GetInstanceID()));
     }
 
     private void GetLegitimateSpawnPositions()
