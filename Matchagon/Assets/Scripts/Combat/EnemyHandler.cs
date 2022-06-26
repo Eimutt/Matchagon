@@ -47,10 +47,10 @@ public class EnemyHandler : MonoBehaviour
                 c++;
                 if (Enemies[y].Dead)
                 {
+                    Enemies[y].Effects.Where(e => e.EffectType == EffectType.OnDeath).ToList().ForEach(e => e.Trigger(Enemies[y].GetInstanceID()));
                     Destroy(Enemies[y].gameObject);
                     Enemies.RemoveAt(y);
 
-                    Enemies[y].Effects.Where(e => e.EffectType == EffectType.OnDeath).ToList().ForEach(e => e.Trigger(Enemies[y].GetInstanceID()));
                 }
                 else
                 {

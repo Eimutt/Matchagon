@@ -202,7 +202,7 @@ public class CombatHandler : MonoBehaviour
     public void AdvanceState()
     {
         state = (GameState)((((int)state) + 1) % (int)GameState.max);
-        Debug.Log(state.ToString());
+        //Debug.Log(state.ToString());
     }
 
     public void CheckIfWin()

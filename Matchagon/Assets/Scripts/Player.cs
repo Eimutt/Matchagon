@@ -187,6 +187,8 @@ public class Player : MonoBehaviour
 
         foreach (KeyValuePair<TypeEnum, int> entry in combo.damageDict)
         {
+            Debug.Log(entry.Key + ": " + entry.Value);
+
             int value = entry.Value;
 
             if (entry.Key == TypeEnum.Shield)
@@ -210,11 +212,18 @@ public class Player : MonoBehaviour
 
                 foreach (Minion minion in Minions)
                 {
-                    float minionElementDamage = (float)minion.Damages[(int)entry.Key] * (float)(TypeDamageMultipliers[(int)entry.Key] * (GlobalDamageMultiplier)/10000);
-                    if (minionElementDamage != 0)
+                    if(minion.Damages[(int)entry.Key] != 0)
                     {
+                        var r = Random.Range(0.8f, 1.2f); 
+                        
+                        float minionElementDamage = r * (float)minion.Damages[(int)entry.Key] * (float)(TypeDamageMultipliers[(int)entry.Key] * (GlobalDamageMultiplier) / 10000);
+                        
                         attacks.Add(new PossibleAttack(minion, MatchEnum.Blob, entry.Key, value * minionElementDamage, combo.count, combo.damageMultiplier, minion.AOE));
+                        
                     }
+
+
+                    
                 }
             }
         }
@@ -264,7 +273,7 @@ public class Player : MonoBehaviour
             enemy.AddIncomingDamage(possibleAttack.fullDamage);
             attacks.Remove(possibleAttack);
             possibleAttack.source.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, possibleAttack.type, possibleAttack.baseDamage, possibleAttack.fullDamage, combo.count, enemy.gameObject);
-
+            Debug.Log(possibleAttack.type + " for " + possibleAttack.fullDamage + " damage");
             i++;
         }
     }

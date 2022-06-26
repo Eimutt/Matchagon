@@ -47,7 +47,7 @@ public class Minion : MonoBehaviour
     {
         if(Damages[(int)TypeEnum.Shield] > 0)
         {
-            Debug.Log(gameObject.name + " shields for " + Damages[(int)TypeEnum.Shield]);
+           // Debug.Log(gameObject.name + " shields for " + Damages[(int)TypeEnum.Shield]);
             InvulnerabilityColor.SetTintColor(ShieldColor, ColorTintDuration);
             return Damages[(int)TypeEnum.Shield];
         }

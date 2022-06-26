@@ -109,7 +109,7 @@ MonoBehaviour:
   speed: 0.7
   growTime: 1.5
   duration: 2.5
-  Xvariance: 0.4
+  Xvariance: 0.6
   fadeoutDuration: 1.5
   startScale: 0.4
   c: 0

@@ -304,7 +304,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   - effectName: HideRandom
-    effectStrength: 6
+    effectStrength: 4
     EffectType: 4
     ComboLimit: 0
     InstanceFunction:
