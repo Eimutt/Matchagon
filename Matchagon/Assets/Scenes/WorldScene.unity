@@ -3023,7 +3023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ae50b9774b69d64395b3cfd1a345bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 12
+  length: 1
   maxOptions: 5
   minOptions: 2
   pathParts: 7
@@ -3039,7 +3039,7 @@ MonoBehaviour:
   - {fileID: 1966725557570814730, guid: be84e2fe0d396274ca9971648601c90b, type: 3}
   - {fileID: 8670405973601430638, guid: e168b33bc41f85f42a78ea9498a8eac7, type: 3}
   BossEncounterPrefabs:
-  - {fileID: 6067740712874528227, guid: b9006b234c0ca594b9dc5d4c80103cd3, type: 3}
+  - {fileID: 3728974677334415204, guid: 6d2a6bc43ca8dbd468ba456c2e7ee1e8, type: 3}
   NodeBase: {fileID: 3252828690886269940, guid: 47e411d6b4e66b0448548972a3f072a1,
     type: 3}
   Path: {fileID: 5901380364707060902, guid: 3ccac94b8f95b9745aeab20ebef54ce9, type: 3}

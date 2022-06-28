@@ -40,6 +40,12 @@ public class GlobalEffectHandler : MonoBehaviour
     {
         GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(TypeEnum.Grass, amount);
     }
+
+    public void RandomToPlage(int amount)
+    {
+        GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(TypeEnum.Plague, amount);
+    }
+
     public void ModifyTurnTime(int amount)
     {
         GameObject.Find("CombatHandler").GetComponent<CombatHandler>().IncreaseTimeForNextTurn(amount);

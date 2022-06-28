@@ -1562,6 +1562,9 @@ MonoBehaviour:
   - Type: 4
     Weight: 4
     Sprite: {fileID: 21300000, guid: ef5a3e040ddbfe9409f929ecfd7c3c8a, type: 3}
+  - Type: 8
+    Weight: 0
+    Sprite: {fileID: 21300000, guid: a6608fefe7208ee4aa951790a5628c04, type: 3}
   SphereObject: {fileID: 3446149553869900355, guid: 1bc9657ac9745d7488a44c43f9ccdba4,
     type: 3}
 --- !u!1 &1100710278

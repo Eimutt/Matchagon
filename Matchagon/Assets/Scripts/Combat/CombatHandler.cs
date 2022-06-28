@@ -242,6 +242,10 @@ public class CombatHandler : MonoBehaviour
         turnTimer = turnLimit;
         Player.NewTurn();
         TrySendWave();
+
+        Board.TriggerSpecialBoardEffects();
+
+
         EnemyHandler.TriggerStartOfTurnEffects();
 
         AdvanceState();

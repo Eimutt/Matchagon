@@ -13,7 +13,7 @@ public enum TypeEnum
     Shield,
     Chromatic,
     Death,
-    Hidden
+    Plague
 }
 
 

@@ -187,6 +187,8 @@ public class Player : MonoBehaviour
 
         foreach (KeyValuePair<TypeEnum, int> entry in combo.damageDict)
         {
+            if ((int)entry.Key > 6)
+                continue;
             Debug.Log(entry.Key + ": " + entry.Value);
 
             int value = entry.Value;
@@ -209,6 +211,7 @@ public class Player : MonoBehaviour
                 {
                     continue;
                 }
+
 
                 foreach (Minion minion in Minions)
                 {

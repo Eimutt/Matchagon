@@ -499,4 +499,57 @@ public class Board : MonoBehaviour
         transform.GetComponentsInChildren<BoardObject>().Where(b => b.Source == sourceId).ToList().ForEach(b => Destroy(b.gameObject));
     }
 
+    public void TriggerSpecialBoardEffects()
+    {
+        SpreadPlague();
+    }
+
+    public void SpreadPlague()
+    {
+        List<Vector2Int> spreadTargets = new List<Vector2Int>();
+        for (int i = 0; i < x; i++)
+        {
+            for (int j = 0; j < y; j++)
+            {
+                var type = Spheres[i, j].GetType();
+                if (type == TypeEnum.Plague)
+                {
+                    List<Vector2Int> possibleNextTransformations = new List<Vector2Int>();
+
+                    if (i + 1 < x && Spheres[i + 1, j] && Spheres[i + 1, j].GetType() != TypeEnum.Plague)
+                    {
+                        possibleNextTransformations.Add(new Vector2Int(i + 1, j));
+                    }
+                    if (j + 1 < y && Spheres[i, j + 1] && Spheres[i, j + 1].GetType() != TypeEnum.Plague)
+                    {
+                        possibleNextTransformations.Add(new Vector2Int(i, j + 1));
+                    }
+
+                    if (i - 1 >= 0 && Spheres[i - 1, j] != null && Spheres[i - 1, j].GetType() != TypeEnum.Plague)
+                    {
+                        possibleNextTransformations.Add(new Vector2Int(i - 1, j));
+                    }
+                    if (j - 1 >= 0 && Spheres[i, j - 1] && Spheres[i, j - 1].GetType() != TypeEnum.Plague)
+                    {
+                        possibleNextTransformations.Add(new Vector2Int(i, j - 1));
+                    }
+
+                    if(possibleNextTransformations.Count != 0)
+                    {
+                        var sphere = possibleNextTransformations[UnityEngine.Random.Range(0, possibleNextTransformations.Count)];
+
+                        spreadTargets.Add(sphere);
+
+                    }
+                }
+            }
+        }
+
+        foreach(var sphere in spreadTargets)
+        {
+            Debug.Log("transforming" + sphere.x + ", " + sphere.y);
+            Spheres[sphere.x, sphere.y].SetType(TypeEnum.Plague, SphereGenerator.GetColorSprite(TypeEnum.Plague));
+        }
+    }
+
 }
