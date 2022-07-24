@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public enum EffectType
 {
     StartOfTurn,
+    EndOfTurn,
     Passive,
     OnKill,
     OnDeath,
@@ -14,7 +15,8 @@ public enum EffectType
     StartOfCombat,
     OnPickUp,
     OnRemoval,
-    OnCombo
+    OnCombo,
+    EndOfCombat
 }
 
 [Serializable] public class IntIntEvent : UnityEvent<int, int> { }

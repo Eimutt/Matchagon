@@ -81,7 +81,7 @@ MonoBehaviour:
           m_CallState: 2
   - effectName: TurnTimeIncrease
     effectStrength: 3
-    EffectType: 4
+    EffectType: 5
     ComboLimit: 0
     Description: 
     Visible: 0

@@ -57,7 +57,7 @@ MonoBehaviour:
   Effects:
   - effectName: DrawCard
     effectStrength: 1
-    EffectType: 8
+    EffectType: 9
     ComboLimit: 5
     Description: Draws a card on +5 combo.
     Visible: 1

@@ -45,10 +45,18 @@ public class GlobalEffectHandler : MonoBehaviour
     {
         GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(TypeEnum.Plague, amount);
     }
+    public void RandomToShield(int amount)
+    {
+        GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(TypeEnum.Shield, amount);
+    }
 
     public void ModifyTurnTime(int amount)
     {
         GameObject.Find("CombatHandler").GetComponent<CombatHandler>().IncreaseTimeForNextTurn(amount);
+    }
+    public void ModifyCombo(int amount)
+    {
+        GameObject.Find("CombatHandler").GetComponent<CombatHandler>().IncreaseCombo(amount);
     }
     public void ModifyGrassDamageMultiplier(int amount)
     {
@@ -96,5 +104,15 @@ public class GlobalEffectHandler : MonoBehaviour
     public void ModifySpawnRateShield(int amount)
     {
         GameObject.Find("Board").GetComponent<SphereGenerator>().MultiplyWeight(TypeEnum.Shield, amount);
+    }
+
+    public void DamageAllMinions(int percentage)
+    {
+        GameObject.Find("Player").GetComponent<Player>().DamageAllMinions(percentage);
+    }
+
+    public void HealPlayer(int amount)
+    {
+        GameObject.Find("GameHandler").GetComponent<PlayerData>().Heal(amount);
     }
 }

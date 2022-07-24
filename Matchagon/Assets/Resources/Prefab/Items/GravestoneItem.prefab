@@ -102,8 +102,10 @@ MonoBehaviour:
   Effects:
   - effectName: MinionRecycle
     effectStrength: 25
-    EffectType: 5
+    EffectType: 6
     ComboLimit: 0
+    Description: 
+    Visible: 0
     InstanceFunction:
       m_PersistentCalls:
         m_Calls: []

@@ -2851,7 +2851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 150
   Health: 150
-  Gold: 75
+  Gold: 25
   HealingMultiplier: 1
   DeckPrefabs:
   - {fileID: 2614058212616492923, guid: 6b5886b14d3ac7b478e8d7bdace302a2, type: 3}
@@ -3039,7 +3039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 4
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}

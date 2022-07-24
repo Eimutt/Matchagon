@@ -285,7 +285,7 @@ MonoBehaviour:
   Effects:
   - effectName: RemoveFog
     effectStrength: 0
-    EffectType: 3
+    EffectType: 4
     ComboLimit: 0
     Description: 
     Visible: 0
@@ -309,7 +309,7 @@ MonoBehaviour:
         m_Calls: []
   - effectName: HideRandom
     effectStrength: 4
-    EffectType: 4
+    EffectType: 5
     ComboLimit: 0
     Description: Hides four random spheres.
     Visible: 1

@@ -20,6 +20,7 @@ public class Minion : Unit
     public List<Effect> Effects;
 
     public bool AOE;
+    public bool AttackOnShield;
 
     public int position;
 

@@ -15,6 +15,7 @@ public enum GameState
     FillBoard,
     EnemyTurn,
     EnemyActions,
+    EndOfTurn,
     max
     //Win
 }
@@ -167,6 +168,9 @@ public class CombatHandler : MonoBehaviour
                 //if (EnemyHandler.NoEnemiesLeft())
                 //    AdvanceState();
                 break;
+            case GameState.EndOfTurn:
+                OnTurnEnd();
+                break;
         }
     }
 
@@ -179,7 +183,6 @@ public class CombatHandler : MonoBehaviour
     {
         matches = Board.IdentifyMatches();
 
-        combo = new Combo();
         TimertText.text = "";
         AdvanceState();
 
@@ -211,6 +214,10 @@ public class CombatHandler : MonoBehaviour
         {
 
             GameObject.Find("GameHandler").GetComponent<PlayerData>().UpdateHealth(Player.CurrentHp);
+
+
+            Player.TriggerEndOfCombatItemEffects();
+
             GameObject.Find("GameHandler").GetComponent<GameHandler>().LeaveCombat();
 
         }
@@ -242,6 +249,8 @@ public class CombatHandler : MonoBehaviour
         CheckIfWin();
         Turn++;
         turnTimer = turnLimit;
+        combo = new Combo();
+
         Player.NewTurn();
         TrySendWave();
 
@@ -250,6 +259,12 @@ public class CombatHandler : MonoBehaviour
 
         EnemyHandler.TriggerStartOfTurnEffects();
 
+        AdvanceState();
+    }
+
+    public void OnTurnEnd()
+    {
+        Player.EndOfTurn();
         AdvanceState();
     }
 
@@ -265,5 +280,10 @@ public class CombatHandler : MonoBehaviour
 
         Board.FillBoard();
         active = true;
+    }
+
+    public void IncreaseCombo(int amount)
+    {
+        combo.count += 1;
     }
 }

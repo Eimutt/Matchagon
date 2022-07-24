@@ -57,7 +57,7 @@ MonoBehaviour:
   Effects:
   - effectName: ModifySpawnRateMana
     effectStrength: 2
-    EffectType: 4
+    EffectType: 5
     ComboLimit: 0
     Description: Doubles mana orb spawn rate.
     Visible: 1

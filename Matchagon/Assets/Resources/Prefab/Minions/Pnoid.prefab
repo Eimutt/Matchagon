@@ -57,7 +57,7 @@ MonoBehaviour:
   Effects:
   - effectName: DamageBoostWhenSolo
     effectStrength: 100
-    EffectType: 1
+    EffectType: 2
     ComboLimit: 0
     Description: Does more damage when only minion.
     Visible: 1

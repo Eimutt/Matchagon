@@ -57,7 +57,7 @@ MonoBehaviour:
   Effects:
   - effectName: HealOnKill
     effectStrength: 1
-    EffectType: 2
+    EffectType: 3
     ComboLimit: 0
     Description: Heals on kill.
     Visible: 1

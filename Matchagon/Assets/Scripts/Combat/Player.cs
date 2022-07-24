@@ -146,7 +146,6 @@ public class Player : MonoBehaviour
 
     public void NewTurn()
     {
-        ResetShield();
         DrawCard();
         IncreaseMana();
         mana = maxMana + tmpMana;
@@ -155,6 +154,12 @@ public class Player : MonoBehaviour
 
         TriggerStartOfTurnItemEffects();
         Minions.ForEach(m => m.TriggerStartOfTurnEffects());
+    }
+
+    public void EndOfTurn()
+    {
+        TriggerEndOfTurnItemEffects();
+        ResetShield();
     }
 
     public void UpdatePlayableCards()
@@ -211,6 +216,19 @@ public class Player : MonoBehaviour
                 {
                     Shield += (minion.GetShield() * combo.count);
                     UpdateUIShield();
+
+                    if (minion.AttackOnShield)
+                    {
+                        if (minion.Damages[(int)entry.Key] != 0)
+                        {
+                            var r = Random.Range(0.8f, 1.2f);
+
+                            float minionElementDamage = r * (float)minion.Damages[(int)entry.Key] * (float)(TypeDamageMultipliers[(int)entry.Key] * (GlobalDamageMultiplier) / 10000);
+
+                            attacks.Add(new PossibleAttack(minion, MatchEnum.Blob, entry.Key, value * minionElementDamage, combo.count, combo.damageMultiplier, minion.AOE));
+
+                        }
+                    }
                 }
             }
             else
@@ -549,10 +567,7 @@ public class Player : MonoBehaviour
             target.TakeDamage(damage);
             if (target.Dead)
             {
-                Minions.Remove(target);
-                Destroy(target.gameObject);
-                target.Effects.Where(e => e.EffectType == EffectType.OnDeath).ToList().ForEach(e => e.Trigger());
-                spawnPoints[target.position].transform.Find("Location").GetComponent<Pulse>().Occupied = false;
+                KillMinion(target);
             }
             //InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
             //GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, healthDamage, 1);
@@ -574,6 +589,28 @@ public class Player : MonoBehaviour
         TriggerStartOfCombatItemEffects();
     }
 
+    public void DamageAllMinions(int percentage)
+    {
+        var summonedMinions = Minions.Where(m => m.position != 0).ToList();
+        foreach(Minion m in summonedMinions)
+        {
+            int damage = (m.MaxHp * percentage / 100);
+            m.TakeDamage(damage); 
+            if (m.Dead)
+            {
+                KillMinion(m);
+            }
+        }
+    }
+
+    public void KillMinion(Minion m)
+    {
+        Minions.Remove(m);
+        Destroy(m.gameObject);
+        m.Effects.Where(e => e.EffectType == EffectType.OnDeath).ToList().ForEach(e => e.Trigger());
+        spawnPoints[m.position].transform.Find("Location").GetComponent<Pulse>().Occupied = false;
+    }
+
     public void TriggerStartOfCombatItemEffects()
     {
         Items.ForEach(i => i.Effects.Where(e => e.EffectType == EffectType.StartOfCombat).ToList().ForEach(e => e.Trigger()));
@@ -582,6 +619,15 @@ public class Player : MonoBehaviour
     public void TriggerStartOfTurnItemEffects()
     {
         Items.ForEach(i => i.Effects.Where(e => e.EffectType == EffectType.StartOfTurn).ToList().ForEach(e => e.Trigger()));
+    }
+    public void TriggerEndOfTurnItemEffects()
+    {
+        Items.ForEach(i => i.Effects.Where(e => e.EffectType == EffectType.EndOfTurn).ToList().ForEach(e => e.Trigger()));
+    }
+
+    public void TriggerEndOfCombatItemEffects()
+    {
+        Items.ForEach(i => i.Effects.Where(e => e.EffectType == EffectType.EndOfCombat).ToList().ForEach(e => e.Trigger()));
     }
 
     public void TriggerComboEffects(int count)

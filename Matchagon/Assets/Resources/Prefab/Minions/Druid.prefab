@@ -57,7 +57,7 @@ MonoBehaviour:
   Effects:
   - effectName: GrassDamageMultiplier
     effectStrength: 25
-    EffectType: 4
+    EffectType: 5
     ComboLimit: 0
     Description: Increases grass damage.
     Visible: 1
@@ -81,7 +81,7 @@ MonoBehaviour:
           m_CallState: 2
   - effectName: GrassDamageMultiplier
     effectStrength: -25
-    EffectType: 3
+    EffectType: 4
     ComboLimit: 0
     Description: 
     Visible: 0

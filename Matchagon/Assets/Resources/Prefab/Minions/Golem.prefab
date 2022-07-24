@@ -57,7 +57,7 @@ MonoBehaviour:
   Effects:
   - effectName: AOE
     effectStrength: 0
-    EffectType: 1
+    EffectType: 2
     ComboLimit: 0
     Description: Attack damages all enemies.
     Visible: 1

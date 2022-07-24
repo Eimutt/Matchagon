@@ -57,7 +57,7 @@ MonoBehaviour:
   Effects:
   - effectName: Draw 2 cards
     effectStrength: 2
-    EffectType: 8
+    EffectType: 9
     ComboLimit: 7
     Description: Draws 2 cards on +7 combo.
     Visible: 0

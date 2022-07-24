@@ -101,9 +101,14 @@ MonoBehaviour:
   Special: 0
   Effects:
   - effectName: DrawCard
-    effectStrength: 0
-    EffectType: 5
+    effectStrength: 1
+    EffectType: 6
     ComboLimit: 0
+    Description: 
+    Visible: 0
+    InstanceFunction:
+      m_PersistentCalls:
+        m_Calls: []
     Function:
       m_PersistentCalls:
         m_Calls:
