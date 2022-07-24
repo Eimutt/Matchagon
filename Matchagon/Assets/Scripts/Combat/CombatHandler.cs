@@ -233,6 +233,8 @@ public class CombatHandler : MonoBehaviour
                 EnemyHandler.AddEnemy(wave.Enemy);
             }
         }
+
+        EncounterInfo.CrossWave(Turn);
     }
 
     public void OnTurnStart()

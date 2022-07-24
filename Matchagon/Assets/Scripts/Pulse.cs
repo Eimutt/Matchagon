@@ -12,6 +12,8 @@ public class Pulse : MonoBehaviour
     public float t;
 
     public SpriteRenderer sprite;
+
+    public bool Occupied;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,6 @@ public class Pulse : MonoBehaviour
         t += speed * Time.deltaTime;
         var sinValue = Mathf.Sin(t);
 
-        sprite.color = new Color(1, 1, 1, alphaStart + Difference * sinValue);
+        sprite.color = new Color(1, Occupied ? 0 : 1, Occupied ? 0 : 1, alphaStart + Difference * sinValue);
     }
 }

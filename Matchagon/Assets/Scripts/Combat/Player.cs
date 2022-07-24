@@ -48,6 +48,10 @@ public class Player : MonoBehaviour
         Board = GameObject.Find("Board").GetComponent<Board>();
 
         CurrentHp = GameObject.Find("GameHandler").GetComponent<PlayerData>().Health;
+
+        GetComponent<Minion>().CurrentHp = CurrentHp;
+        GetComponent<Minion>().CurrentHp = CurrentHp;
+
         Deck = GameObject.Find("GameHandler").GetComponent<PlayerData>().Deck;
         Items = GameObject.Find("GameHandler").GetComponent<PlayerData>().Items;
 
@@ -100,7 +104,15 @@ public class Player : MonoBehaviour
         GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, damage, 1);
         //UpdateUIHealth();
         //UpdateUIShield();
+        if(CurrentHp <= 0)
+        {
+            Lose();
+        }
+    }
 
+    private void Lose()
+    {
+        GameObject.Find("GameHandler").GetComponent<GameHandler>().Lose();
     }
 
     //public void GetShield(int shield)
@@ -281,30 +293,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void TryPlayCard(int cardIndex)
-    {
-        var card = Hand[cardIndex];
-        if(card.GetType() == typeof(MinionCard))
-        {
-            SelectMinionCard(cardIndex);
-        } else
-        {
-            PlayCard(cardIndex);
-        }
-
-    }
-
-    public void SelectMinionCard(int cardIndex)
-    {
-        var card = Hand[cardIndex];
-        if (card.Cost <= mana)
-        {
-            card.gameObject.transform.position += new Vector3(0, 0.5f, 0);
-            ShowViableSpawnPoints();
-
-            selectedCard = card;
-        }
-    }
 
     public void ShowViableSpawnPoints()
     {
@@ -319,7 +307,9 @@ public class Player : MonoBehaviour
             }
             else
             {
-                spawnPoints[i].gameObject.SetActive(false);
+                spawnPoints[i].gameObject.SetActive(true);
+                spawnPoints[i].transform.Find("Location").GetComponent<SpriteRenderer>().color = Color.red;
+                spawnPoints[i].transform.Find("Location").GetComponent<Pulse>().Occupied = true;
             }
         }
     }
@@ -370,6 +360,13 @@ public class Player : MonoBehaviour
     {
         var position = positions[positionIndex - 1];
 
+        var occupied = Minions.FirstOrDefault(m => m.position == positionIndex);
+        if (occupied)
+        {
+            Minions.Remove(occupied);
+            Destroy(occupied.gameObject);
+        }
+
         var x = (MinionCard)selectedCard;
 
         GameObject minionObject = Instantiate(x.MinionPrefab, position, Quaternion.identity);
@@ -381,6 +378,9 @@ public class Player : MonoBehaviour
 
         Minions.Add(minion);
 
+        
+
+
         HideSpawnPoints();
 
         mana -= selectedCard.Cost;
@@ -391,17 +391,52 @@ public class Player : MonoBehaviour
         selectedCard = null;
     }
 
-    public void PlayCard(int cardIndex)
+    public void TryPlayCard(int cardIndex)
     {
         var card = Hand[cardIndex];
-        if(card.Cost <= mana)
+        if (card.GetType() == typeof(MinionCard))
         {
-            card.Play();
-            mana -= card.Cost;
-            Destroy(card.gameObject);
-            Hand.Remove(card);
-            UpdatePlayableCards();
+            SelectMinionCard(cardIndex);
+        }
+        else
+        {
+            PlayCard(cardIndex);
+        }
 
+    }
+
+    public void TryPlayCard(Card card)
+    {
+        if (card.GetType() == typeof(MinionCard))
+        {
+            SelectMinionCard(card);
+        }
+        else
+        {
+            PlayCard(card);
+        }
+
+    }
+    public void SelectMinionCard(int cardIndex)
+    {
+        var card = Hand[cardIndex];
+        if (card.Cost <= mana)
+        {
+            card.gameObject.transform.position += new Vector3(0, 0.5f, 0);
+            ShowViableSpawnPoints();
+
+            selectedCard = card;
+        }
+    }
+
+    public void SelectMinionCard(Card card)
+    {
+        if (card.Cost <= mana)
+        {
+            card.gameObject.transform.position += new Vector3(0, 0.5f, 0);
+            ShowViableSpawnPoints();
+
+            selectedCard = card;
         }
     }
 
@@ -417,6 +452,31 @@ public class Player : MonoBehaviour
 
         }
     }
+    public void PlayCard(int cardIndex)
+    {
+        var card = Hand[cardIndex];
+        if (card.Cost <= mana)
+        {
+            card.Play();
+            mana -= card.Cost;
+            Destroy(card.gameObject);
+            Hand.Remove(card);
+            UpdatePlayableCards();
+
+        }
+    }
+
+    public void DeselectMinionCard()
+    {
+        selectedCard.gameObject.transform.position -= new Vector3(0, 0.5f, 0);
+        HideSpawnPoints();
+
+        selectedCard = null;
+
+    }
+
+    
+    
 
     public void DrawCard()
     {
@@ -492,6 +552,7 @@ public class Player : MonoBehaviour
                 Minions.Remove(target);
                 Destroy(target.gameObject);
                 target.Effects.Where(e => e.EffectType == EffectType.OnDeath).ToList().ForEach(e => e.Trigger());
+                spawnPoints[target.position].transform.Find("Location").GetComponent<Pulse>().Occupied = false;
             }
             //InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
             //GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, healthDamage, 1);

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5750005499783465872
+--- !u!1 &4870744172063127956
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,26 +8,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5750005499783465876}
-  - component: {fileID: 5750005499783465877}
-  - component: {fileID: 5750005499783465874}
-  - component: {fileID: 5750005499783465875}
-  - component: {fileID: 5750005499783465879}
-  - component: {fileID: 7231221135967443214}
+  - component: {fileID: 4870744172063127952}
+  - component: {fileID: 4870744172063127953}
+  - component: {fileID: 4870744172063127958}
+  - component: {fileID: 4870744172063127959}
+  - component: {fileID: 4870744172063127955}
+  - component: {fileID: 7497990638032415498}
   m_Layer: 0
-  m_Name: TimeImp
+  m_Name: Golem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5750005499783465876
+--- !u!4 &4870744172063127952
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5750005499783465872}
+  m_GameObject: {fileID: 4870744172063127956}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,73 +35,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5750005499783465877
+--- !u!114 &4870744172063127953
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5750005499783465872}
+  m_GameObject: {fileID: 4870744172063127956}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48bfe40b38ce5af40aaff16e867aaf40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentHp: 30
+  MaxHp: 30
+  Sprite: {fileID: 21300000, guid: 06bbf2235f409f04b98b5b5d9f940810, type: 3}
   ShieldColor: {r: 0.09019608, g: 0.92941177, b: 1, a: 1}
   DamagedColor: {r: 0, g: 0, b: 0, a: 0}
   ColorTintDuration: 2
-  Damages: 000000000000000000000000320000000000000000000000
+  Damages: 190000000000000000000000000000000000000001000000
   Effects:
-  - effectName: TurnTimeIncrease
-    effectStrength: 3
-    EffectType: 0
+  - effectName: AOE
+    effectStrength: 0
+    EffectType: 1
     ComboLimit: 0
+    Description: Attack damages all enemies.
+    Visible: 1
+    InstanceFunction:
+      m_PersistentCalls:
+        m_Calls: []
     Function:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3466885528227232834, guid: 1459f02f77609014897da8a06658fd78,
-            type: 3}
-          m_MethodName: ModifyTurnTime
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - effectName: TurnTimeIncrease
-    effectStrength: 3
-    EffectType: 4
-    ComboLimit: 0
-    Function:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3466885528227232834, guid: 1459f02f77609014897da8a06658fd78,
-            type: 3}
-          m_MethodName: ModifyTurnTime
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  AOE: 0
+        m_Calls: []
+  AOE: 1
   position: 0
-  MaxHealth: 12
-  CurrentHealth: 12
   Dead: 0
---- !u!212 &5750005499783465874
+--- !u!212 &4870744172063127958
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5750005499783465872}
+  m_GameObject: {fileID: 4870744172063127956}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -134,7 +109,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9d04325408ab1834fa79ba4c40662eb3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06bbf2235f409f04b98b5b5d9f940810, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -145,13 +120,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5750005499783465875
+--- !u!114 &4870744172063127959
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5750005499783465872}
+  m_GameObject: {fileID: 4870744172063127956}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10cee324c45207746acb770de7a637b9, type: 3}
@@ -159,31 +134,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BasicAttack: {fileID: 9160375019556114798, guid: 1aea693c2cdc90540bab1b1ca48c4521,
     type: 3}
-  AoeAttack: {fileID: 0}
+  AoeAttack: {fileID: 2757425146768043834, guid: 6faa38c976218624e96d84c165972a15,
+    type: 3}
   Shield: {fileID: 0}
   Delay: 0.4
---- !u!114 &5750005499783465879
+--- !u!114 &4870744172063127955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5750005499783465872}
+  m_GameObject: {fileID: 4870744172063127956}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a93d540143e55cb45aa4253afa7b8a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &7231221135967443214
+--- !u!65 &7497990638032415498
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5750005499783465872}
+  m_GameObject: {fileID: 4870744172063127956}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.8, y: 2.41, z: 0.2}
+  m_Size: {x: 1, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}

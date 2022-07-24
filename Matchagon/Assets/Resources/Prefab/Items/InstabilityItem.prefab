@@ -103,3 +103,10 @@ MonoBehaviour:
   - effectName: Minions
     effectStrength: 100
     EffectType: 1
+    ComboLimit: 0
+    InstanceFunction:
+      m_PersistentCalls:
+        m_Calls: []
+    Function:
+      m_PersistentCalls:
+        m_Calls: []

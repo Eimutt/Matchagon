@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48bfe40b38ce5af40aaff16e867aaf40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentHp: 20
+  MaxHp: 20
+  Sprite: {fileID: 21300000, guid: 0d9a035614390204198b401735fd4014, type: 3}
   ShieldColor: {r: 0.09019608, g: 0.92941177, b: 1, a: 1}
   DamagedColor: {r: 0, g: 0, b: 0, a: 0}
   ColorTintDuration: 2
@@ -54,8 +57,6 @@ MonoBehaviour:
   Effects: []
   AOE: 0
   position: 0
-  MaxHealth: 15
-  CurrentHealth: 15
   Dead: 0
 --- !u!212 &5431998135259802517
 SpriteRenderer:
@@ -148,5 +149,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.8, y: 2.41, z: 0.2}
+  m_Size: {x: 1, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}

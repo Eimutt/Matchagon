@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Unit
 {
-    public int MaxHp;
-    public int CurrentHp;
     public int Damage;
 
     public UnitAbilities unitAbilities;
@@ -21,13 +19,12 @@ public class Enemy : MonoBehaviour
 
     public List<Effect> Effects;
 
-
-    private GameObject Tooltip;
+    private UnitInfo UnitInfo;
     // Start is called before the first frame update
     void Start()
     {
         CurrentHp = MaxHp;
-        Tooltip = GameObject.Find("EnemyTooltipObject");
+        UnitInfo = GameObject.Find("UnitInfo").GetComponent<UnitInfo>();
     }
 
     // Update is called once per frame
@@ -87,35 +84,20 @@ public class Enemy : MonoBehaviour
         return CurrentHp - incomingDamage;
     }
 
+    public void OnMouseDown()
+    {
+
+        UnitInfo.PopulateUi(this);
+    }
+
     public void OnMouseEnter()
     {
-        Tooltip.transform.position = Input.mousePosition;
-        //Tooltip.SetActive(true);
-        PopulateTooltipObject();
+        
     }
 
     public void OnMouseExit()
     {
-        //Tooltip.SetActive(false);
-        Tooltip.transform.position = new Vector3(-1000, 0, 0);
+
     }
 
-    private void PopulateTooltipObject()
-    {
-        //foreach(UnitAbilities unitAbilities in UnitAbilities)
-        //{
-        //    Tooltip.transform
-        //}
-
-        //foreach (UnitAbilities unitAbilities in UnitAbilities)
-        //{
-        //    Tooltip.transform
-        //}
-        //Tooltip.transform.Find("Fire/Text").GetComponent<Text>().text = Damages[0].ToString();
-        //Tooltip.transform.Find("Water/Text").GetComponent<Text>().text = Damages[1].ToString();
-        //Tooltip.transform.Find("Grass/Text").GetComponent<Text>().text = Damages[2].ToString();
-        //Tooltip.transform.Find("Dark/Text").GetComponent<Text>().text = Damages[3].ToString();
-        //Tooltip.transform.Find("Light/Text").GetComponent<Text>().text = Damages[4].ToString();
-        //Tooltip.transform.Find("Shield/Text").GetComponent<Text>().text = Damages[5].ToString();
-    }
 }

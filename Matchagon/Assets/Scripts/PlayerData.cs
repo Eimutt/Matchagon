@@ -9,6 +9,9 @@ public class PlayerData : MonoBehaviour
     public int MaxHealth;
     public int Health;
     public int Gold;
+
+    public float HealingMultiplier;
+
     public List<Card> DeckPrefabs;
     public List<Card> Deck;
     public List<Item> Items;
@@ -71,8 +74,14 @@ public class PlayerData : MonoBehaviour
 
     public void UpdateHealth(int newHealth)
     {
-        Health = newHealth;
-        GameObject.Find("Health").GetComponent<Text>().text = newHealth + "/" + MaxHealth;
+        Health = newHealth > MaxHealth ? MaxHealth : newHealth;
+        GameObject.Find("Health").GetComponent<Text>().text = Health + "/" + MaxHealth;
+    }
+
+    public void Heal(int amount)
+    {
+        int health = Health + (int)((float)amount * HealingMultiplier);
+        UpdateHealth(health);
     }
 
     public void RemoveCard(Card card)

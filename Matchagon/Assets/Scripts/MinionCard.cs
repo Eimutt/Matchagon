@@ -9,6 +9,6 @@ public class MinionCard : Card
 
     public override void Play()
     {
-        GameObject.Find("Player").GetComponent<Player>().AddMinion(MinionPrefab);
+        GameObject.Find("Player").GetComponent<Player>().SelectMinionCard(this);
     }
 }

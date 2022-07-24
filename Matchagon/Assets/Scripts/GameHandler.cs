@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameHandler : MonoBehaviour
 {
     public RewardScreen RewardScreen;
+    public GameObject LoseScreen;
+
     public WorldMap WorldMap;
     public GameObject Fog;
     // Start is called before the first frame update
@@ -85,5 +87,19 @@ public class GameHandler : MonoBehaviour
 
         Fog.SetActive(true);
         WorldMap.ActivateMovement();
+    }
+
+    public void EnterHealingNode(int amount)
+    {
+        GetComponent<PlayerData>().Heal(amount);
+        WorldMap.ActivateMovement();
+    }
+
+    public void Lose()
+    {
+        SceneManager.UnloadScene("BattleScene");
+        //WorldMap.gameObject.SetActive(true);
+        Fog.SetActive(true);
+        LoseScreen.SetActive(true);
     }
 }

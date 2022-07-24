@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class EncounterInfo : MonoBehaviour
 {
     public GameObject WavePrefab;
+    public Dictionary<int, GameObject> Waves;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Waves = new Dictionary<int, GameObject>();
     }
 
     // Update is called once per frame
@@ -32,12 +34,17 @@ public class EncounterInfo : MonoBehaviour
 
             waveObject.transform.localPosition = new Vector3(0, yOffset, 0);
 
+            Waves.Add(wave.Turn, waveObject);
+
             yOffset -= 25;
         }
     }
 
     public void CrossWave(int wave)
     {
-
+        if(Waves.ContainsKey(wave))
+        {
+            Waves[wave].transform.Find("RoundText").GetComponent<Text>().color = Color.red;
+        }
     }
 }

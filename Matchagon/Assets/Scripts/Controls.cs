@@ -140,7 +140,11 @@ public class Controls : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 Player.AddMinion(5);
-            }
+            } else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Player.DeselectMinionCard();
+            } 
+
         }
         
         MoveCursor();

@@ -26,7 +26,8 @@ public abstract class GenericEffect<T>
     public int effectStrength;
     public EffectType EffectType;
     public int ComboLimit;
-
+    public string Description;
+    public bool Visible;
 
     public IntIntEvent InstanceFunction;
     public IntEvent Function;

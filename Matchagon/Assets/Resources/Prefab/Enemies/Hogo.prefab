@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 2714039493885062646}
   - component: {fileID: 2714039493885062647}
   - component: {fileID: 2714039493885062644}
+  - component: {fileID: 2824832605841959531}
   m_Layer: 0
   m_Name: Hogo
   m_TagString: Untagged
@@ -269,8 +270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1a8f73c121db24e99aeb459e5be04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 2000
-  CurrentHp: 2000
+  CurrentHp: 1600
+  MaxHp: 1600
+  Sprite: {fileID: 21300000, guid: abf22a2895877f047a6b5885df4ab861, type: 3}
   Damage: 15
   unitAbilities:
     Abilities:
@@ -285,6 +287,8 @@ MonoBehaviour:
     effectStrength: 0
     EffectType: 3
     ComboLimit: 0
+    Description: 
+    Visible: 0
     InstanceFunction:
       m_PersistentCalls:
         m_Calls:
@@ -307,6 +311,8 @@ MonoBehaviour:
     effectStrength: 4
     EffectType: 4
     ComboLimit: 0
+    Description: Hides four random spheres.
+    Visible: 1
     InstanceFunction:
       m_PersistentCalls:
         m_Calls:
@@ -342,6 +348,32 @@ MonoBehaviour:
   moving: 0
   i: 0
   next: {x: 0, y: 0, z: 0}
+--- !u!61 &2824832605841959531
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2714039493885062645}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 3.2, y: 3.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &2714039493923633780
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +450,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 2714039493936957601}
   m_HandleRect: {fileID: 0}

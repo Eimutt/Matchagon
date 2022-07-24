@@ -108,7 +108,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.45}
+  m_Size: {x: 0.65, y: 0.33}
   m_EdgeRadius: 0
 --- !u!114 &2833337698758980285
 MonoBehaviour:
@@ -157,10 +157,6 @@ MonoBehaviour:
         type: 3}
       Quanitity: 2
       Turn: 3
-    - Enemy: {fileID: 2547337118485380388, guid: bcb9000e800674c44a03b70f09ba3a6d,
-        type: 3}
-      Quanitity: 3
-      Turn: 4
 --- !u!1 &2833337699975253577
 GameObject:
   m_ObjectHideFlags: 0

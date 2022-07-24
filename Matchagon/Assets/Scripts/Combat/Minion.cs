@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Minion : MonoBehaviour
+public class Minion : Unit
 {
     private CombatAnimations CombatAnimations;
     public Color ShieldColor;
@@ -14,16 +14,14 @@ public class Minion : MonoBehaviour
     public float ColorTintDuration = 1f;
     public int[] Damages = new int[0];
 
-    private GameObject Tooltip;
+
+    private UnitInfo UnitInfo;
 
     public List<Effect> Effects;
 
     public bool AOE;
 
     public int position;
-
-    public int MaxHealth;
-    public int CurrentHealth;
 
     public bool Dead;
     // Start is called before the first frame update
@@ -33,7 +31,7 @@ public class Minion : MonoBehaviour
         CombatAnimations = GetComponent<CombatAnimations>();
         InvulnerabilityColor = GetComponent<InvulnerabilityColor>();
 
-        Tooltip = GameObject.Find("TooltipObject");
+        UnitInfo = GameObject.Find("UnitInfo").GetComponent<UnitInfo>();
         TriggerSummonEffects();
     }
 
@@ -56,26 +54,17 @@ public class Minion : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        Tooltip.transform.position = Input.mousePosition;
-        //Tooltip.SetActive(true);
-        PopulateTooltipObject();
     }
 
     public void OnMouseExit()
     {
-        //Tooltip.SetActive(false);
-        Tooltip.transform.position = new Vector3(-1000, 0, 0);
     }
 
-    private void PopulateTooltipObject()
+    public void OnMouseDown()
     {
-        Tooltip.transform.Find("Fire/Text").GetComponent<Text>().text = Damages[0].ToString();
-        Tooltip.transform.Find("Water/Text").GetComponent<Text>().text = Damages[1].ToString();
-        Tooltip.transform.Find("Grass/Text").GetComponent<Text>().text = Damages[2].ToString();
-        Tooltip.transform.Find("Dark/Text").GetComponent<Text>().text = Damages[3].ToString();
-        Tooltip.transform.Find("Light/Text").GetComponent<Text>().text = Damages[4].ToString();
-        Tooltip.transform.Find("Shield/Text").GetComponent<Text>().text = Damages[5].ToString();
+        UnitInfo.PopulateUi(this);
     }
+
 
     public void TriggerStartOfTurnEffects()
     {
@@ -92,14 +81,14 @@ public class Minion : MonoBehaviour
         var healthDamage = Mathf.Max(0, damage);
 
 
-        CurrentHealth -= healthDamage;
+        CurrentHp -= healthDamage;
         InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
         GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, healthDamage, 1);
 
-        float percentage = (float)CurrentHealth / (float)MaxHealth;
+        float percentage = (float)CurrentHp / (float)MaxHp;
         transform.Find("HpBarSlider(Clone)/Slider").GetComponent<Slider>().value = percentage;
 
-        if(CurrentHealth <= 0)
+        if(CurrentHp <= 0)
         {
             Dead = true;
         }

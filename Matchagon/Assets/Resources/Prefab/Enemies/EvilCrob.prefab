@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 6772567637094521614}
   - component: {fileID: 6772567637094521612}
   - component: {fileID: 6772567637094521619}
+  - component: {fileID: 4932839031501623833}
   m_Layer: 0
   m_Name: EvilCrob
   m_TagString: Untagged
@@ -269,8 +270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1a8f73c121db24e99aeb459e5be04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 1200
-  CurrentHp: 1200
+  CurrentHp: 700
+  MaxHp: 700
+  Sprite: {fileID: 21300000, guid: a570ea22a2b795248a45b7aa64ecaec4, type: 3}
   Damage: 8
   unitAbilities:
     Abilities:
@@ -298,6 +300,32 @@ MonoBehaviour:
   moving: 0
   i: 0
   next: {x: 0, y: 0, z: 0}
+--- !u!61 &4932839031501623833
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772567637094521615}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 3.2, y: 3.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &6772567637488687753
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,7 +438,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 6772567638168703754}
   m_HandleRect: {fileID: 0}
