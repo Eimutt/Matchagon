@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Gravestone
-  Rarity: 1
+  Rarity: 2
   Sprite: {fileID: 21300000, guid: 8cc87fd3688c7384ba70150a2d803406, type: 3}
   Description: Dead minions get put back in the deck.
   Special: 0

@@ -38,7 +38,12 @@ public abstract class GenericEffect<T>
 public class Effect : GenericEffect<ActionEnum> {
     public void Trigger(int instanceId)
     {
-        InstanceFunction.Invoke(instanceId, effectStrength);
+        if(InstanceFunction != null)
+            InstanceFunction.Invoke(instanceId, effectStrength);
+        
+        if(Function != null)
+            Function.Invoke(effectStrength);
+
 
     }
 

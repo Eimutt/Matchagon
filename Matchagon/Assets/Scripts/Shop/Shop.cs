@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,8 +52,9 @@ public class Shop : MonoBehaviour
         {
             for (int j = 0; j < 2; j++)
             {
-                int r = Random.Range(0, ItemPrefabs.Length);
-                var item = ItemPrefabs[r];
+                var normalItems = ItemPrefabs.Where(it => !it.Special).ToList();
+                int r = Random.Range(0, normalItems.Count);
+                var item = normalItems[r];
 
                 var itemObj = Instantiate(ShopItemBase, transform.Find("Items"));
                 itemObj.GetComponent<RectTransform>().localPosition = new Vector3(startX + i * Dif, startY + j * Dif, 0); GetComponent<RectTransform>();

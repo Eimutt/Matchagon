@@ -381,8 +381,7 @@ public class Player : MonoBehaviour
         var occupied = Minions.FirstOrDefault(m => m.position == positionIndex);
         if (occupied)
         {
-            Minions.Remove(occupied);
-            Destroy(occupied.gameObject);
+            KillMinion(occupied);
         }
 
         var x = (MinionCard)selectedCard;

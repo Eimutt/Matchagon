@@ -2851,10 +2851,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 150
   Health: 150
-  Gold: 25
+  Gold: 35
   HealingMultiplier: 1
   DeckPrefabs:
-  - {fileID: 2614058212616492923, guid: 6b5886b14d3ac7b478e8d7bdace302a2, type: 3}
+  - {fileID: 736414703445227225, guid: 4a8e8de0b2e267546b671691d3ec7f6d, type: 3}
   - {fileID: 3631613578159523853, guid: 509cc840a8a0b7949bb528fa37212a0c, type: 3}
   - {fileID: 5907672755002055391, guid: 072beeb3d6d24b34c9ca0db7aa414537, type: 3}
   - {fileID: 671836586890821436, guid: 266bb414e5aad604fabaab8deb5b8dde, type: 3}
@@ -2862,11 +2862,10 @@ MonoBehaviour:
   - {fileID: 1124983423850404972, guid: f21556fbd6ef6e646b2b9fb63babe9ed, type: 3}
   - {fileID: 5026969185466317923, guid: de8336a49da13a8488be09b63cbf2e8f, type: 3}
   - {fileID: 706259058696523233, guid: 573829ac3ebe74249b14ddd73f623da2, type: 3}
-  - {fileID: 5220737055456894165, guid: 4eda9bb50816b13488c0a550aee23f6b, type: 3}
   Deck: []
   Items: []
   Power: 0
-  PowerLimit: 7
+  PowerLimit: 12
   StartRoster: []
 --- !u!1 &1421912816
 GameObject:
@@ -3367,6 +3366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2006694184}
   - component: {fileID: 2006694185}
+  - component: {fileID: 2006694186}
   m_Layer: 0
   m_Name: WorldMap
   m_TagString: Untagged
@@ -3428,6 +3428,102 @@ MonoBehaviour:
     type: 3}
   Fog: 1
   DifficultyIncreaseFrequency: 7
+--- !u!82 &2006694186
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006694183}
+  m_Enabled: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f9a8a8a9232540c449aef56193592ee9, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.618
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &388131314064820062
 GameObject:
   m_ObjectHideFlags: 0

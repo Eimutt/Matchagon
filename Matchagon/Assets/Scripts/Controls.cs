@@ -31,7 +31,7 @@ public class Controls : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (!Selected && CombatHandler.GetState() == GameState.UserSpells)
+            if (!Selected && CombatHandler.GetState() == GameState.UserSpells && Board.IsSelectable(Position.x, Position.y))
             {
                 Selected = Board.GetSphere(Position);
                 CombatHandler.AdvanceState();
@@ -43,7 +43,7 @@ public class Controls : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            if (Position.x < maxX)
+            if (Board.IsMoveable(Position.x + 1, Position.y) && (Board.IsSelectable(Position.x + 1, Position.y) || !Selected))
             {
                 MoveSphere(1, 0);
                 Position += new Vector2Int(1, 0);
@@ -53,7 +53,7 @@ public class Controls : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.A))
         {
 
-            if (Position.x > 0)
+            if (Board.IsMoveable(Position.x - 1, Position.y) && (Board.IsSelectable(Position.x - 1, Position.y) || !Selected))
             {
                 MoveSphere(-1, 0);
                 Position += new Vector2Int(-1, 0);
@@ -62,7 +62,7 @@ public class Controls : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.W))
         {
 
-            if (Position.y < maxY)
+            if (Board.IsMoveable(Position.x, Position.y + 1) && (Board.IsSelectable(Position.x, Position.y + 1) || !Selected))
             {
                 MoveSphere(0, 1);
                 Position += new Vector2Int(0, 1);
@@ -71,7 +71,7 @@ public class Controls : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.S))
         {
 
-            if (Position.y > 0)
+            if (Board.IsMoveable(Position.x, Position.y - 1) && (Board.IsSelectable(Position.x, Position.y - 1) || !Selected))
             {
                 MoveSphere(0, -1);
                 Position += new Vector2Int(0, -1);

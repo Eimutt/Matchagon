@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Fruit
-  Rarity: 1
+  Rarity: 0
   Sprite: {fileID: 21300000, guid: 2fd3c6eb7c2a1104e9588c5471b39ad6, type: 3}
   Description: Heals 5 health after each combat.
   Special: 0

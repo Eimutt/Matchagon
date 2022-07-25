@@ -142,7 +142,7 @@ public class EnemyHandler : MonoBehaviour
     {
         foreach(Enemy enemy in Enemies)
         {
-            enemy.Effects.Where(e => e.EffectType == EffectType.StartOfTurn).ToList().ForEach(e => e.Trigger());
+            enemy.Effects.Where(e => e.EffectType == EffectType.StartOfTurn).ToList().ForEach(e => e.Trigger(enemy.GetInstanceID()));
         }
     }
 }

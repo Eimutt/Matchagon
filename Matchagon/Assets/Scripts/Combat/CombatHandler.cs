@@ -284,6 +284,7 @@ public class CombatHandler : MonoBehaviour
 
     public void IncreaseCombo(int amount)
     {
-        combo.count += 1;
+        combo.count += amount;
+        ComboText.text = combo.count.ToString();
     }
 }

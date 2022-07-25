@@ -12,6 +12,8 @@ public class Sphere : MonoBehaviour
 
     public float t;
 
+    public bool Frozen;
+
     public float ColorTintDuration;
     //public Color ShieldColor;
     [SerializeField]

@@ -30,6 +30,10 @@ public class GlobalEffectHandler : MonoBehaviour
     {
         GameObject.Find("Board").GetComponent<Board>().HideRandomSpheres(sourceId, amount);
     }
+    public void FreezeRandom(int sourceId, int amount)
+    {
+        GameObject.Find("Board").GetComponent<Board>().FreezeRandomSpheres(sourceId, amount);
+    }
 
     public void DestroyBoardObjectsFromSource(int sourceId, int amount)
     {
@@ -45,9 +49,15 @@ public class GlobalEffectHandler : MonoBehaviour
     {
         GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(TypeEnum.Plague, amount);
     }
+
     public void RandomToShield(int amount)
     {
         GameObject.Find("Board").GetComponent<Board>().TransformRandomSpheres(TypeEnum.Shield, amount);
+    }
+
+    public void GreenToRandom(int amount)
+    {
+        GameObject.Find("Board").GetComponent<Board>().TransformColorToRandomSpheres(TypeEnum.Grass, amount);
     }
 
     public void ModifyTurnTime(int amount)

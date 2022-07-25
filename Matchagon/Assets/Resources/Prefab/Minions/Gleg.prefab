@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48bfe40b38ce5af40aaff16e867aaf40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentHp: 15
-  MaxHp: 15
+  CurrentHp: 22
+  MaxHp: 22
   Sprite: {fileID: 21300000, guid: 4f86a8644c965d7448b22aec94f56d0f, type: 3}
   ShieldColor: {r: 0.09019608, g: 0.92941177, b: 1, a: 1}
   DamagedColor: {r: 0, g: 0, b: 0, a: 0}
@@ -68,6 +68,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   AOE: 0
+  AttackOnShield: 0
   position: 0
   Dead: 0
 --- !u!212 &8593045349696825294

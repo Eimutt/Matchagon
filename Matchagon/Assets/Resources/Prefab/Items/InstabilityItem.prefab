@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Instability Potion
-  Rarity: 1
+  Rarity: 2
   Sprite: {fileID: 21300000, guid: bae0f562328b2b043a412e9a92370b20, type: 3}
   Description: Minions lose 1/3 of hp each turn, deal 50% more damage.
   Special: 0

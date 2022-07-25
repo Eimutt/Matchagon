@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Dagger
-  Rarity: 0
+  Rarity: 1
   Sprite: {fileID: 21300000, guid: d0ec05fd9c34347448628a4e75eff748, type: 3}
   Description: Gives an extra combo each turn.
   Special: 0

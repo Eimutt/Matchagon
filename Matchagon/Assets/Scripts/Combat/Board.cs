@@ -14,6 +14,7 @@ public class Board : MonoBehaviour
     public SphereGenerator SphereGenerator;
 
     public GameObject HiddenFog;
+    public GameObject Frozen;
     public Sprite sprite;
     // Start is called before the first frame update
     void Start()
@@ -42,10 +43,6 @@ public class Board : MonoBehaviour
                 if(Spheres[i,j] == null)
                 {
                     Spheres[i, j] = SphereGenerator.GenerateRandomSphere(i, j);
-                        
-                        //Instantiate(SphereObject, new Vector3(i, j, 0), Quaternion.identity, gameObject.transform);
-                          
-                    //= Sphere.GetComponent<Sphere>();
                 }
             }
         }
@@ -64,9 +61,6 @@ public class Board : MonoBehaviour
         var move2 = Spheres[x2, y2].gameObject.AddComponent<Move>();
         move2.Init(new Vector3(x2, y2), 0.1f);
 
-        //Spheres[x1, y1].gameObject.transform.position = new Vector3(x1, y1);
-
-        //Spheres[x2, y2].gameObject.transform.position = new Vector3(x2, y2);
     }
 
     public List<Match> IdentifyMatches()
@@ -349,6 +343,15 @@ public class Board : MonoBehaviour
     //    }
     //}
 
+    public bool IsMoveable(int x1, int y1)
+    {
+        return (x1 >= 0 && x1 < x && y1 >= 0 && y1 < y);
+    }
+
+    public bool IsSelectable(int x1, int y1)
+    {
+        return !Spheres[x1, y1].Frozen;
+    }
 
     public bool DestroySpheres()
     {
@@ -452,6 +455,44 @@ public class Board : MonoBehaviour
         }
     }
 
+    public void TransformColorToRandomSpheres(TypeEnum from, int count)
+    {
+        var points = new List<Tuple<int, int>>();
+        for (int i = 0; i < x; i++)
+        {
+            for (int j = 0; j < y; j++)
+            {
+                if(Spheres[i,j].Type == from)
+                {
+
+                    Tuple<int, int> t = new Tuple<int, int>(i, j);
+
+                    if (!points.Contains(t))
+                    {
+                        points.Add(t);
+                    }
+                }
+            }
+        }
+
+        if(points.Count > count)
+        {
+            while (points.Count > count)
+            {
+                int i = UnityEngine.Random.Range(0, points.Count);
+
+                points.RemoveAt(i);
+            }
+        }
+
+        
+        foreach(var t in points)
+        {
+            TransformToRandom(t.Item1, t.Item2);
+        }
+    }
+
+
     public void HideRandomSpheres(int sourceId, int count)
     {
         var points = new List<Tuple<int, int>>();
@@ -491,6 +532,34 @@ public class Board : MonoBehaviour
 
             //Spheres[t.Item1, t.Item2].HideType();
 
+        }
+    }
+    public void FreezeRandomSpheres(int sourceId, int count)
+    {
+        var points = new List<Tuple<int, int>>();
+
+        while (points.Count < count)
+        {
+            int i = UnityEngine.Random.Range(0, x);
+            int j = UnityEngine.Random.Range(0, x);
+            Tuple<int, int> t = new Tuple<int, int>(i, j);
+
+            if (!points.Contains(t))
+            {
+                points.Add(t);
+            }
+
+        }
+
+        foreach (Tuple<int, int> t in points)
+        {
+            var ice = Instantiate(Frozen, Spheres[t.Item1, t.Item2].transform);
+            ice.transform.localPosition = new Vector3(0, 0);
+            ice.transform.localScale = new Vector3(1, 1);
+
+            ice.GetComponent<BoardObject>().Source = sourceId;
+
+            Spheres[t.Item1, t.Item2].Frozen = true;
         }
     }
 
@@ -552,4 +621,9 @@ public class Board : MonoBehaviour
         }
     }
 
+    private void TransformToRandom(int x, int y)
+    {
+        Destroy(Spheres[x, y].gameObject);
+        Spheres[x, y] = SphereGenerator.GenerateRandomSphere(x, y);
+    }
 }

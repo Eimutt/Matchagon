@@ -1895,6 +1895,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1248301758}
     m_Modifications:
+    - target: {fileID: 5001498709509287792, guid: ce9e74cfaa99dc04a8ce1249b5c76b69,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 230
+      objectReference: {fileID: 0}
+    - target: {fileID: 5001498709509287792, guid: ce9e74cfaa99dc04a8ce1249b5c76b69,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -15
+      objectReference: {fileID: 0}
     - target: {fileID: 5461677327336680855, guid: ce9e74cfaa99dc04a8ce1249b5c76b69,
         type: 3}
       propertyPath: m_Name
@@ -2377,6 +2387,7 @@ MonoBehaviour:
   SphereGenerator: {fileID: 0}
   HiddenFog: {fileID: 4019870240435877348, guid: 7660d9f1976974b4eb706582f555f520,
     type: 3}
+  Frozen: {fileID: 1597666513780443097, guid: 451b645fdf9337149bb5d06cd85609de, type: 3}
   sprite: {fileID: 21300000, guid: a03956508d118bc48a782fba8c55ba34, type: 3}
 --- !u!114 &1098683299
 MonoBehaviour:
