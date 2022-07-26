@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShopNode : MapNode
 {
-    public Encounter encounter;
     // Start is called before the first frame update
     void Start()
     {

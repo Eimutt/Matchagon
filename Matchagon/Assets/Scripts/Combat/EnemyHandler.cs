@@ -9,6 +9,9 @@ public class EnemyHandler : MonoBehaviour
     private List<Enemy> Enemies;
     private CombatHandler CombatHandler;
 
+    private Enemy FocusedEnemy;
+    private GameObject Focus;
+
     private int eNum;
     private int y;
     private int c;
@@ -26,6 +29,9 @@ public class EnemyHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Focus = GameObject.Find("Focus");
+        Focus.SetActive(false);
+
         positions = new List<Vector3>();
         Enemies = new List<Enemy>();// GameObject.FindObjectsOfType<Enemy>().ToList();
         CombatHandler = GameObject.Find("CombatHandler").GetComponent<CombatHandler>();
@@ -49,6 +55,9 @@ public class EnemyHandler : MonoBehaviour
                 {
                     Enemies[y].Effects.Where(e => e.EffectType == EffectType.OnDeath).ToList().ForEach(e => e.Trigger(Enemies[y].GetInstanceID()));
                     Destroy(Enemies[y].gameObject);
+                    if (Enemies[y] == FocusedEnemy)
+                        FocusedEnemy = null;
+                        Focus.SetActive(false);
                     Enemies.RemoveAt(y);
 
                 }
@@ -78,11 +87,22 @@ public class EnemyHandler : MonoBehaviour
 
     public Enemy GetFirstEnemy()
     {
+        if (FocusedEnemy != null && !FocusedEnemy.Dead)
+            return FocusedEnemy;
+
         return Enemies.First(x => !x.Dead);
     }
     public List<Enemy> GetAllEnemies()
     {
         return Enemies;
+    }
+
+    public void FocusEnemy(Enemy enemy)
+    {
+        FocusedEnemy = enemy;
+        Focus.SetActive(false);
+        Focus.SetActive(true);
+        Focus.transform.position = enemy.transform.position;
     }
 
     public bool NoEnemiesLeft()

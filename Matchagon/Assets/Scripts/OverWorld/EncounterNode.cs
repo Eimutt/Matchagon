@@ -21,6 +21,7 @@ public class EncounterNode : MapNode
 
     public override void ActivateNode()
     {
-        GameObject.Find("GameHandler").GetComponent<GameHandler>().EnterCombat(EncounterVariants.Find(e => e.Difficulty == Difficulty));
+        var encounter = EncounterVariants.Where(e => e.Difficulty <= Difficulty).OrderByDescending(e => e.Difficulty).First();
+        GameObject.Find("GameHandler").GetComponent<GameHandler>().EnterCombat(encounter);
     }
 }

@@ -155,7 +155,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 60b1b3ed0c521aa4ba77299bede45de3, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.15686275, g: 1, b: 0.89411765, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -208,6 +208,3 @@ MonoBehaviour:
   reachableFrom: []
   DeadEnd: 1
   sprite: {fileID: 21300000, guid: 2f3f7c11ab951b348889f8f70bc4319a, type: 3}
-  encounter:
-    Difficulty: 0
-    Waves: []

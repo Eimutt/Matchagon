@@ -568,6 +568,11 @@ public class Board : MonoBehaviour
         transform.GetComponentsInChildren<BoardObject>().Where(b => b.Source == sourceId).ToList().ForEach(b => Destroy(b.gameObject));
     }
 
+    public void MoveHidden(int sourceId)
+    {
+        transform.GetComponentsInChildren<BoardObject>().Where(b => b.Source == sourceId).ToList().ForEach(b => b.MoveRandomDirection());
+    }
+
     public void TriggerSpecialBoardEffects()
     {
         SpreadPlague();

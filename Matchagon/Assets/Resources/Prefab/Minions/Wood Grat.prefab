@@ -56,10 +56,10 @@ MonoBehaviour:
   Damages: 000000000000000014000000000000000000000001000000
   Effects:
   - effectName: RandomToGreen
-    effectStrength: 3
+    effectStrength: 2
     EffectType: 0
     ComboLimit: 0
-    Description: Turns 3 orbs to green at the start of each turn.
+    Description: Turns 2 orbs to green at the start of each turn.
     Visible: 1
     InstanceFunction:
       m_PersistentCalls:
@@ -80,6 +80,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   AOE: 0
+  AttackOnShield: 0
   position: 0
   Dead: 0
 --- !u!212 &6504222489139229056

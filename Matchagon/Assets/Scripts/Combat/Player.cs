@@ -206,7 +206,6 @@ public class Player : MonoBehaviour
         {
             if ((int)entry.Key > 6)
                 continue;
-            Debug.Log(entry.Key + ": " + entry.Value);
 
             int value = entry.Value;
 
@@ -250,7 +249,11 @@ public class Player : MonoBehaviour
                         var r = Random.Range(0.8f, 1.2f); 
                         
                         float minionElementDamage = r * (float)minion.Damages[(int)entry.Key] * (float)(TypeDamageMultipliers[(int)entry.Key] * (GlobalDamageMultiplier) / 10000);
-                        
+
+                        //Debug.Log("damage = random(" + r + ") * basedamage(" + minion.Damages[(int)entry.Key] + ") * amount(" + value + ") * damageMultipliers(" + (float)(TypeDamageMultipliers[(int)entry.Key] * (GlobalDamageMultiplier) / 10000) + ") * comboMultuplier(" + combo.damageMultiplier + ") = " + value * minionElementDamage * combo.damageMultiplier);
+
+
+
                         attacks.Add(new PossibleAttack(minion, MatchEnum.Blob, entry.Key, value * minionElementDamage, combo.count, combo.damageMultiplier, minion.AOE));
                         
                     }
@@ -306,7 +309,7 @@ public class Player : MonoBehaviour
             enemy.AddIncomingDamage(possibleAttack.fullDamage);
             attacks.Remove(possibleAttack);
             possibleAttack.source.GetComponent<CombatAnimations>().QueueAttack(MatchEnum.Blob, possibleAttack.type, possibleAttack.baseDamage, possibleAttack.fullDamage, combo.count, enemy.gameObject);
-            Debug.Log(possibleAttack.type + " for " + possibleAttack.fullDamage + " damage");
+            //Debug.Log(possibleAttack.type + " for " + possibleAttack.fullDamage + " damage");
             i++;
         }
     }
@@ -547,7 +550,41 @@ public class Player : MonoBehaviour
     {
         tmpMana += amount;
     }
+    public void AttackAllMinions(int damage)
+    {
+        int tmp = damage;
+        if (Shield > 0)
+        {
+            damage -= Shield;
+            Shield -= tmp;
+        }
+        var healthDamage = Mathf.Max(0, damage);
 
+        if (healthDamage > 0)
+        {
+            TakeDamage(damage);
+
+            var summonedMinions = Minions.Where(m => m.position != 0).ToList();
+            foreach (Minion m in summonedMinions)
+            {
+                m.TakeDamage(damage);
+                if (m.Dead)
+                {
+                    KillMinion(m);
+                }
+            }
+            //InvulnerabilityColor.SetTintColor(DamagedColor, ColorTintDuration);
+            //GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, Color.red, healthDamage, 1);
+        }
+        else
+        {
+            InvulnerabilityColor.SetTintColor(ShieldColor, ColorTintDuration);
+            GameObject.Find("CombatHandler").GetComponent<DamageTextHandler>().SpawnDamageText(transform.position, ShieldColor, tmp, 1);
+        }
+
+        UpdateUIHealth();
+        UpdateUIShield();
+    }
     public void AttackFirstMinion(int damage)
     {
         var target = Minions.OrderBy(m => m.position).Last();

@@ -7,7 +7,6 @@ public class Reward : MonoBehaviour
 {
     public void Start()
     {
-        Debug.Log("new card");
     }
 
     public virtual void PickReward()

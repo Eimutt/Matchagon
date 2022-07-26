@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Enemy : Unit
 {
     public int Damage;
+    public bool AOE;
 
     public UnitAbilities unitAbilities;
     private int t = 0;
@@ -48,14 +49,20 @@ public class Enemy : Unit
 
     }
 
-    public float TakeTurn(Player x, List<Enemy> enemies)
+    public float TakeTurn(Player player, List<Enemy> enemies)
     {
         if (Dead) { Destroy(gameObject); }
         var ability = unitAbilities.Abilities[t % unitAbilities.Abilities.Count];
 
         if(ability.Type == ActionEnum.Attack)
         {
-            x.AttackFirstMinion(Damage);
+            if (AOE)
+            {
+                player.AttackAllMinions(Damage);
+            } else
+            {
+                player.AttackFirstMinion(Damage);
+            }
             GetComponent<Shake>().Move();
 
         }
@@ -84,10 +91,16 @@ public class Enemy : Unit
         return CurrentHp - incomingDamage;
     }
 
-    public void OnMouseDown()
+    public void OnMouseOver()
     {
-
-        UnitInfo.PopulateUi(this);
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            UnitInfo.PopulateUi(this);
+        } else if (Input.GetMouseButtonDown(1))
+        {
+            GameObject.Find("CombatHandler").GetComponent<EnemyHandler>().FocusEnemy(this);
+        }
     }
 
     public void OnMouseEnter()

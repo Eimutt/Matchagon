@@ -2854,7 +2854,7 @@ MonoBehaviour:
   Gold: 35
   HealingMultiplier: 1
   DeckPrefabs:
-  - {fileID: 736414703445227225, guid: 4a8e8de0b2e267546b671691d3ec7f6d, type: 3}
+  - {fileID: 4340684016238223540, guid: b1b1665c892b40f488a0b2298079645c, type: 3}
   - {fileID: 3631613578159523853, guid: 509cc840a8a0b7949bb528fa37212a0c, type: 3}
   - {fileID: 5907672755002055391, guid: 072beeb3d6d24b34c9ca0db7aa414537, type: 3}
   - {fileID: 671836586890821436, guid: 266bb414e5aad604fabaab8deb5b8dde, type: 3}
@@ -2865,7 +2865,7 @@ MonoBehaviour:
   Deck: []
   Items: []
   Power: 0
-  PowerLimit: 12
+  PowerLimit: 6
   StartRoster: []
 --- !u!1 &1421912816
 GameObject:
@@ -3411,12 +3411,17 @@ MonoBehaviour:
   - {fileID: 3163274047966038675, guid: 3bd1568f72a71db48a6239a0fdb79e4f, type: 3}
   - {fileID: 2662322862768849940, guid: cee2818648d438c439fdcc125b173274, type: 3}
   - {fileID: 3387834180479594225, guid: 53bac6242ac19cc419efba7a703b4add, type: 3}
+  - {fileID: 3763750035612952699, guid: 793085f9e4049b34dbd6a513adaaa938, type: 3}
+  - {fileID: 2577453327577925857, guid: 9ae07e4638628c14a9965b704a3a66c2, type: 3}
   EncounterPrefabs:
   - {fileID: 753886563665570123, guid: 37a572a7db8f89e4ebf8b42adee32d9f, type: 3}
   - {fileID: 3555979088286530729, guid: 4a956e1b1e843814ebcc9f3ced0a1888, type: 3}
   - {fileID: 2134308637467338342, guid: 21fd791be7cda8449a53faeb4e6f90fa, type: 3}
   - {fileID: 1966725557570814730, guid: be84e2fe0d396274ca9971648601c90b, type: 3}
   - {fileID: 8670405973601430638, guid: e168b33bc41f85f42a78ea9498a8eac7, type: 3}
+  - {fileID: 1352339469168166232, guid: 4e80e89d465327046a0ad45cb91f1e74, type: 3}
+  - {fileID: 8997903473123198538, guid: 734952128343b54488de15b4ba6c1801, type: 3}
+  - {fileID: 4288286656042645540, guid: ca31d3be69814584ebce1ae91599c2e7, type: 3}
   BossEncounterPrefabs:
   - {fileID: 3728974677334415204, guid: 6d2a6bc43ca8dbd468ba456c2e7ee1e8, type: 3}
   NodeBase: {fileID: 3252828690886269940, guid: 47e411d6b4e66b0448548972a3f072a1,

@@ -231,13 +231,17 @@ public class CombatHandler : MonoBehaviour
 
     public void TrySendWave()
     {
-        var wave = Encounter.Waves.FirstOrDefault(e => e.Turn == Turn);
+        var waves = Encounter.Waves.Where(e => e.Turn == Turn).ToList();
 
-        if (wave != null)
+        if (waves.Count != 0)
         {
-            for(int i = 0; i < wave.Quanitity; i++)
+            foreach(Wave wave in waves)
             {
-                EnemyHandler.AddEnemy(wave.Enemy);
+
+                for (int i = 0; i < wave.Quanitity; i++)
+                {
+                    EnemyHandler.AddEnemy(wave.Enemy);
+                }
             }
         }
 

@@ -96,3 +96,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TurnDuration: 0
   Source: 0
+  moveDur: 0.75
+  Min: {x: 0, y: 0}
+  Max: {x: 6, y: 6}
