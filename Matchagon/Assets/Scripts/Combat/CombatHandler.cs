@@ -96,7 +96,6 @@ public class CombatHandler : MonoBehaviour
                 }
                 break;
             case GameState.Cascade:
-
                 t += Time.deltaTime;
                 if (t > 0.55f)
                 {
@@ -181,6 +180,7 @@ public class CombatHandler : MonoBehaviour
 
     public void EndMove()
     {
+        Board.TriggerMovement();
         matches = Board.IdentifyMatches();
 
         TimertText.text = "";

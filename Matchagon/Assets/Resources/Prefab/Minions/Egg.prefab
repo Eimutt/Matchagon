@@ -59,7 +59,7 @@ MonoBehaviour:
     effectStrength: 1
     EffectType: 9
     ComboLimit: 5
-    Description: Draws a card on +5 combo.
+    Description: Draws a card on >5 combo.
     Visible: 1
     InstanceFunction:
       m_PersistentCalls:
@@ -80,6 +80,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   AOE: 0
+  AttackOnShield: 0
   position: 0
   Dead: 0
 --- !u!212 &3244761011772011161

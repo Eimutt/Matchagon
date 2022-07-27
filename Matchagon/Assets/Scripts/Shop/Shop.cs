@@ -115,7 +115,7 @@ public class Shop : MonoBehaviour
         if (CheckIfAfford(cost))
         {
             PlayerData.LoseGold(cost);
-            PlayerData.GetItem(item);
+            PlayerData.AddItem(item);
 
             return true;
         }

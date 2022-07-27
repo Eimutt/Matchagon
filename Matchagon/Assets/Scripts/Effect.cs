@@ -15,8 +15,9 @@ public enum EffectType
     StartOfCombat,
     OnPickUp,
     OnRemoval,
-    OnCombo,
-    EndOfCombat
+    OnComboOver,
+    EndOfCombat,
+    OnComboUnder
 }
 
 [Serializable] public class IntIntEvent : UnityEvent<int, int> { }

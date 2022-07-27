@@ -623,6 +623,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Selected: {fileID: 0}
   Position: {x: 0, y: 0}
+  row: 0
+  column: 0
 --- !u!114 &4699945113363561770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,6 +658,7 @@ MonoBehaviour:
   Damages: 0a0000000a0000000a000000000000000000000004000000
   Effects: []
   AOE: 0
+  AttackOnShield: 0
   position: 0
   Dead: 0
 --- !u!65 &4699945113363561768

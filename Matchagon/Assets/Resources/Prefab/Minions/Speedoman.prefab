@@ -57,9 +57,9 @@ MonoBehaviour:
   Effects:
   - effectName: Add combo
     effectStrength: 1
-    EffectType: 9
-    ComboLimit: 4
-    Description: Adds an addtional combo on +4.
+    EffectType: 11
+    ComboLimit: 5
+    Description: Adds a combo bonus on <5 combo.
     Visible: 1
     InstanceFunction:
       m_PersistentCalls:

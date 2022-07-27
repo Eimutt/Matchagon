@@ -30,13 +30,14 @@ public class GlobalEffectHandler : MonoBehaviour
     {
         GameObject.Find("Board").GetComponent<Board>().HideRandomSpheres(sourceId, amount);
     }
-    public void MoveHidden(int sourceId, int amount)
-    {
-        GameObject.Find("Board").GetComponent<Board>().MoveHidden(sourceId);
-    }
     public void FreezeRandom(int sourceId, int amount)
     {
         GameObject.Find("Board").GetComponent<Board>().FreezeRandomSpheres(sourceId, amount);
+    }
+
+    public void SpawnMovement(int sourceId, int amount)
+    {
+        GameObject.Find("Board").GetComponent<Board>().SpawnRandomMovement(sourceId);
     }
 
     public void DestroyBoardObjectsFromSource(int sourceId, int amount)

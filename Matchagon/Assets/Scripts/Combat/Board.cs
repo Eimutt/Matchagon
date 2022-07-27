@@ -6,20 +6,24 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    public Sphere[,] Spheres;
+    public Sphere[][] Spheres;
     public int x;
     public int y;
     public GameObject SphereObject;
 
     public SphereGenerator SphereGenerator;
 
-    public GameObject HiddenFog;
-    public GameObject Frozen;
+    public GameObject HiddenFogPrefab;
+    public GameObject FrozenPrefab;
+    public GameObject MovementPrefab;
     public Sprite sprite;
     // Start is called before the first frame update
     void Start()
     {
-        Spheres = new Sphere[x,y];
+        Spheres = Enumerable
+           .Range(0, x)
+           .Select(i => new Sphere[y])
+           .ToArray();
         SphereGenerator = gameObject.GetComponent<SphereGenerator>();
     }
 
@@ -31,7 +35,7 @@ public class Board : MonoBehaviour
 
     public Sphere GetSphere(Vector2Int position)
     {
-        return Spheres[position.x,position.y];
+        return Spheres[position.x][position.y];
     }
 
     public void FillBoard()
@@ -40,9 +44,9 @@ public class Board : MonoBehaviour
         {
             for(int j = 0; j < y; j++)
             {
-                if(Spheres[i,j] == null)
+                if(Spheres[i][j] == null)
                 {
-                    Spheres[i, j] = SphereGenerator.GenerateRandomSphere(i, j);
+                    Spheres[i][j] = SphereGenerator.GenerateRandomSphere(i, j);
                 }
             }
         }
@@ -50,15 +54,15 @@ public class Board : MonoBehaviour
 
     public void SwitchSpheres(int x1, int x2, int y1, int y2)
     {
-        var Sphere1 = Spheres[x1, y1];
-        var Sphere2 = Spheres[x2, y2];
+        var Sphere1 = Spheres[x1][y1];
+        var Sphere2 = Spheres[x2][y2];
 
-        Spheres[x1, y1] = Sphere2;
-        Spheres[x2, y2] = Sphere1;
+        Spheres[x1][y1] = Sphere2;
+        Spheres[x2][y2] = Sphere1;
 
-        var move1 = Spheres[x1, y1].gameObject.AddComponent<Move>();
+        var move1 = Spheres[x1][y1].gameObject.AddComponent<Move>();
         move1.Init(new Vector3(x1, y1), 0.1f);
-        var move2 = Spheres[x2, y2].gameObject.AddComponent<Move>();
+        var move2 = Spheres[x2][y2].gameObject.AddComponent<Move>();
         move2.Init(new Vector3(x2, y2), 0.1f);
 
     }
@@ -83,7 +87,7 @@ public class Board : MonoBehaviour
             {
                 if (region.PartOfDestroy(n))
                 {
-                    match.Spheres.Add(Spheres[n.x, n.y]);
+                    match.Spheres.Add(Spheres[n.x][n.y]);
                 }
             });
 
@@ -104,9 +108,9 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < y; j++)
             {
-                if (partOfRegion[i, j] || Spheres[i,j] == null) continue;
+                if (partOfRegion[i, j] || Spheres[i][j] == null) continue;
 
-                var type = Spheres[i, j].GetType();
+                var type = Spheres[i][j].GetType();
                 if (type == TypeEnum.Chromatic)
                 {
 
@@ -133,20 +137,20 @@ public class Board : MonoBehaviour
 
                     Stack<Vector2Int> stack = new Stack<Vector2Int>();
 
-                    if (i + 1 < x && Spheres[i + 1, j] != null)
+                    if (i + 1 < x && Spheres[i + 1][j] != null)
                     {
                         stack.Push(new Vector2Int(i + 1, j));
                     }
-                    if (j + 1 < y && Spheres[i, j + 1] != null)
+                    if (j + 1 < y && Spheres[i][j + 1] != null)
                     {
                         stack.Push(new Vector2Int(i, j + 1));
                     }
 
-                    if (i - 1 >= 0 && Spheres[i - 1, j] != null && Spheres[i -1, j].GetType() == TypeEnum.Chromatic)
+                    if (i - 1 >= 0 && Spheres[i - 1][j] != null && Spheres[i -1][j].GetType() == TypeEnum.Chromatic)
                     {
                         stack.Push(new Vector2Int(i - 1, j));
                     }
-                    if (j - 1 >= 0 && Spheres[i, j - 1]  && Spheres[i, j - 1].GetType() == TypeEnum.Chromatic)
+                    if (j - 1 >= 0 && Spheres[i][j - 1]  && Spheres[i][j - 1].GetType() == TypeEnum.Chromatic)
                     {
                         stack.Push(new Vector2Int(i, j - 1));
                     }
@@ -155,9 +159,9 @@ public class Board : MonoBehaviour
                     {
                         var nextPos = stack.Pop();
 
-                        if (Spheres[nextPos.x, nextPos.y] != null && (Spheres[nextPos.x, nextPos.y].GetType() == type || Spheres[nextPos.x, nextPos.y].GetType() == TypeEnum.Chromatic))
+                        if (Spheres[nextPos.x][nextPos.y] != null && (Spheres[nextPos.x][nextPos.y].GetType() == type || Spheres[nextPos.x][nextPos.y].GetType() == TypeEnum.Chromatic))
                         {
-                            if (Spheres[nextPos.x, nextPos.y].GetType() == TypeEnum.Chromatic)
+                            if (Spheres[nextPos.x][nextPos.y].GetType() == TypeEnum.Chromatic)
                             {
                                 partOfRegion[nextPos.x, nextPos.y] = false;
                             }
@@ -350,7 +354,7 @@ public class Board : MonoBehaviour
 
     public bool IsSelectable(int x1, int y1)
     {
-        return !Spheres[x1, y1].Frozen;
+        return !Spheres[x1][y1].Frozen;
     }
 
     public bool DestroySpheres()
@@ -360,11 +364,11 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < y; j++)
             {
-                if (Spheres[i, j] != null && Spheres[i, j].destroy)
+                if (Spheres[i][j] != null && Spheres[i][j].destroy)
                 {
-                    Spheres[i, j].SetFadeOut();
+                    Spheres[i][j].SetFadeOut();
                     //Destroy(Spheres[i,j].gameObject);
-                    Spheres[i, j] = null;
+                    Spheres[i][j] = null;
                     destroyed = true;
                 }
             }
@@ -378,14 +382,14 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < y; j++)
             {
-                if (Spheres[i, j] == null)
+                if (Spheres[i][j] == null)
                 {
                     for(int k = j; k < y; k++)
                     {
-                        if(Spheres[i, k] != null)
+                        if(Spheres[i][k] != null)
                         {
 
-                            var sphere = Spheres[i, k];
+                            var sphere = Spheres[i][k];
 
                             var move = sphere.gameObject.AddComponent<Move>();
                             move.Init(new Vector3(i, j), 0.1f);
@@ -393,8 +397,8 @@ public class Board : MonoBehaviour
 
                             //sphere.gameObject.transform.position = new Vector3(i, j);
 
-                            Spheres[i, j] = sphere;
-                            Spheres[i, k] = null;
+                            Spheres[i][j] = sphere;
+                            Spheres[i][k] = null;
                             break;
                         }
                     }
@@ -423,9 +427,9 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < y; j++)
             {
-                if (Spheres[i, j].GetType() == from)
+                if (Spheres[i][j].GetType() == from)
                 {
-                    Spheres[i, j].SetType(to, SphereGenerator.GetColorSprite(to));
+                    Spheres[i][j].SetType(to, SphereGenerator.GetColorSprite(to));
                 }
             }
         }
@@ -450,7 +454,7 @@ public class Board : MonoBehaviour
 
         foreach(Tuple<int,int> t in points)
         {
-            Spheres[t.Item1, t.Item2].SetType(to, SphereGenerator.GetColorSprite(to));
+            Spheres[t.Item1][t.Item2].SetType(to, SphereGenerator.GetColorSprite(to));
             
         }
     }
@@ -462,7 +466,7 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < y; j++)
             {
-                if(Spheres[i,j].Type == from)
+                if(Spheres[i][j].Type == from)
                 {
 
                     Tuple<int, int> t = new Tuple<int, int>(i, j);
@@ -512,7 +516,7 @@ public class Board : MonoBehaviour
 
         foreach (Tuple<int, int> t in points)
         {
-            var fog = Instantiate(HiddenFog, transform);
+            var fog = Instantiate(HiddenFogPrefab, transform);
             fog.transform.localPosition = new Vector3(t.Item1, t.Item2);
             var originalTexture = sprite.texture;
 
@@ -553,13 +557,13 @@ public class Board : MonoBehaviour
 
         foreach (Tuple<int, int> t in points)
         {
-            var ice = Instantiate(Frozen, Spheres[t.Item1, t.Item2].transform);
+            var ice = Instantiate(FrozenPrefab, Spheres[t.Item1][t.Item2].transform);
             ice.transform.localPosition = new Vector3(0, 0);
             ice.transform.localScale = new Vector3(1, 1);
 
             ice.GetComponent<BoardObject>().Source = sourceId;
 
-            Spheres[t.Item1, t.Item2].Frozen = true;
+            Spheres[t.Item1][t.Item2].Frozen = true;
         }
     }
 
@@ -568,14 +572,20 @@ public class Board : MonoBehaviour
         transform.GetComponentsInChildren<BoardObject>().Where(b => b.Source == sourceId).ToList().ForEach(b => Destroy(b.gameObject));
     }
 
-    public void MoveHidden(int sourceId)
+    public void MoveHidden()
     {
-        transform.GetComponentsInChildren<BoardObject>().Where(b => b.Source == sourceId).ToList().ForEach(b => b.MoveRandomDirection());
+        transform.GetComponentsInChildren<HiddenBoardObject>().ToList().ForEach(b => b.MoveRandomDirection());
     }
 
     public void TriggerSpecialBoardEffects()
     {
         SpreadPlague();
+        MoveHidden();
+    }
+
+    public void TriggerMovement()
+    {
+        transform.GetComponentsInChildren<MoveBoardObject>().OrderBy(m => m.Order).ToList().ForEach(b => b.Trigger());
     }
 
     public void SpreadPlague()
@@ -585,25 +595,25 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < y; j++)
             {
-                var type = Spheres[i, j].GetType();
+                var type = Spheres[i][j].GetType();
                 if (type == TypeEnum.Plague)
                 {
                     List<Vector2Int> possibleNextTransformations = new List<Vector2Int>();
 
-                    if (i + 1 < x && Spheres[i + 1, j] && Spheres[i + 1, j].GetType() != TypeEnum.Plague)
+                    if (i + 1 < x && Spheres[i + 1][j] && Spheres[i + 1][j].GetType() != TypeEnum.Plague)
                     {
                         possibleNextTransformations.Add(new Vector2Int(i + 1, j));
                     }
-                    if (j + 1 < y && Spheres[i, j + 1] && Spheres[i, j + 1].GetType() != TypeEnum.Plague)
+                    if (j + 1 < y && Spheres[i][j + 1] && Spheres[i][j + 1].GetType() != TypeEnum.Plague)
                     {
                         possibleNextTransformations.Add(new Vector2Int(i, j + 1));
                     }
 
-                    if (i - 1 >= 0 && Spheres[i - 1, j] != null && Spheres[i - 1, j].GetType() != TypeEnum.Plague)
+                    if (i - 1 >= 0 && Spheres[i - 1][j] != null && Spheres[i - 1][j].GetType() != TypeEnum.Plague)
                     {
                         possibleNextTransformations.Add(new Vector2Int(i - 1, j));
                     }
-                    if (j - 1 >= 0 && Spheres[i, j - 1] && Spheres[i, j - 1].GetType() != TypeEnum.Plague)
+                    if (j - 1 >= 0 && Spheres[i][j - 1] && Spheres[i][j - 1].GetType() != TypeEnum.Plague)
                     {
                         possibleNextTransformations.Add(new Vector2Int(i, j - 1));
                     }
@@ -622,13 +632,59 @@ public class Board : MonoBehaviour
         foreach(var sphere in spreadTargets)
         {
             Debug.Log("transforming" + sphere.x + ", " + sphere.y);
-            Spheres[sphere.x, sphere.y].SetType(TypeEnum.Plague, SphereGenerator.GetColorSprite(TypeEnum.Plague));
+            Spheres[sphere.x][sphere.y].SetType(TypeEnum.Plague, SphereGenerator.GetColorSprite(TypeEnum.Plague));
         }
     }
 
+    public void MoveRow(int index, bool right)
+    {
+        if (right)
+        {
+            for (int i = x - 1; i > 0; i--)
+            {
+                SwitchSpheres(i, i - 1, index, index);
+            }
+        } else
+        {
+            for (int i = 0; i < x - 1; i++)
+            {
+                SwitchSpheres(i, i + 1, index, index);
+            }
+        }
+    }
+
+    public void SpawnRandomMovement(int sourceId)
+    {
+        
+        var dir = UnityEngine.Random.Range(0, 4);
+        var index = UnityEngine.Random.Range(0, Math.Min(x, y));
+
+        var movement = Instantiate(MovementPrefab, transform);
+
+        movement.GetComponent<MoveBoardObject>().Init(0, index, dir, sourceId);
+    }
+
+    public void MoveColumn(int index, bool up)
+    {
+        if (up)
+        {
+            for (int i = y - 1; i > 0; i--)
+            {
+                SwitchSpheres(index, index, i, i - 1);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < y - 1; i++)
+            {
+                SwitchSpheres(index, index, i, i + 1);
+            }
+        }
+    } 
+
     private void TransformToRandom(int x, int y)
     {
-        Destroy(Spheres[x, y].gameObject);
-        Spheres[x, y] = SphereGenerator.GenerateRandomSphere(x, y);
+        Destroy(Spheres[x][y].gameObject);
+        Spheres[x][y] = SphereGenerator.GenerateRandomSphere(x, y);
     }
 }

@@ -59,7 +59,7 @@ MonoBehaviour:
     effectStrength: 2
     EffectType: 9
     ComboLimit: 7
-    Description: Draws 2 cards on +7 combo.
+    Description: Draws 2 cards on >7 combo.
     Visible: 0
     InstanceFunction:
       m_PersistentCalls:

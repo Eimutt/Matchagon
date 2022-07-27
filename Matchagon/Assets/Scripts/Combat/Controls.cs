@@ -13,6 +13,9 @@ public class Controls : MonoBehaviour
     private GameObject Cursor;
     private CombatHandler CombatHandler;
     private Player Player;
+
+    public int row;
+    public int column;
     // Start is called before the first frame update
     void Start()
     {
@@ -146,7 +149,24 @@ public class Controls : MonoBehaviour
             } 
 
         }
-        
+
+        if (Input.GetKeyDown("left"))
+        {
+            Board.MoveRow(row, false);
+        }
+        if (Input.GetKeyDown("right"))
+        {
+            Board.MoveRow(row, true);
+        }
+        if (Input.GetKeyDown("up"))
+        {
+            Board.MoveColumn(column, true);
+        }
+        if (Input.GetKeyDown("down"))
+        {
+            Board.MoveColumn(column, false);
+        }
+
         MoveCursor();
     }
 

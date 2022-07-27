@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2385,9 +2385,12 @@ MonoBehaviour:
   SphereObject: {fileID: 3446149553869900355, guid: 1bc9657ac9745d7488a44c43f9ccdba4,
     type: 3}
   SphereGenerator: {fileID: 0}
-  HiddenFog: {fileID: 4019870240435877348, guid: 7660d9f1976974b4eb706582f555f520,
+  HiddenFogPrefab: {fileID: 4019870240435877348, guid: 7660d9f1976974b4eb706582f555f520,
     type: 3}
-  Frozen: {fileID: 1597666513780443097, guid: 451b645fdf9337149bb5d06cd85609de, type: 3}
+  FrozenPrefab: {fileID: 1597666513780443097, guid: 451b645fdf9337149bb5d06cd85609de,
+    type: 3}
+  MovementPrefab: {fileID: 1443211545941094110, guid: 50618a6c4e34a374fb60b5085c2620fd,
+    type: 3}
   sprite: {fileID: 21300000, guid: a03956508d118bc48a782fba8c55ba34, type: 3}
 --- !u!114 &1098683299
 MonoBehaviour:

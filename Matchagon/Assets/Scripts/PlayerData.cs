@@ -40,7 +40,7 @@ public class PlayerData : MonoBehaviour
             GetCard(card.card);
         } else if (reward.GetType() == typeof(ItemReward)){
             var item = (ItemReward)reward;
-            GetItem(item.Item);
+            AddItem(item.Item);
         }
     }
 
@@ -50,11 +50,18 @@ public class PlayerData : MonoBehaviour
         CreateCardCopy(card);
     }
 
-    public void GetItem(Item item)
+    public void AddItem(Item item)
     {
         Items.Add(item);
 
         item.Effects.Where(e => e.EffectType == EffectType.OnPickUp).ToList().ForEach(e => e.Trigger());
+    }
+
+    public void RemoveItem(Item item)
+    {
+        Items.Remove(item);
+
+        item.Effects.Where(e => e.EffectType == EffectType.OnRemoval).ToList().ForEach(e => e.Trigger());
     }
 
     public void GetGold(int gold)
